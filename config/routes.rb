@@ -9,4 +9,15 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "posts#index"
+  resources :families, only: ["show", "create", "new", "update"] do
+    resources :memories, only: ["index", "create"]
+    resources :task, only: ["index", "create", "update"]
+    resources :pets, only: ["new", "create"]
+  end
+
+  resources :location, only: ["index"]
+
+  resources :pets, only: ["show"] do
+    resources :medical_records, only: ["show", "create"]
+  end
 end
