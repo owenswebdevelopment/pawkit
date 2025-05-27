@@ -1,0 +1,12 @@
+<h1>index</h1>
+<div>
+  <% @tasks.each do |task| %>
+    <%= task.pet.name %> <br>
+    <%= task.title %> <br>
+    <%= task.due_date %> <br>
+    <%= task.description %> <br>
+  <% end %>
+</div>
+<div>
+  <%= render "tasks/form", family: @family, task: @task %>
+</div>
