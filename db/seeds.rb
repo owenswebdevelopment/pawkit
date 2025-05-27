@@ -1,5 +1,5 @@
-puts "The pet locations seeds have started"
-Locations.destroy_all
+# puts "The pet locations seeds have started"
+# Locations.destroy_all
 
 # url = "https://furniture-api.fly.dev/v1/products?limit=100"
 # response = JSON.parse(URI.open(url).read)
