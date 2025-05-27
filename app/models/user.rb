@@ -5,4 +5,5 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
   has_many :user_families
   has_many :families, through: :user_families
+  has_one_attached :photo
 end
