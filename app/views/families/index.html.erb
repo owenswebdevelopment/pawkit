@@ -1,5 +1,11 @@
-<div class="container">
-  <%= @families.each do |family| %>
-    <%= family.name %>
-  <%= end %>
-</div>
+<h2>Select a family to join:</h2>
+<% @families.each do |family| %>
+  <div class="family">
+    <strong><%= family.name %></strong>
+    <% if current_user &&  current_user.families.include? == family.id %>
+      <%= button_to "Join", families_path(family), method: :post %>
+    <% else %>
+      <em>You're already in this family</em>
+    </div>
+  <% end %>
+<% end %>

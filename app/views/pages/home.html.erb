@@ -1,2 +1,10 @@
-<h1>Pages#home</h1>
 <p>Find me in app/views/pages/home.html.erb</p>
+<div class="container">
+  <div class="mt-5">
+    <%= image_tag "illustration.png", width: 300, height: 300 %>
+  </div>
+  <h1 class = "align-items-center my-4">Home</h1>
+  <%= link_to "Sign up/Login", new_user_session_path, class: "btn btn-success" %>
+  <%= link_to "Join Family", families_path, class: "btn btn-success" %>
+  <%= link_to "Create Family", new_family_path, class: "btn btn-success" %>
+</div>
