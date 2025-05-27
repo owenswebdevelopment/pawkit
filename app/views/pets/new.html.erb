@@ -1,0 +1,19 @@
+<%# Create new Pet %>
+<div class="container">
+  <h1 class="text-center">Add Pet</h1>
+  <div class = "d-flex justify-content-center align-items-center">
+    <%= image_tag "https://kitt.lewagon.com/placeholder/users/arthur-littm", class: "avatar-large my-3", alt: "avatar-large" %>
+  </div>
+  <%= link_to "Back", :back %>
+  <div class="pet-create-form my-5 mx-5">
+    <%= simple_form_for [@family, @pet] do |f| %>
+      <%= f.input :name %>
+      <%= f.input :age %>
+      <%= f.input :gender %>
+      <%= f.input :color %>
+      <%= f.input :birthdate %>
+      <%= f.input :species %>
+      <%= f.button :submit, class: "btn btn-primary" %>
+    <% end %>
+  </div>
+</div>
