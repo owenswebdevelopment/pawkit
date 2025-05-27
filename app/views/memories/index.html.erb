@@ -1,0 +1,9 @@
+<div class="container p-5">
+  <h1 class="align-items-center my-4">Memories</h1>
+  <%= @memories.each do |memory| %>
+    <div class="card p-3">
+      <%= memory.text %>
+      <%= memory.created_at.strftime("%B %d, %Y at %I:%M %p") %>
+    </div>
+  <% end %>
+</div>
