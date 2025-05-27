@@ -1,7 +1,7 @@
 class Task < ApplicationRecord
   belongs_to :pet
   belongs_to :user
-  validate :title, presence: true
-  validate :due_date, presence: true
-  validate :description, presence: true
+  validates :title, presence: true
+  validates :due_date, presence: true
+  validates :description, presence: true
 end
