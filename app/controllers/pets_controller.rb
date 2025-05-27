@@ -12,7 +12,6 @@ class PetsController < ApplicationController
     if @pet.save
       redirect_to pet_path(@pet), notice: 'Pet was successfully created!'
     else
-      raise
       @family = Family.find(params[:family_id])
       render :new, status: :unprocessable_entity
     end
