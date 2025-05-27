@@ -1,5 +1,5 @@
 class FamiliesController < ApplicationController
-  skip_before_action :authenticate_user!, only: [:index, :join]
+  skip_before_action :authenticate_user!, only: [:index]
 
   def index
     @families = Family.all
