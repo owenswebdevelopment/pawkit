@@ -4,6 +4,11 @@ class PetsController < ApplicationController
     @pet = Pet.new
   end
 
+  def all
+    @family = Family.find(params[:family_id])
+    @pet = @family.pets
+  end
+
   def create
     @pet = Pet.new(pet_params)
     @family = Family.find(params[:family_id])

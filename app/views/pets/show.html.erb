@@ -1,1 +1,16 @@
-<h1>pets page</h1>
+<div class="container border border-5">
+  <div class="card-trip mt-5 mx-3 border border-5 d-flex justify-content-center">
+    <%= image_tag "https://kitt.lewagon.com/placeholder/users/krokrob", class:"card-trip-user avatar-bordered" %>
+  </div>
+  <div class="card-trip-infos">
+    <div>
+      <h2 class="mt-4 text-center"><%= @pet.name %></h2>
+      <h4 class = "text-center"><%= @pet.age %></h4>
+      <h4 class = "text-center"><%= @pet.gender %></h4>
+      <h4 class = "text-center"><%= @pet.color %></h4>
+      <h4 class = "text-center"><%= @pet.birthdate %></h4>
+      <h4 class = "text-center"><%= @pet.species %></h4>
+    </div>
+  </div>
+  <%= link_to "Go to Home", root_path %>
+</div>
