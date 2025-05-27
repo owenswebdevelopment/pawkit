@@ -43,11 +43,11 @@
 # user_family
 # pets
 puts "clearing database...."
+Task.destroy_all
+Memory.destroy_all
 User.destroy_all
 Family.destroy_all
 Pet.destroy_all
-Task.destroy_all
-Memory.destroy_all
 puts "seeding admin_user, family and pet....."
 user = User.new(
     first_name: "Ryuichi",
