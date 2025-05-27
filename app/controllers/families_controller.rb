@@ -14,6 +14,7 @@ class FamiliesController < ApplicationController
 
   def show
     @family = Family.find(params[:id])
+    @tasks = @family.pets.map { |pet| pet.tasks }.flatten
   end
 
   def new
