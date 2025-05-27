@@ -20,4 +20,7 @@ Rails.application.routes.draw do
   resources :pets, only: ["show"] do
     resources :medical_records, only: ["show", "create"]
   end
+
+    post "join_family_action", to: "families#join_family_action", as: :join_family_action
+
 end
