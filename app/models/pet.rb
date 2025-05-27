@@ -6,7 +6,7 @@ class Pet < ApplicationRecord
   has_many :users, through: :tasks
   validates :name, presence: true
   validates :age, presence: true
-  validates :gemder, presence: true
-  validates :breed, presence: true
-  validates :birth_date, presence: true
+  validates :gender, presence: true
+  validates :species, presence: true
+  validates :birthdate, presence: true
 end

@@ -1,11 +1,9 @@
-<h2>Select a family to join:</h2>
-<% @families.each do |family| %>
-  <div class="family">
-    <strong><%= family.name %></strong>
-    <% if current_user &&  current_user.families.include? == family.id %>
-      <%= button_to "Join", families_path(family), method: :post %>
-    <% else %>
-      <em>You're already in this family</em>
+<div class="container">
+  <h2 class="align-items-center my-4">Select a family to join:</h2>
+  <%= simple_form_for :user_family, url: join_family_action_path, method: :post do |f| %>
+    <div class="mb-3">
+      <%= f.input :family_id, collection: @families, label: "Choose a family", prompt: "Select a family", value_method: :id, label_method: :name, input_html: { class: "form-select" } %>
     </div>
+    <%= f.button :submit, "Join Family", class: "btn btn-primary" %>
   <% end %>
-<% end %>
+</div>
