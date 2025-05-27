@@ -1,5 +1,6 @@
-<div class="container">
-  <%= @families.each do |family| %>
-    <%= family.name %>
-  <%= end %>
-</div>
+<h2>Select a family to join:</h2>
+<% @families.each do |family| %>
+  <div class="family">
+    <strong><%= family.name %></strong>
+  </div>
+<% end %>

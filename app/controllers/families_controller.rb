@@ -1,5 +1,5 @@
 class FamiliesController < ApplicationController
   def index
-    @family = Family.all
+    @families = current_user.families
   end
 end
