@@ -11,7 +11,7 @@ Rails.application.routes.draw do
   # root "posts#index"
   resources :families, only: ["index", "show", "create", "new", "update"] do
     resources :memories, only: ["index", "create"]
-    resources :task, only: ["index", "create", "update"]
+    resources :tasks, only: ["index", "create", "update"]
     resources :pets, only: ["new", "create"]
   end
 
