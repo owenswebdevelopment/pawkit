@@ -71,7 +71,7 @@ pet = Pet.new(
     name: "Natsu",
     age: "4",
     gender: "female", 
-    breed: "dog",
+    species: "dog",
     color: "brown",
     birthdate: Date.new(2021, 5, 29),
     family: family
