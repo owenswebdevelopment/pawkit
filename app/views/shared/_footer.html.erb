@@ -1,6 +1,6 @@
 <footer class='fixed-bottom py-1' style="left: 0; width: 100%; background:rgb(242, 242, 242); display: flex; justify-content: space-around; box-shadow: 0 -2px 6px rgba(0,0,0,0.1); color: #283618;">
   <div style="text-align: center;">
-    <%= link_to(user_signed_in? ?  family_path(current_user.user_families.take.family_id) : "#", style: "color: #283618; text-decoration: none;") do %>
+    <%= link_to(user_signed_in? ?  "#" : "#", style: "color: #283618; text-decoration: none;") do %>
       <i class="fa-gold fa-solid fa-home" style="font-size: 20px;"></i>
       <p style="margin: 0; font-size: 14px;">Home</p>
     <% end %>
