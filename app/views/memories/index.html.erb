@@ -1,4 +1,5 @@
-<div class="container p-5">
+<div class="container p-5" id="input" data-controller="scroll-to-bottom"
+style="overflow-y: auto; max-height: 80vh; scroll-behavior: smooth;">
   <div class="row justify-content-center">
     <div class="col-12 col-md-10 col-lg-8">
       <h1 class="text-center my-4">Memories</h1>
@@ -11,7 +12,7 @@
           <%= render partial: "memories/memory", locals: { memory: memory, current_user_id: current_user.id } %>
         <% end %>
       </div>
-      <div class="mt-4">
+      <div  class="mt-4">
         <%= render "memories/input", family: @family, memory: @memory %>
       </div>
     </div>
