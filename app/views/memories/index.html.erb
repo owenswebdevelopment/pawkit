@@ -8,7 +8,7 @@
       <%= turbo_stream_from "family_#{@family.id}_memories" %>
       <div id="memories" class="memories">
         <% @memories.each do |memory| %>
-          <%= render 'memories/memory', memory: memory %>
+          <%= render partial: "memories/memory", locals: { memory: memory, current_user_id: current_user.id } %>
         <% end %>
       </div>
       <div class="mt-4">
@@ -17,3 +17,4 @@
     </div>
   </div>
 </div>
+<%# <%= render 'memories/memory', memory: memory %>

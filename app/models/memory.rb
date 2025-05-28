@@ -11,6 +11,6 @@ class Memory < ApplicationRecord
     broadcast_append_to "family_#{pet.family.id}_memories",
                         partial: "memories/memory",
                         target: "memories",
-                        locals: { memory: self }
+                        locals: { memory: self, current_user_id: user.id }
   end
 end

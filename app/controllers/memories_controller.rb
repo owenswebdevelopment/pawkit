@@ -3,8 +3,9 @@ class MemoriesController < ApplicationController
     @family = Family.find(params[:family_id])
     @memory = Memory.new
     @memories = @family.memories
-  #  @memory = current_user.family
-  #  @memories = current_user.memories
+    @memories = @family.memories.includes(:user, :pet).order(created_at: :asc)
+    #@memory = current_user.family
+    #@memories = current_user.memories
   end
 
   def create

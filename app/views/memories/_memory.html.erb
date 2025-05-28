@@ -1,12 +1,16 @@
+<% current_user_id = local_assigns[:current_user_id] %>
+<% sent_by_me = memory.user_id == current_user_id %>
 <div class="container p-3 m-2" id="message-<%= memory.id %>">
-  <div class="row <%= memory.user == current_user ? "justify-content-start" : "justify-content-end" %>">
-    <div class="col">
-      <small>
-        <strong><%= memory.user.first_name %></strong>
-        <i><%= memory.created_at.strftime("%a %b %e at %l:%M %p") %></i>
-      </small>
-      <%= memory.pet.name %>
-      <p><%= memory.text %></p>
+  <div class="row <%= sent_by_me ? "justify-content-end" : "justify-content-start" %> mb-2">
+    <div class="col-auto">
+      <div class="card p-2 <%= sent_by_me ? "bg-success text-black" : "bg-black text-white" %> ">
+        <small>
+          <strong><%= memory.user.first_name %></strong>
+          <i><%= memory.created_at.strftime("%a %b %e at %l:%M %p") %></i>
+        </small>
+        <%= memory.pet.name %>
+        <p><%= memory.text %></p>
+      </div>
       <% if memory.media.attached? %>
         <% memory.media.each do |file| %>
           <% if file.blob.content_type.include?("image") %>
