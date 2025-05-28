@@ -12,14 +12,14 @@ Rails.application.routes.draw do
   resources :families, only: ["index", "show", "create", "new", "update"] do
     resources :memories, only: ["index", "create"]
     resources :tasks, only: ["index", "create"]
-    resources :pets, only: ["new", "create"]
+    resources :pets, only: ["new", "create", "index"]
   end
 
   resources :location, only: ["index"]
 
   resources :tasks, only: ["update"]
 
-  resources :pets, only: ["show"] do
+  resources :pets, only: [] do
     resources :medical_records, only: ["show", "create"]
   end
 

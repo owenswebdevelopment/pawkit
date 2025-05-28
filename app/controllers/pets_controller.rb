@@ -4,9 +4,9 @@ class PetsController < ApplicationController
     @pet = Pet.new
   end
 
-  def all
+  def index
     @family = Family.find(params[:family_id])
-    @pet = @family.pets
+    @pets = @family.pets
   end
 
   def create
@@ -29,6 +29,6 @@ class PetsController < ApplicationController
   private
 
   def pet_params
-    params.require(:pet).permit(:name, :age, :gender, :color, :birthdate, :species)
+    params.require(:pet).permit(:name, :age, :gender, :color, :birthdate, :species, :photo)
   end
 end
