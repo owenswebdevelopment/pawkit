@@ -14,7 +14,7 @@ class FamiliesController < ApplicationController
 
   def show
     @family = Family.find(params[:id])
-    @tasks = @family.pets.map { |pet| pet.tasks }.flatten
+    @tasks = @family.pets.map { |pet| pet.tasks.where(completed: false) }.flatten
   end
 
   def new

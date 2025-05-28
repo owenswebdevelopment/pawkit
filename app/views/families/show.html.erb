@@ -1,12 +1,16 @@
 <!-- create family form -->
 <div class="container">
   <%= @family.name %>
-  <% @tasks.each do |task|%>
-    <div class="card p-5">
-      <%= task.title %>
-      <%= task.description %>
-      <%= task.due_date %>
-    <% end %>
+  <div class="card p-5">
+    <div class="row">
+      <% @tasks.each do |task|%>
+        <div class="col">
+          <%= task.title %>
+          <%= task.description %>
+          <%= task.due_date %>
+        </div>
+      <% end %>
+    </div>
   </div>
   <%= link_to "Create Tasks",  family_tasks_path(@family), class: "btn btn-success" %>
 </div>

@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <div class="container m-3">
   <h1>index</h1>
   <div class="nav nav-tabs" id="nav-tab" role="tablist">
@@ -6,22 +5,15 @@
     <button class="hover-bg nav-link text-black"  data-bs-toggle="tab" data-bs-target="#completed-tasks" type="button" role="tab" aria-controls="completed-tasks" aria-selected="false">Completed</button>
   </div>
   <div class="tab-content">
-    <div class="tab-pane fade show active " id="incomplete-tasks">
+    <%= turbo_stream_from "family_#{@family.id}_tasks" %>
+    <div class="tab-pane fade show active d-flex justify-content" id="incomplete-tasks">
       <% @tasks.each do |task| %>
         <% if task.completed == false %>
-          <div id="task_<%= task.id %>">
-            <%= task.pet.name %> <br>
-            <%= task.title %> <br>
-            <%= task.due_date %> <br>
-            <%= task.description %> <br>
-            <%= simple_form_for task, method: :patch, data: { turbo: true } do |f| %>
-              <%= f.input :completed, as: :boolean, input_html: { onchange: "this.form.submit();" } %>
-            <% end %>
-          </div>
+          <%= render "tasks/task", task: task %>
         <% end %>
       <% end %>
     </div>
-    <div class="tab-pane fade" id="completed-tasks">
+    <div class="tab-pane fade d-flex justify-content" id="completed-tasks">
       <% @tasks.each do |task| %>
         <% if task.completed %>
           <div id="task_<%= task.id %>">
@@ -39,21 +31,6 @@
     </div>
   </div>
 </div>
-<div>
+<div class="m-5">
   <%= render "tasks/create_form", family: @family, task: @task %>
-=======
-<div class="container">
-  <h1>index</h1>
-  <div class="card">
-    <% @tasks.each do |task| %>
-      <%= task.pet.name %> <br>
-      <%= task.title %> <br>
-      <%= task.due_date %> <br>
-      <%= task.description %> <br>
-    <% end %>
-  </div>
-  <div>
-    <%= render "tasks/form", family: @family, task: @task %>
-  </div>
->>>>>>> c510eb8c77a23c0da72a923569260dd8c0732f32
 </div>

@@ -1,0 +1,9 @@
+<div id="task_<%= task.id %>">
+  <%= task.pet.name %> <br>
+  <%= task.title %> <br>
+  <%= task.due_date %> <br>
+  <%= task.description %> <br>
+  <%= simple_form_for task, method: :patch, data: { turbo: true } do |f| %>
+    <%= f.input :completed, as: :boolean, input_html: { onchange: "this.form.submit();" } %>
+  <% end %>
+</div>
