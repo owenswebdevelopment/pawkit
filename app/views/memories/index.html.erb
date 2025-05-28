@@ -1,11 +1,19 @@
 <div class="container p-5">
-  <h1 class="align-items-center my-4">Memories</h1>
-  <%= render 'memories/header', family: @family %>
-  <%= turbo_stream_from "family_#{@family.id}_memories" %>
-  <div id='memories' class="memories">
-    <% @memories.each do |memory| %>
-      <%= render 'memories/memory', memory: memory %>
-    <% end %>
+  <div class="row justify-content-center">
+    <div class="col-12 col-md-10 col-lg-8">
+      <h1 class="text-center my-4">Memories</h1>
+      <div class="text-center mb-4">
+        <%= render 'memories/header', family: @family %>
+      </div>
+      <%= turbo_stream_from "family_#{@family.id}_memories" %>
+      <div id="memories" class="memories">
+        <% @memories.each do |memory| %>
+          <%= render 'memories/memory', memory: memory %>
+        <% end %>
+      </div>
+      <div class="mt-4">
+        <%= render "memories/input", family: @family, memory: @memory %>
+      </div>
+    </div>
   </div>
-  <%= render "memories/input", family: @family, memory: @memory %>
 </div>

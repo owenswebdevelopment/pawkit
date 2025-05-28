@@ -1,9 +1,8 @@
 class MemoriesController < ApplicationController
-
   def index
-   @family = Family.find(params[:family_id])
-   @memory = Memory.new
-   @memories = @family.memories
+    @family = Family.find(params[:family_id])
+    @memory = Memory.new
+    @memories = @family.memories
   #  @memory = current_user.family
   #  @memories = current_user.memories
   end
@@ -29,6 +28,6 @@ class MemoriesController < ApplicationController
 private
 
 def message_params
-  params.require(:memory).permit(:text, :media, :pet_id)
+  params.require(:memory).permit(:text, :pet_id, media: [])
 end
 end
