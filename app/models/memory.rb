@@ -2,7 +2,8 @@ class Memory < ApplicationRecord
   belongs_to :pet
   belongs_to :user
   validates :text, presence: true
-  has_many :media
+  has_many_attached :media
+  after_create_commit :broadcast_message
 
   private
 
@@ -10,6 +11,6 @@ class Memory < ApplicationRecord
     broadcast_append_to "family_#{pet.family.id}_memories",
                         partial: "memories/memory",
                         target: "memories",
-                        locals: { memories: self }
+                        locals: { memory: self }
   end
 end
