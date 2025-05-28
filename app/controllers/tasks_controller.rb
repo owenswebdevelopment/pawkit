@@ -2,7 +2,7 @@ class TasksController < ApplicationController
 
     def index
         @family = Family.find(params[:family_id])   
-        @tasks = @family.pets.map { |pet| pet.tasks }.flatten #array of tasks of pet     
+        @tasks = @family.tasks #array of tasks of pet     
         @task = Task.new
 
     end

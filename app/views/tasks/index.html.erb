@@ -1,35 +1,6 @@
 <div class="container m-3">
   <h1>index</h1>
-  <div class="nav nav-tabs" id="nav-tab" role="tablist">
-    <button class="hover-bg nav-link active text-black" data-bs-toggle="tab" data-bs-target="#incomplete-tasks" type="button" role="tab" aria-controls="incomplete-tasks" aria-selected="true">Incomplete</button>
-    <button class="hover-bg nav-link text-black"  data-bs-toggle="tab" data-bs-target="#completed-tasks" type="button" role="tab" aria-controls="completed-tasks" aria-selected="false">Completed</button>
-  </div>
-  <div class="tab-content">
-    <%= turbo_stream_from "family_#{@family.id}_tasks" %>
-    <div class="tab-pane fade show active d-flex justify-content" id="incomplete-tasks">
-      <% @tasks.each do |task| %>
-        <% if task.completed == false %>
-          <%= render "tasks/task", task: task %>
-        <% end %>
-      <% end %>
-    </div>
-    <div class="tab-pane fade d-flex justify-content" id="completed-tasks">
-      <% @tasks.each do |task| %>
-        <% if task.completed %>
-          <div id="task_<%= task.id %>">
-            <%= task.pet.name %> <br>
-            <%= task.title %> <br>
-            <%= task.due_date %> <br>
-            <%= task.description %> <br>
-            <%= current_user.first_name %>
-            <%= simple_form_for task, method: :patch, data: { turbo: true } do |f| %>
-              <%= f.input :completed, as: :boolean, input_html: { onchange: "this.form.submit();" } %>
-            <% end %>
-          </div>
-        <% end %>
-      <% end %>
-    </div>
-  </div>
+  <%= render "tasks/tasks", tasks: @tasks, family: @family %>
 </div>
 <div class="m-5">
   <%= render "tasks/create_form", family: @family, task: @task %>
