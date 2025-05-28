@@ -76,3 +76,4 @@ end
 
 #custom gems
 gem 'cloudinary', '~> 1.16.0'
+gem "solid_cable"

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <div class="container m-3">
   <h1>index</h1>
   <div class="nav nav-tabs" id="nav-tab" role="tablist">
@@ -40,4 +41,19 @@
 </div>
 <div>
   <%= render "tasks/create_form", family: @family, task: @task %>
+=======
+<div class="container">
+  <h1>index</h1>
+  <div class="card">
+    <% @tasks.each do |task| %>
+      <%= task.pet.name %> <br>
+      <%= task.title %> <br>
+      <%= task.due_date %> <br>
+      <%= task.description %> <br>
+    <% end %>
+  </div>
+  <div>
+    <%= render "tasks/form", family: @family, task: @task %>
+  </div>
+>>>>>>> c510eb8c77a23c0da72a923569260dd8c0732f32
 </div>

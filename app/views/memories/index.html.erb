@@ -1,0 +1,11 @@
+<div class="container p-5">
+  <h1 class="align-items-center my-4">Memories</h1>
+  <%= render 'memories/header', family: @family %>
+  <%= turbo_stream_from "family_#{@family.id}_memories" %>
+  <div id='memories' class="memories">
+    <% @memories.each do |memory| %>
+      <%= render 'memories/memory', memory: memory %>
+    <% end %>
+  </div>
+  <%= render "memories/input", family: @family, memory: @memory %>
+</div>
