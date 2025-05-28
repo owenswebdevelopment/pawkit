@@ -10,6 +10,6 @@ class Task < ApplicationRecord
     broadcast_append_to "family_#{pet.family.id}_tasks",
                           partial: "tasks/task",
                           target: "incomplete-tasks",
-                          locals: {task: self}
+                          locals: {task: self, family: pet.family, tasks: pet.family.tasks}
   end
 end
