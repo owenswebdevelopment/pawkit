@@ -16,7 +16,7 @@ class MemoriesController < ApplicationController
         format.turbo_stream do
           render turbo_stream: turbo_stream.append(:memories, partial: "memories/memory",
             target: "memories",
-            locals: { memory: @memory })
+            locals: { memory: @memory, current_user_id: current_user.id })
         end
         format.html { redirect_to family_memories_path(@family) }
       end

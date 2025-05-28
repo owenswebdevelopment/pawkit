@@ -14,7 +14,8 @@
     <link rel="manifest" href="<%= asset_path 'manifest.json' %>">
     <%= render 'shared/ios_pwa_links' %>
   </head>
-  <body>
+  <body data-current-user-id="<%= current_user ? current_user.id : '' %>">
+    <%= current_user ? current_user.id : "" %>
     <%= render "shared/navbar" %>
     <%= render "shared/flashes" %>
     <%= yield %>

@@ -1,12 +1,14 @@
 <div class="container p-3 m-2" id="message-<%= memory.id %>">
-  <div class="row <%= memory.user == current_user ? "justify-content-start" : "justify-content-end" %>">
-    <div class="col">
-      <small>
-        <strong><%= memory.user.first_name %></strong>
-        <i><%= memory.created_at.strftime("%a %b %e at %l:%M %p") %></i>
-      </small>
-      <%= memory.pet.name %>
-      <p><%= memory.text %></p>
+  <div class="row <%= memory.user_id == local_assigns[:current_user_id] ? "justify-content-end" : "justify-content-start" %>">
+    <div class="col-auto">
+      <div class="card p-1 <%= memory.user_id == local_assigns[:current_user_id] ? 'bg-primary text-white' : 'bg-light' %>">
+        <small>
+          <strong><%= memory.user.first_name %></strong>
+          <i><%= memory.created_at.strftime("%a %b %e at %l:%M %p") %></i>
+        </small>
+        <%= memory.pet.name %>
+        <p><%= memory.text %></p>
+      </div>
       <% if memory.media.attached? %>
         <% memory.media.each do |file| %>
           <% if file.blob.content_type.include?("image") %>
@@ -18,7 +20,7 @@
                        controls: true,
                        transformation: [
                          { height: 300, width: 400, crop: "fill", quality: 70, duration: "10"}
-                       ], class: "rounded-3",
+                       ], class: "rounded-3 m-3",
                        fallback_content: "Your HTML5 video failed." %>
           <% end %>
         <% end %>
