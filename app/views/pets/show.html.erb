@@ -4,55 +4,66 @@
       <i class="fa fa-arrow-left"></i>
     <% end %>
     <h1>Pet Details</h1>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <i class="fas fa-ellipsis-v"></i>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto">
-        <li class="nav-item active">
-          <%= link_to "Add Pet", "#", class: "nav-link" %>
-        </li>
-        <li class="nav-item active">
-          <%= link_to "Edit Pet", "#", class: "nav-link" %>
-        </li>
-        <li class="nav-item">
-          <%= link_to "Delete Pet", "#", class: "nav-link" %>
-        </li>
-      </ul>
-    </div>
+    <nav>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" >
+        <i class="fas fa-ellipsis-v"></i>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto">
+          <li class="nav-item active">
+            <%= link_to "Add Pet", '/families/1/pets/new', class: "nav-link" %>
+          </li>
+          <li class="nav-item active">
+            <%= link_to "Edit Pet", "#", class: "nav-link" %>
+          </li>
+          <li class="nav-item">
+            <%= link_to "Delete Pet", "#", class: "nav-link" %>
+          </li>
+        </ul>
+      </div>
+    </nav>
   </div>
+  <%# carousel %>
   <div class="container mt-3 mb-5 d-flex justify-content-center align-items-center">
-    <div class="card justify-content-center align-items-center ">
-      <div class="upper">
-        <%= image_tag "test-banner3.jpg", class: "img-fluid", alt: "back-ground-profile-img" %>
-      </div>
-      <div class="user text-center">
-        <div class="profile">
-          <%= image_tag "test-avatar.jpeg", class: "rounded-circle mt-2", width: 140 %>
+    <div class=" d-flex justify-content-center align-items-center bg-primary text-white">
+      <%# card starts here  %>
+      <div class="card justify-content-center align-items-center ">
+        <div class="upper">
+          <%= image_tag "test-banner3.jpg", class: "img-fluid", alt: "back-ground-profile-img" %>
         </div>
-      </div>
-      <div class="mt-4 text-center">
-        <h4 class="mb-1"> <%= @pet.name %></h4>
-        <span class="text-muted d-block mb-2"><%= @pet.age %> Years old</span>
-        <span class="text-muted d-block mb-2"><i class="fa-solid fa-cake-candles"></i> <%= @pet.birthdate.strftime("%B %d, %Y")  %></span>
-        <div class="d-flex justify-content-around align-items-center my-4 mx-3 gap-5">
-          <div class="stats">
-            <h6 class="mb-0"><i class="fa-solid fa-palette"></i>Color</h6>
-            <span><%= @pet.color.capitalize %></span>
+        <div class='d-flex align-items-center'>
+          <div class="profile">
+            <% if @pet.photo.attached?  %>
+              <%= cl_image_tag @pet.photo, class: "rounded-circle mt-2", width: 140, height: 140, crop: :fill %>
+            <% else %>
+              <p>No photo</p>
+            <% end %>
           </div>
-          <div class="stats">
-            <h6 class="mb-0"><i class="fa-solid fa-paw"></i>Species</h6>
-            <span><%= @pet.species.capitalize %></span>
+          <div class="ms-3">
+            <h4 class="mb-1"><%= @pet.name %></h4>
           </div>
-          <div class="stats">
-            <h6 class="mb-0"><i class="fa-solid fa-venus-mars"></i>Gender</h6>
-            <span>  <%= @pet.gender.capitalize %></span>
+        </div>
+        <div class="mt-4 text-center">
+          <span class="text-muted d-block mb-2"><%= @pet.age %> Years old</span>
+          <span class="text-muted d-block mb-2"><i class="fa-solid fa-cake-candles"></i> <%= @pet.birthdate.strftime("%B %d, %Y")  %></span>
+          <div class="d-flex justify-content-around align-items-center my-4 mx-3 gap-5">
+            <div class="stats">
+              <h6 class="mb-0"><i class="fa-solid fa-palette"></i>Color</h6>
+              <span><%= @pet.color.capitalize %></span>
+            </div>
+            <div class="stats">
+              <h6 class="mb-0"><i class="fa-solid fa-paw"></i>Species</h6>
+              <span><%= @pet.species.capitalize %></span>
+            </div>
+            <div class="stats">
+              <h6 class="mb-0"><i class="fa-solid fa-venus-mars"></i>Gender</h6>
+              <span>  <%= @pet.gender.capitalize %></span>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </div>
 </div>
+<%# pet card %>
 <%# This will place the tasks below %>
-<div class="container">
-</div>

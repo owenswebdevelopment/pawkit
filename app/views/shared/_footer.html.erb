@@ -12,6 +12,12 @@
     <% end %>
   </div>
   <div style="text-align: center;">
+    <%= link_to(user_signed_in? ? "#": "#", style: "color: #283618; text-decoration: none;") do %>
+      <i class="fa-solid fa-camera-retro" style="font-size: 20px;"></i>
+      <p style="margin: 0; font-size: 14px;">My Memories</p>
+    <% end %>
+  </div>
+  <div style="text-align: center;">
     <ul class="navbar-nav me-auto">
       <% if user_signed_in? %>
         <li class="nav-item dropdown">
