@@ -1,0 +1,8 @@
+<div class="card p-3" id="message-<%= memory.id %>">
+  <small>
+    <strong><%= memory.user.first_name %></strong>
+    <i><%= memory.created_at.strftime("%a %b %e at %l:%M %p") %></i>
+  </small>
+  <%= memory.pet.name %>
+  <p><%= memory.text %></p>
+</div>
