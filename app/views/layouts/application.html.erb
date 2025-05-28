@@ -8,6 +8,7 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_include_tag "turbo", type: "module" %>
     <%= javascript_importmap_tags %>
     <%= stylesheet_link_tag "https://cdn.jsdelivr.net/npm/bootswatch@5.3.6/dist/minty/bootstrap.min.css" %>
     <link rel="manifest" href="<%= asset_path 'manifest.json' %>">
