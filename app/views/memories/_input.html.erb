@@ -1,34 +1,55 @@
-<%= simple_form_for [family, memory],
-      html: { class: "d-flex align-items-center gap-2 w-100", data: { controller: "reset-input",
-          action: "turbo:submit-end->reset-input#reset"
-        }, multipart: true } do |f| %>
-  <div class="w-100 m-3">
-    <!-- This sis the text input -->
-    <%= f.input :text, label: false, input_html: { placeholder: "Write a memory...", class: "form-control"
-              }, wrapper_html: { class: "flex-grow-1 mb-0" } %>
-    <!-- this is the pet select dropdown with icon -->
-    <div class="position-relative">
-      <i class="fa-solid fa-dog position-absolute" style="top: 40%; left: 10px; transform: translateY(-50%); z-index: 2;"></i>
-      <%= f.association :pet,
-                      collection: family.pets, label: false, input_html: { class: "form-select ps-4"
-                      }, wrapper_html: { class: "mb-0" } %>
-    </div>
-    <!-- this is the file upload icon -->
-    <div class="position-relative">
-      <label for="memory_media" class="btn btn-outline-secondary mb-0" style="height: 38px; display: flex; align-items: center;">
-        <i class="fa-solid fa-image"></i>
+<div class="d-flex justify-content-center my-3">
+  <%= simple_form_for [family, memory],
+        html: {
+          class: "input-bar d-flex align-items-center gap-3 px-3 py-2 shadow w-100",
+          style: "max-width: 500px; border-radius: 18px; background: white;",
+          data: {
+            controller: "reset-input",
+            action: "turbo:submit-end->reset-input#reset"
+          },
+          multipart: true
+        } do |f| %>
+    <!-- Left-side icons: image + pet select -->
+    <div class="d-flex align-items-center gap-2">
+      <!-- Image Upload -->
+      <label for="memory_media" class="m-0" style="cursor: pointer;">
+        <i class="fa-solid fa-image fs-5 text-muted"></i>
       </label>
       <%= f.input :media,
-                as: :file,
-                label: false,
-                input_html: {
-                  multiple: true,
-                  class: "d-none",
-                  id: "memory_media",
-                  data: { reset_input_target: "input" }
-                } %>
+          as: :file,
+          label: false,
+          input_html: {
+            multiple: true,
+            class: "d-none",
+            id: "memory_media",
+            data: { reset_input_target: "input" }
+          } %>
+      <!-- Pet Selector with Icon -->
+      <div class="position-relative">
+        <i class="fa-solid fa-dog position-absolute text-muted"
+           style="top: 40%; left: 10px; transform: translateY(-50%); z-index: 2;"></i>
+        <%= f.association :pet,
+            collection: family.pets,
+            label: false,
+            input_html: {
+              class: "form-select ps-4 border-0 bg-transparent",
+              style: "min-width: 30px;"
+            },
+            wrapper_html: { class: "mb-0" } %>
+      </div>
     </div>
-    <!-- This is the submit button -->
+    <!-- Text Input -->
+    <div class="">
+      <%= f.input :text,
+        label: false,
+        input_html: {
+          placeholder: "Write a memory...",
+          class: "form-control border-0 bg-transparent",
+          style: "min-height: 38px;  max-width: 200px;"
+        },
+        wrapper_html: { class: "mb-0 flex-grow-1" } %>
+    </div>
+    <!-- Submit Button -->
     <%= f.button :submit, "Share", class: "btn btn-primary btn-sm mb-0" %>
   <% end %>
 </div>
