@@ -1,0 +1,24 @@
+
+
+
+
+.fixed-button {
+    position: fixed;
+    bottom: 96px;
+    right: 12px;
+    
+
+}
+
+.completed-check {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  accent-color: #ee0808; /* Change checkbox color */
+  transition: all 0.3s ease;
+}
+
+.completed-check:hover {
+  accent-color: #0056b3; /* Darker shade on hover */
+  transform: scale(1.1); /* Slight enlargement */
+}
