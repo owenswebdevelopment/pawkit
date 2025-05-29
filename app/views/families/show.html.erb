@@ -17,26 +17,8 @@
       <% end %>
     <% end %>
   </div>
-  <!-- Create Task Button -->
-  <div class="text-center mb-5">
-    <%= link_to "Create Tasks", family_tasks_path(@family), class: "btn btn-success px-4 py-2" %>
-  </div>
-  <!-- Pets Info -->
-  <% if @tasks.any? %>
-    <div class="row row-cols-1 row-cols-md-3 g-3 mb-4">
-      <% @tasks.each do |task| %>
-        <div class="col">
-          <div class="border rounded p-3 h-100 text-start">
-            <h5 class="mb-1 text-white"><%= task.title %></h5>
-            <p><small  class="mb-2 text-white"><%= task.description %></small></p>
-            <small class="text-secondary">Due: <%= task.due_date.strftime("%B %d, %Y") %></small>
-          </div>
-        </div>
-      <% end %>
-    </div>
-  <% else %>
-    <p class="text-center mt-3 text-white">No tasks yet. Click below to create one!</p>
-  <% end %>
+  <%= render "tasks/tasks", tasks: @tasks, family: @family %>
+  <%= render "families/modal", tasks: @tasks, family: @family %>
   <div class="text-center mb-5">
     <%= link_to "Add Pet", new_family_pet_path(@family), class: "btn btn-success px-4 py-2" %>
   </div>

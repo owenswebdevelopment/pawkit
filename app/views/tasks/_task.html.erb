@@ -3,7 +3,11 @@
     <div class="card p-2 border-3">
       <div class="card-body p-0 d-flex">
         <div class="card-image p-2 flex-fill">
-          <%= image_tag "test-avatar", alt: "text", style: "height:50px; width:50px; display:block; border-radius:16px;" %>
+          <% if task.pet.photo.attached? %>
+            <%= cl_image_tag task.pet.photo.key, class: "rounded-circle img-fluid", style: "object-fit: cover; width: 60px; height: 60px;" %>
+          <% else %>
+            <%= image_tag asset_path("default-avatar.jpg"), class: "rounded-circle img-fluid", style: "object-fit: cover; width: 60px; height: 60px;" %>
+          <% end %>
         </div>
         <div class="card-details p-2 flex-fill">
           <div class="d-flex justify-content-between">
