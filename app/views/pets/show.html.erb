@@ -1,10 +1,11 @@
+<% content_for :body_class, "family-show-bg" %>
 <div class="container">
   <div class="top-info d-flex align-items-center mt-3 px-3">
     <%= link_to family_path(@family) do %>
       <i class="fa fa-arrow-left"></i>
     <% end %>
     <div class="d-flex justify-content-center align-items-center w-100">
-      <h1 class='text-center'>Pet Details</h1>
+      <h1 class='text-center text-white'>Pet Details</h1>
     </div>
   </div>
   <div class="container mt-3 mb-5 d-flex justify-content-center align-items-center">
@@ -12,59 +13,66 @@
       <%# card starts here  %>
     </div>
   </div>
-  <div class="row row-cols-1 row-cols-md-2 g-4 mb-5 ">
-    <div class="col">
-      <div class="upper">
-        <%= image_tag "test-banner3.jpg", class: "img-fluid rounded-top", alt: "back-ground-profile-img" %>
-      </div>
-      <div class="card p-4 text-center border-0 shadow-sm rounded-4 bg-light">
-        <!-- Pet Image -->'
-        <div class="position-relative mx-auto" style="width: 100px; height: 100px;">
-          <% if @pet.photo.attached? %>
-            <%= cl_image_tag @pet.photo.key, class: "rounded-circle img-fluid", style: "object-fit: cover; width: 100px; height: 100px;" %>
-          <% else %>
-            <%= image_tag asset_path("default-avatar.jpg"), class: "rounded-circle img-fluid", style: "object-fit: cover; width: 100px; height: 100px;" %>
-          <% end %>
-          <div class="position-absolute bottom-0 start-10 translate-center p-1 bg-secondary rounded-circle">
-            <i class="fa-solid fa-pencil text-white"></i>
+  <div class="row row-cols-1 row-cols-md-2 g-4 mb-5 justify-content-center align-items-center ">
+    <div class="card pb-2 text-center border-0 shadow-sm rounded-4 bg-light">
+      <!-- Pet Image -->
+      <div class="row">
+        <!-- Banner Section Here -->
+        <div class=" position-relative" style="height: 150px; background: linear-gradient(to right, rgb(246, 239, 253),rgb(212, 218, 230)); border-top-left-radius: 10px; border-top-right-radius: 10px;">
+          <!-- Pet Image here -->
+          <div class="position-absolute translate-middle start-50">
+            <% if @pet.photo.attached? %>
+              <%= cl_image_tag @pet.photo.key,
+              class: "rounded-circle border border-3 border-light shadow",
+              style: "width: 120px; height: 120px; object-fit: cover;" %>
+            <% else %>
+              <%= image_tag "default-avatar.jpg",
+              class: "rounded-circle border border-3 border-light shadow",
+              style: "width: 150px; height: 150px; object-fit: cover;" %>
+            <% end %>
+            <!-- Edit Icon Here -->
+            <div class="position-absolute bottom-0 end-0 translate-middle-x bg-secondary rounded-circle p-1" style="z-index: 3;">
+              <i class="fa-solid fa-pencil text-white"></i>
+            </div>
           </div>
         </div>
-        <!-- Pet Info Grid -->
-        <strong>
-          <h1><%= @pet.name %></h1>
-        </strong>
-        <div class="row mt-4 g-2 justify-content-center">
-          <div class="col-5 bg-white rounded-3 py-2 shadow-sm m-1">
-            <i class="fa-solid fa-calendar-days me-1 text-muted"></i><br>
-            <small class="text-muted">Date</small><br>
-            <strong><%= @pet.birthdate.strftime("%y/%m/%d") %></strong>
-          </div>
-          <div class="col-5 bg-white rounded-3 py-2 shadow-sm m-1">
-            <i class="fa-solid fa-paw me-1 text-muted"></i><br>
-            <small class="text-muted">Species</small><br>
-            <strong><%= @pet.species %></strong>
-          </div>
-          <div class="col-5 bg-white rounded-3 py-2 shadow-sm m-1">
-            <i class="fa-solid fa-venus-mars me-1 text-muted"></i><br>
-            <small class="text-muted">Gender</small><br>
-            <strong><%= @pet.gender %></strong>
-          </div>
+      </div>
+      <!-- Pet Info Grid -->
+      <strong>
+        <h1><%= @pet.name %></h1>
+      </strong>
+      <div class="row mt-4 g-2 justify-content-center">
+        <div class="col-5 bg-white rounded-3 py-2 shadow-sm m-1">
+          <i class="fa-solid fa-calendar-days me-1 text-muted"></i><br>
+          <small class="text-muted">Date</small><br>
+          <strong><%= @pet.birthdate.strftime("%y/%m/%d") %></strong>
+        </div>
+        <div class="col-5 bg-white rounded-3 py-2 shadow-sm m-1">
+          <i class="fa-solid fa-paw me-1 text-muted"></i><br>
+          <small class="text-muted">Species</small><br>
+          <strong><%= @pet.species %></strong>
+        </div>
+        <div class="col-5 bg-white rounded-3 py-2 shadow-sm m-1">
+          <i class="fa-solid fa-venus-mars me-1 text-muted"></i><br>
+          <small class="text-muted">Gender</small><br>
+          <strong><%= @pet.gender %></strong>
         </div>
       </div>
     </div>
   </div>
-  <%# TODO : Add Tsering's tasks cards later (Hayao 29/05/2025) %>
-  <div class="row row-cols-1 row-cols-md-3 g-3 mb-4">
-    <% @pet.tasks.each do |task| %>
-      <div class="col">
-        <div class="border rounded p-3 h-100 text-start">
-          <h5 class="mb-1"><%= task.title %></h5>
-          <p class="mb-2 text-muted"><%= task.description %></p>
-          <small class="text-secondary">Due: <%= task.due_date.strftime("%B %d, %Y") %></small>
-        </div>
+</div>
+<%# TODO : Add Tsering's tasks cards later (Hayao 29/05/2025) %>
+<div class="row row-cols-1 row-cols-md-3 g-3 mb-4">
+  <% @pet.tasks.each do |task| %>
+    <div class="col">
+      <div class="border rounded p-3 h-100 text-start">
+        <h5 class="mb-1"><%= task.title %></h5>
+        <p class="mb-2 text-muted"><%= task.description %></p>
+        <small class="text-secondary">Due: <%= task.due_date.strftime("%B %d, %Y") %></small>
       </div>
-    <% end %>
-  </div>
+    </div>
+  <% end %>
+</div>
 </div>
 <%# pet card %>
 <%# This will place the tasks below %>
