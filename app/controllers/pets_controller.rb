@@ -7,6 +7,7 @@ class PetsController < ApplicationController
   def show
     @family = Family.find_by(params[:family_id])
     @pet = Pet.find(params[:id])
+    @pets = Pet.all
   end
 
   def create
