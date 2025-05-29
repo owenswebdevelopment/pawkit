@@ -1,19 +1,25 @@
-<div class="container vh-100 d-flex justify-content-center align-items-center">
-  <div class="w-100" style="max-width: 400px;">
-    <h2 class="text-center mb-4">Select a family to join:</h2>
-    <%= simple_form_for :user_family, url: join_family_action_path, method: :post do |f| %>
-      <div class="mb-3">
-        <%= f.input :family_id,
-            collection: @families,
-            label: "Choose a family",
-            prompt: "Select a family",
-            value_method: :id,
-            label_method: :name,
-            input_html: { class: "form-select" } %>
+<% content_for :body_class, "family-show-bg" %>
+<div class="d-flex justify-content-center align-items-center vh-100">
+  <div class="w-100 px-3" style="max-width: 450px;">
+    <div class="bg-white rounded-4 shadow-lg p-4 text-center">
+      <!-- Heading -->
+      <h2 class="mb-4 text-dark fw-bold">👨‍👩‍👧‍👦 Select a Family</h2>
+      <!-- List Group -->
+      <div class="list-group">
+        <% @families.each do |family| %>
+          <%= link_to family_path(family), class: "list-group-item list-group-item-action list-group-item-light rounded-3 my-2 border-0 shadow-sm px-4 py-3 hover-glow" do %>
+            <i class="fa-solid fa-house-chimney me-2 text-success"></i>
+            <strong><%= family.name %></strong>
+          <% end %>
+        <% end %>
       </div>
-      <div class="d-grid">
-        <%= f.button :submit, "Join Family", class: "btn btn-primary" %>
-      </div>
-    <% end %>
+    </div>
   </div>
 </div>
+<!-- Optional CSS for hover glow (put this in your stylesheets or add to <style> block) -->
+<style>
+  .hover-glow:hover {
+    box-shadow: 0 0 15px rgba(100, 200, 255, 0.5);
+    transition: box-shadow 0.3s ease-in-out;
+  }
+</style>

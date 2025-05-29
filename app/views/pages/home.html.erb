@@ -1,13 +1,16 @@
-<div class="container text-center py-5">
-  <!-- Illustration -->
-  <div class="mb-4">
-    <%= image_tag "home_page_illustration.png", width: 300, height: 300, class: "img-fluid" %>
-  </div>
-  <!-- Heading -->
-  <h1 class="mb-3">Welcome Home 🏡</h1>
-  <!-- Action buttons -->
-  <div class="d-flex justify-content-center gap-3">
-    <%= link_to "My Family", families_path, class: "btn btn-success px-4 py-2" %>
-    <%= link_to "Create Family", new_family_path, class: "btn btn-outline-success px-4 py-2" %>
+<% content_for :body_class, "family-home-bg " %>
+<div class="d-flex justify-content-center align-items-center vh-100">
+  <div class="container text-center">
+    <!-- Illustration -->
+    <div class="mb-4">
+      <%= image_tag "illustration_home.png", width: 300, height: 300, class: "img-fluid" %>
+    </div>
+    <!-- Heading -->
+    <h1 class="mb-3 text-white">Welcome Home 🏡</h1>
+    <!-- Action buttons -->
+    <div class="d-flex justify-content-center gap-3">
+      <%= link_to "My Family", families_path, class: "btn btn-success px-4 py-2" %>
+      <%= link_to "Create Family", new_family_path, class: "btn btn-outline-light text-white px-4 py-2" %>
+    </div>
   </div>
 </div>
