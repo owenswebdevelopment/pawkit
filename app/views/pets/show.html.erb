@@ -46,6 +46,12 @@
       </div>
     </div>
   </div>
+  <%# TODO : Add Tsering's tasks cards later (Hayao 29/05/2025) %>
+  <% @pet.tasks.each do |task| %>
+    <% if task.completed == false %>
+      <%= task.name %>
+    <% end %>
+  <% end %>
 </div>
 <%# pet card %>
 <%# This will place the tasks below %>
