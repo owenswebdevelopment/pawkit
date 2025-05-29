@@ -1,8 +1,8 @@
 class Pet < ApplicationRecord
   belongs_to :family
-  has_many :tasks
-  has_many :memories
-  has_many :medical_records
+  has_many :tasks, dependent: :destroy
+  has_many :memories, dependent: :destroy
+  has_many :medical_records, dependent: :destroy
   has_many :users, through: :tasks
   has_one_attached :photo
   validates :name, presence: true

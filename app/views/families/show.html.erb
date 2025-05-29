@@ -3,6 +3,18 @@
   <% if @family.photo.attached? %>
     <%= cl_image_tag @family.photo.key, width: 400, height: 300, crop: :fill, alt: "family photo", class: "img-fluid rounded-3" %>
   <% end %>
+  <div class=''>
+    <% @family.pets.each do |pet| %>
+      <div class="profile">
+        <% if @pet.photo.attached?  %>
+          <%= cl_image_tag @pet.photo.key, class: "rounded-circle mt-2", width: 140, height: 140, crop: :fill %>
+        <% else %>
+          <p>No photo</p>
+        <% end %>
+      </div>
+      <p><%= pet.name %></p>
+    <% end %>
+  </div>
   <% if @tasks.any? %>
     <div class="row row-cols-1 row-cols-md-3 g-3">
       <% @tasks.each do |task| %>
