@@ -5,18 +5,6 @@
       <%= cl_image_tag @family.photo.key, width: 100, height: 100, crop: :fill, alt: "family photo", class: "img-fluid rounded-3" %>
     </div>
   <% end %>
-  <div class=''>
-    <% @family.pets.each do |pet| %>
-      <div class="profile">
-        <% if @pet.photo.attached?  %>
-          <%= cl_image_tag @pet.photo.key, class: "rounded-circle mt-2", width: 140, height: 140, crop: :fill %>
-        <% else %>
-          <p>No photo</p>
-        <% end %>
-      </div>
-      <p><%= pet.name %></p>
-    <% end %>
-  </div>
   <% if @tasks.any? %>
     <div class="row row-cols-1 row-cols-md-3 g-3 mb-4">
       <% @tasks.each do |task| %>
@@ -46,9 +34,9 @@
             <!-- Pet Image -->
             <div class="position-relative mx-auto" style="width: 100px; height: 100px;">
               <% if pet.photo.attached? %>
-                <%= image_tag pet.photo, class: "rounded-circle img-fluid", style: "object-fit: cover; width: 100px; height: 100px;" %>
+                <%= cl_image_tag pet.photo.key, class: "rounded-circle img-fluid", style: "object-fit: cover; width: 100px; height: 100px;" %>
               <% else %>
-                <%= image_tag "default_pet.jpg", class: "rounded-circle img-fluid", style: "object-fit: cover; width: 100px; height: 100px;" %>
+                <%= image_tag asset_path("default-avatar.jpg"), class: "rounded-circle img-fluid", style: "object-fit: cover; width: 100px; height: 100px;" %>
               <% end %>
               <!-- Optional remove icon -->
               <div class="position-absolute bottom-0 end-0 translate-middle p-1 bg-secondary rounded-circle">
@@ -56,6 +44,9 @@
               </div>
             </div>
             <!-- Pet Info Grid -->
+            <strong>
+              <h1><%= pet.name %></h1>
+            </strong>
             <div class="row mt-4 g-2 justify-content-center">
               <div class="col-5 bg-white rounded-3 py-2 shadow-sm m-1">
                 <i class="fa-solid fa-calendar-days me-1 text-muted"></i><br>
@@ -78,4 +69,7 @@
       <% end %>
     </div>
   <% end %>
+  <div class="text-center mb-5">
+    <%= link_to "Add Pet", new_family_pet_path(@family), class: "btn btn-success px-4 py-2" %>
+  </div>
 </div>
