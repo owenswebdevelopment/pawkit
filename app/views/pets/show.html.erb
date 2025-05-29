@@ -34,7 +34,7 @@
         <div class='d-flex align-items-center'>
           <div class="profile">
             <% if @pet.photo.attached?  %>
-              <%= cl_image_tag @pet.photo, class: "rounded-circle mt-2", width: 140, height: 140, crop: :fill %>
+              <%= cl_image_tag @pet.photo.key, class: "rounded-circle mt-2", width: 140, height: 140, crop: :fill %>
             <% else %>
               <p>No photo</p>
             <% end %>
