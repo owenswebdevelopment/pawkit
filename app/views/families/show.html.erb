@@ -1,16 +1,27 @@
-<!-- create family form -->
-<div class="container">
-  <%= @family.name %>
-  <div class="card p-5">
-    <div class="row">
-      <% @tasks.each do |task|%>
+<div class="container py-5">
+  <h2 class="text-center mb-4 display-5"><%= @family.name %></h2>
+  <% if @family.photo.attached? %>
+    <%= cl_image_tag @family.photo.key, width: 400, height: 300, crop: :fill, alt: "family photo", class: "img-fluid rounded-3" %>
+  <% end %>
+  <% if @tasks.any? %>
+    <div class="row row-cols-1 row-cols-md-3 g-3">
+      <% @tasks.each do |task| %>
         <div class="col">
-          <%= task.title %>
-          <%= task.description %>
-          <%= task.due_date %>
+          <div class="border rounded p-3 h-100 text-start">
+            <h5 class="mb-1"><%= task.title %></h5>
+            <p class="mb-2 text-muted"><%= task.description %></p>
+            <small class="text-secondary">Due: <%= task.due_date.strftime("%B %d, %Y") %></small>
+          </div>
         </div>
       <% end %>
     </div>
-  </div>
-  <%= link_to "Create Tasks",  family_tasks_path(@family), class: "btn btn-success" %>
+  <% else %>
+    <p class="text-muted text-center mt-3">No tasks yet. Click below to create one!</p>
+  <% end %>
+</div>
+</div>
+<!-- Create Task Button -->
+<div class="text-center">
+  <%= link_to "Create Tasks", family_tasks_path(@family), class: "btn btn-success px-4 py-2" %>
+</div>
 </div>
