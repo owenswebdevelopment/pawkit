@@ -33,7 +33,7 @@ class FamiliesController < ApplicationController
   end
 
   def strong_params
-    params.require(:family).permit(:name)
+    params.require(:family).permit(:name, :photo)
     # @families = current_user.families
   end
 end
