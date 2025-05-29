@@ -1,8 +1,8 @@
 class TasksController < ApplicationController
 
     def index
-        @family = Family.find(params[:family_id])   
-        @tasks = @family.tasks #array of tasks of pet     
+        @family = Family.find(params[:family_id])
+        @tasks = @family.tasks #array of tasks of pet
         @task = Task.new
 
     end
@@ -10,10 +10,10 @@ class TasksController < ApplicationController
     def create
         @task = Task.new(task_params)
         @task.user = current_user
-        @task.pet = Pet.find( params[:task][:pet]) 
+        @task.pet = Pet.find( params[:task][:pet])
         if @task.save
             redirect_to family_tasks_path, notice: 'Saved Successfully'
-        else 
+        else
             render "families/:id/tasks", status: :unprocessable_entity
         end
     end

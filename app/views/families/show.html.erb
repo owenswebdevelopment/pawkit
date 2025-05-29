@@ -1,7 +1,9 @@
 <div class="container py-5">
   <h2 class="text-center mb-4 display-5"><%= @family.name %></h2>
   <% if @family.photo.attached? %>
-    <%= cl_image_tag @family.photo.key, width: 400, height: 300, crop: :fill, alt: "family photo", class: "img-fluid rounded-3" %>
+    <div class="text-center mb-4">
+      <%= cl_image_tag @family.photo.key, width: 100, height: 100, crop: :fill, alt: "family photo", class: "img-fluid rounded-3" %>
+    </div>
   <% end %>
   <div class=''>
     <% @family.pets.each do |pet| %>
@@ -16,7 +18,7 @@
     <% end %>
   </div>
   <% if @tasks.any? %>
-    <div class="row row-cols-1 row-cols-md-3 g-3">
+    <div class="row row-cols-1 row-cols-md-3 g-3 mb-4">
       <% @tasks.each do |task| %>
         <div class="col">
           <div class="border rounded p-3 h-100 text-start">
@@ -30,10 +32,50 @@
   <% else %>
     <p class="text-muted text-center mt-3">No tasks yet. Click below to create one!</p>
   <% end %>
-</div>
-</div>
-<!-- Create Task Button -->
-<div class="text-center">
-  <%= link_to "Create Tasks", family_tasks_path(@family), class: "btn btn-success px-4 py-2" %>
-</div>
+  <!-- Create Task Button -->
+  <div class="text-center mb-5">
+    <%= link_to "Create Tasks", family_tasks_path(@family), class: "btn btn-success px-4 py-2" %>
+  </div>
+  <!-- Pets Info -->
+  <% if @family.pets.any? %>
+    <h4 class="text-center mb-4">Pets</h4>
+    <div class="row row-cols-1 row-cols-md-2 g-4 mb-5">
+      <% @family.pets.each do |pet| %>
+        <div class="col">
+          <div class="card p-4 text-center border-0 shadow-sm rounded-4 bg-light">
+            <!-- Pet Image -->
+            <div class="position-relative mx-auto" style="width: 100px; height: 100px;">
+              <% if pet.photo.attached? %>
+                <%= image_tag pet.photo, class: "rounded-circle img-fluid", style: "object-fit: cover; width: 100px; height: 100px;" %>
+              <% else %>
+                <%= image_tag "default_pet.jpg", class: "rounded-circle img-fluid", style: "object-fit: cover; width: 100px; height: 100px;" %>
+              <% end %>
+              <!-- Optional remove icon -->
+              <div class="position-absolute bottom-0 end-0 translate-middle p-1 bg-secondary rounded-circle">
+                <i class="fa-solid fa-minus text-white"></i>
+              </div>
+            </div>
+            <!-- Pet Info Grid -->
+            <div class="row mt-4 g-2 justify-content-center">
+              <div class="col-5 bg-white rounded-3 py-2 shadow-sm m-1">
+                <i class="fa-solid fa-calendar-days me-1 text-muted"></i><br>
+                <small class="text-muted">Date</small><br>
+                <strong><%= pet.birthdate.strftime("%y/%m/%d") %></strong>
+              </div>
+              <div class="col-5 bg-white rounded-3 py-2 shadow-sm m-1">
+                <i class="fa-solid fa-paw me-1 text-muted"></i><br>
+                <small class="text-muted">Species</small><br>
+                <strong><%= pet.species %></strong>
+              </div>
+              <div class="col-5 bg-white rounded-3 py-2 shadow-sm m-1">
+                <i class="fa-solid fa-venus-mars me-1 text-muted"></i><br>
+                <small class="text-muted">Gender</small><br>
+                <strong><%= pet.gender %></strong>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
 </div>
