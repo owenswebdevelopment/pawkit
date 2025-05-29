@@ -1,7 +1,26 @@
-<div class="container m-3">
-  <h1>index</h1>
+<div class="container p-3 ">
+  <h1>Your Tasks</h1>
   <%= render "tasks/tasks", tasks: @tasks, family: @family %>
-</div>
-<div class="m-5">
-  <%= render "tasks/create_form", family: @family, task: @task %>
+  <!-- Button trigger modal -->
+  <div class="mb-3">
+    <button type="button" class="btn btn-primary m-3 fixed-button rounded-circle" data-bs-toggle="modal" data-bs-target="#taskModal">
+      <i class="fa-solid fa-plus p-1" style="font-size: 24px; color: white;"></i>
+    </button>
+    <!-- Modal -->
+    <div class="modal fade" id="taskModal" tabindex="-1" aria-labelledby="taskModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="taskModalLabel">Modal title</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <div class="m-5">
+              <%= render "tasks/create_form", family: @family, task: @task %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

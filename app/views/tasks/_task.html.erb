@@ -1,9 +1,23 @@
 <div id="task_<%= task.id %>">
-  <%= task.pet.name %> <br>
-  <%= task.title %> <br>
-  <%= task.due_date %> <br>
-  <%= task.description %> <br>
-  <%= simple_form_for task, method: :patch, data: { turbo: true } do |f| %>
-    <%= f.input :completed, as: :boolean, input_html: { onchange: "this.form.submit();" } %>
-  <% end %>
+  <div class="d-flex flex-column mb-3">
+    <div class="card p-2 border-3">
+      <div class="card-body p-0 d-flex">
+        <div class="card-image p-2 flex-fill">
+          <%= image_tag "test-avatar", alt: "text", style: "height:50px; width:50px; display:block; border-radius:16px;" %>
+        </div>
+        <div class="card-details p-2 flex-fill">
+          <div class="d-flex justify-content-between">
+            <h5 class="mb-3"><strong><%= task.title.capitalize %></strong></h5>
+            <%= simple_form_for task, method: :patch, data: { turbo: true } do |f| %>
+              <%= f.input :completed, as: :boolean, label: false, input_html: { onchange: "this.form.submit();", class: "completed-check" } %>
+            <% end %>
+          </div>
+          <div class="p-2 d-flex justify-content-between">
+            <h6 class="description"><%= task.description.capitalize %></h6>
+            <%= task.due_date %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
