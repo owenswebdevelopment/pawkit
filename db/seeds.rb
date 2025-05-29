@@ -23,6 +23,11 @@ family = Family.new(
 family.save
 p family.errors.full_messages
 
+user_family = UserFamily.new(user: user, family: family)
+
+user_family.save
+p user_family.errors.full_messages
+
 pet_data = [
   { name: "Natsu", age: 4, gender: "female", species: "dog", color: "brown", birthdate: Date.new(2021, 5, 29) },
   { name: "Luffy", age: 3, gender: "male", species: "dog", color: "white", birthdate: Date.new(2022, 3, 15) },
