@@ -1,6 +1,6 @@
 <div class="container ">
   <div class="top-info d-flex align-items-center mt-3 px-3">
-    <%= link_to family_path(current_user.user_families.take.family_id) do %>
+    <%= link_to family_path(@family) do %>
       <i class="fa fa-arrow-left"></i>
     <% end %>
     <div class="d-flex justify-content-center align-items-center w-100">
@@ -47,11 +47,17 @@
     </div>
   </div>
   <%# TODO : Add Tsering's tasks cards later (Hayao 29/05/2025) %>
-  <% @pet.tasks.each do |task| %>
-    <% if task.completed == false %>
-      <%= task.name %>
+  <div class="row row-cols-1 row-cols-md-3 g-3 mb-4">
+    <% @pet.tasks.each do |task| %>
+      <div class="col">
+        <div class="border rounded p-3 h-100 text-start">
+          <h5 class="mb-1"><%= task.title %></h5>
+          <p class="mb-2 text-muted"><%= task.description %></p>
+          <small class="text-secondary">Due: <%= task.due_date.strftime("%B %d, %Y") %></small>
+        </div>
+      </div>
     <% end %>
-  <% end %>
+  </div>
 </div>
 <%# pet card %>
 <%# This will place the tasks below %>
