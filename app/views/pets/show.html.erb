@@ -1,43 +1,25 @@
-<div class="container border border-5">
-  <div class="top-info d-flex justify-content-around align-items-center mt-3">
+<div class="container ">
+  <div class="top-info d-flex align-items-center mt-3 px-3">
     <%= link_to family_path(current_user.user_families.take.family_id) do %>
       <i class="fa fa-arrow-left"></i>
     <% end %>
-    <h1>Pet Details</h1>
-    <nav>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" >
-        <i class="fas fa-ellipsis-v"></i>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav me-auto">
-          <li class="nav-item active">
-            <%= link_to "Add Pet", '/families/1/pets/new', class: "nav-link" %>
-          </li>
-          <li class="nav-item active">
-            <%= link_to "Edit Pet", "#", class: "nav-link" %>
-          </li>
-          <li class="nav-item">
-            <%= link_to "Delete Pet", "#", class: "nav-link" %>
-          </li>
-        </ul>
-      </div>
-    </nav>
+    <div class="d-flex justify-content-center align-items-center w-100">
+      <h1 class='text-center'>Pet Details</h1>
+    </div>
   </div>
-  <%# carousel %>
   <div class="container mt-3 mb-5 d-flex justify-content-center align-items-center">
-    <div class=" d-flex justify-content-center align-items-center bg-primary text-white">
+    <div class=" d-flex justify-content-center align-items-center bg-primary text-white rounded">
       <%# card starts here  %>
-      <div class="card justify-content-center align-items-center ">
+      <div class="card justify-content-center align-items-center rounded">
         <div class="upper">
           <%= image_tag "test-banner3.jpg", class: "img-fluid", alt: "back-ground-profile-img" %>
         </div>
         <div class='d-flex align-items-center'>
           <div class="profile">
             <% if @pet.photo.attached?  %>
-              <%= cl_image_tag @pet.photo, class: "rounded-circle mt-2", width: 140, height: 140, crop: :fill %>
+              <%= cl_image_tag @pet.photo.key, class: "rounded-circle mt-2", width: 140, height: 140, crop: :fill %>
             <% else %>
-              <p>No photo</p>
-            <% end %>
+              <%= image_tag "default-avatar.jpg", class: "avatar-large mt-1", alt: "avatar-large", style: "width: 140px;" %>            <% end %>
           </div>
           <div class="ms-3">
             <h4 class="mb-1"><%= @pet.name %></h4>
@@ -47,23 +29,29 @@
           <span class="text-muted d-block mb-2"><%= @pet.age %> Years old</span>
           <span class="text-muted d-block mb-2"><i class="fa-solid fa-cake-candles"></i> <%= @pet.birthdate.strftime("%B %d, %Y")  %></span>
           <div class="d-flex justify-content-around align-items-center my-4 mx-3 gap-5">
-            <div class="stats">
-              <h6 class="mb-0"><i class="fa-solid fa-palette"></i>Color</h6>
-              <span><%= @pet.color.capitalize %></span>
+            <div>
+              <i class="fa-solid fa-palette"></i>
+              <p><%= @pet.color.capitalize %></p>
             </div>
-            <div class="stats">
-              <h6 class="mb-0"><i class="fa-solid fa-paw"></i>Species</h6>
-              <span><%= @pet.species.capitalize %></span>
+            <div>
+              <i class="fa-solid fa-paw"></i>
+              <p><%= @pet.species.capitalize %></p>
             </div>
-            <div class="stats">
-              <h6 class="mb-0"><i class="fa-solid fa-venus-mars"></i>Gender</h6>
-              <span>  <%= @pet.gender.capitalize %></span>
+            <div>
+              <i class="fa-solid fa-venus-mars"></i>
+              <p>  <%= @pet.gender.capitalize %></p>
             </div>
           </div>
         </div>
       </div>
     </div>
   </div>
+  <%# TODO : Add Tsering's tasks cards later (Hayao 29/05/2025) %>
+  <% @pet.tasks.each do |task| %>
+    <% if task.completed == false %>
+      <%= task.name %>
+    <% end %>
+  <% end %>
 </div>
 <%# pet card %>
 <%# This will place the tasks below %>
