@@ -6,6 +6,18 @@
     <% end %>
   </div>
   <div style="text-align: center;">
+    <%= link_to(user_signed_in? ? family_path(current_user.families.first) : "#", style: "color: #283618; text-decoration: none;") do %>
+      <i class="fa-solid fa-people-roof" style="font-size: 20px;"></i>
+      <p style="margin: 0; font-size: 14px;">Family</p>
+    <% end %>
+  </div>
+  <div style="text-align: center;">
+    <%= link_to(user_signed_in? ? family_memories_path(current_user.families.first) : "#", style: "color: #283618; text-decoration: none;") do %>
+      <i class="fa-solid fa-camera-retro" style="font-size: 20px;"></i>
+      <p style="margin: 0; font-size: 14px;">Memories</p>
+    <% end %>
+  </div>
+  <div style="text-align: center;">
     <ul class="navbar-nav me-auto">
       <% if user_signed_in? %>
         <li class="nav-item dropdown">
@@ -19,7 +31,7 @@
           </a>
           <div class="dropdown-menu dropdown-menu-end">
             <%#= link_to "Owner", owner_rentals_path, class: "dropdown-item" %>
-            <%# link_to "Rental", rentals_path, class: "dropdown-item" %>
+            <%= link_to "Create New Family", new_family_path, class: "dropdown-item" %>
             <%= link_to "Settings", edit_user_registration_path, class:'dropdown-item' %>
             <%= link_to "Log out", destroy_user_session_path, data: {turbo_method: :delete}, class: "dropdown-item" %>
           </div>
