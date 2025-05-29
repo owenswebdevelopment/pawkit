@@ -5,6 +5,7 @@ class PetsController < ApplicationController
   end
 
   def show
+    @family = Family.find_by(params[:family_id])
     @pet = Pet.find(params[:id])
   end
 
@@ -19,10 +20,6 @@ class PetsController < ApplicationController
       @family = Family.find(params[:family_id])
       render :new, status: :unprocessable_entity
     end
-  end
-
-  def show
-    @pet = Pet.find(params[:id])
   end
 
   private

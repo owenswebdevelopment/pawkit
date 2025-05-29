@@ -3,6 +3,7 @@ class MemoriesController < ApplicationController
     @family = Family.find(params[:family_id])
     @memory = Memory.new
     @memories = @family.memories
+    
   #  @memory = current_user.family
   #  @memories = current_user.memories
   end

@@ -2,10 +2,9 @@
 <div class="container">
   <h1 class="text-center">Add Pet</h1>
   <div class = "d-flex justify-content-center align-items-center">
-    <%= image_tag "https://kitt.lewagon.com/placeholder/users/arthur-littm", class: "avatar-large my-3", alt: "avatar-large" %>
+    <%= image_tag "default-avatar.jpg", class: "avatar-large mt-1", alt: "avatar-large", style: "width: 200px;" %>
   </div>
-  <%= link_to "Back", :back %>
-  <div class="pet-create-form my-5 mx-5">
+  <div class="pet-create-form mt-1 mb-5 mx-5">
     <%= simple_form_for [@family, @pet] do |f| %>
       <%= f.input :name %>
       <%= f.input :age %>
@@ -14,7 +13,10 @@
       <%= f.input :birthdate %>
       <%= f.input :species %>
       <%= f.input :photo, as: :file %>
-      <%= f.button :submit, class: "btn btn-primary" %>
+      <div class="d-flex justify-content-between align-items-end">
+        <%= f.button :submit, class: "btn btn-primary" %>
+        <%= link_to "Back", :back %>
+      </div>
     <% end %>
   </div>
 </div>
