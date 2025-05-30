@@ -18,3 +18,25 @@
   box-shadow: 0 1px 2px rgba(0,0,0,0.2);
   border: white 1px solid;
 }
+
+.avatar-show {
+    width: 80px;
+    height: 80px;
+    object-fit: cover; /* Ensures images don’t stretch or shrink */
+    border-radius: 50%; /* Keeps them circular */
+    flex-shrink: 0; /* Prevents shrinking when too many items exist */
+    overflow-x: auto;
+}
+
+.pet-container {
+    // display: flex;
+    // gap: 10px; /* Prevents excessive squeezing */
+    scrollbar-width: none; /* For Firefox */
+}
+.pet-container > .text-center {
+    flex: 0 0 auto; /* Stops flex shrinking */
+}
+
+.pet-container::-webkit-scrollbar {
+    display: none; /* Hides scrollbar in Chrome & Safari */
+}
