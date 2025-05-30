@@ -23,8 +23,10 @@ class TasksController < ApplicationController
     def update
         @task = Task.find(params[:id])
         @task.update(task_params)
+        session[:last_completed_by] = current_user.first_name
+    
         respond_to do |format|
-            format.html { redirect_to request.referer, notice: "Completed" }
+            format.html { redirect_to request.referer, notice: "#{current_user.first_name} completed the task!" }
             format.turbo_stream
          end
     end
