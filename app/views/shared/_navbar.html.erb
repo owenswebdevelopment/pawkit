@@ -1,6 +1,6 @@
 <div class="navbar-pawkit ">
   <div class="container-fluid">
-    <%= link_to "#", class: "navbar-brand" do %>
+    <%= link_to(user_signed_in? ?  families_path : root_path, class: "navbar-brand") do %>
       <%= image_tag "pawkit-orange-logo.png" %>
     <% end %>
   </div>
