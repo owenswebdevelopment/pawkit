@@ -6,6 +6,8 @@ class PetsController < ApplicationController
 
   def show
     @pet = Pet.find(params[:id])
+    @family = @pet.family
+    @task = Task.new
   end
 
   def create
