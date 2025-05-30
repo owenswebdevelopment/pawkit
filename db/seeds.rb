@@ -7,15 +7,24 @@ Pet.destroy_all
 User.destroy_all
 
 puts "seeding admin_user, family and pet....."
-user = User.new(
-    first_name: "Ryuichi",
+tanaka = User.new(
+  first_name: "Ryuichi",
+  last_name: "Tanaka",
+  address: "Meguro",
+  email: "demo@gmail.com",
+  password: "123456"
+  )
+  tanaka.save
+  p tanaka.errors.full_messages
+
+  user = User.new(
+    first_name: "Owen",
     last_name: "Tanaka",
-    address: "Meguro",
-    email: "demo@gmail.com",
+    address: "Yokohama",
+    email: "owen@gmail.com",
     password: "123456"
   )
-user.save
-p user.errors.full_messages
+  user.save
 
 family = Family.new(
   name: "Tanaka's family"
@@ -23,47 +32,46 @@ family = Family.new(
 family.save
 p family.errors.full_messages
 
-user_family = UserFamily.new(user: user, family: family)
-
-user_family.save
-p user_family.errors.full_messages
+UserFamily.create(user: user, family: family)
+UserFamily.create(user: tanaka, family: family)
 
 pet_data = [
   { name: "Natsu", age: 4, gender: "female", species: "dog", color: "brown", birthdate: Date.new(2021, 5, 29) },
-  { name: "Luffy", age: 3, gender: "male", species: "dog", color: "white", birthdate: Date.new(2022, 3, 15) },
-  { name: "Zoro", age: 5, gender: "male", species: "dog", color: "black", birthdate: Date.new(2020, 8, 5) },
-  { name: "Sakura", age: 2, gender: "female", species: "cat", color: "gray", birthdate: Date.new(2023, 1, 10) },
-  { name: "Ichigo", age: 6, gender: "male", species: "rabbit", color: "white", birthdate: Date.new(2019, 6, 21) }
+  { name: "Luffy", age: 3, gender: "male", species: "dog", color: "white", birthdate: Date.new(2022, 3, 15) }
 ]
 
 pet_data.each do |pet|
   our_pet = Pet.new(pet)
   our_pet.family = family
   if our_pet.save
-    puts "5 Pets saved successfully ✅#{our_pet.name}"
+    puts "Pet saved successfully ✅#{our_pet.name}"
   else
-    puts "Pets were not saved successfully #{our_pet.error.full_messages}"
+    puts "Pet was not saved successfully #{our_pet.error.full_messages}"
   end
 end
 
-task = Task.new(
+Task.create(
+  description: "Take Luffy to Meguro Park",
+  title: "Walk",
+  due_date: Date.today,
+  pet: Pet.find_by(name: "Luffy"),
+  user: user
+)
+
+Task.create(
   description: "mineral water",
   title: "Feed",
-  due_date: Date.new(2025, 6, 27),
+  due_date: Date.today,
   pet: Pet.find_by(name: "Natsu"),
   user: user
 )
-task.save
-p task.errors.full_messages
-
 memory = Memory.new(
-    text: "park",
-    upload_at: Date.new(2025, 5, 27),
-    pet: Pet.find_by(name: "Natsu"),
-    user: user
+  text: "hey let's get a new dog!",
+  upload_at: Date.yesterday,
+  user: user,
+  family: family
 )
 memory.save
 p memory.errors.full_messages
-
 
 puts "seeding complete"
