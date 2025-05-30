@@ -1,11 +1,13 @@
 <% content_for :body_class, "family-show-bg" %>
-<div class="container py-5">
-  <h2 class="text-center mb-4 display-5 text-white"><%= @family.name %></h2>
-  <% if @family.photo.attached? %>
-    <div class="text-center mb-4">
+<div class="container py-4">
+  <h2 class="d-flex justify-content-center text-center mb-4 display-5 text-black"><%= @family.name %></h2>
+  <div class="text-center mb-4">
+    <% if @family.photo.attached? %>
       <%= cl_image_tag @family.photo.key, width: 100, height: 100, crop: :fill, alt: "family photo", class: "img-fluid rounded-3" %>
-    </div>
-  <% end %>
+    <% else %>
+      <%= image_tag asset_path("default-family-avatar.jpg"), width: 100, height: 100, crop: :fill, alt: "family photo", class: "img-fluid rounded-3" %>
+    <% end %>
+  </div>
   <div class='d-flex overflow-x-scroll mb-3 gap-3 pet-container '>
     <% @family.pets.each do |pet| %>
       <div class="text-center">
@@ -20,9 +22,9 @@
       </div>
     <% end %>
   </div>
-  <%= render "tasks/tasks", tasks: @tasks, family: @family %>
-  <%= render "families/modal", tasks: @tasks, family: @family %>
   <div class="text-center mb-5">
     <%= link_to "Add Pet", new_family_pet_path(@family), class: "btn btn-success px-4 py-2" %>
   </div>
+  <%= render "tasks/tasks", tasks: @tasks, family: @family %>
+  <%= render "families/modal", tasks: @tasks, family: @family %>
 </div>
