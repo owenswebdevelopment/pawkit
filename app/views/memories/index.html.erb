@@ -1,10 +1,11 @@
-<h1 class="text-center my-3">Memories</h1>
+<div class="text-center my-3 futuristic-title">
+  <%= render 'memories/header', family: @family %>
+</div>
 <div class="container p-3" id="input" data-controller="scroll-to-bottom"
 style="overflow-y: auto; max-height: 80vh; scroll-behavior: smooth;">
   <div class="row justify-content-center">
     <div class="col-12 col-md-10 col-lg-8">
       <div class="text-center mb-4">
-        <%= render 'memories/header', family: @family %>
       </div>
       <%= turbo_stream_from "family_#{@family.id}_memories" %>
       <div id="memories" class="memories">
