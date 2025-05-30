@@ -1,14 +1,25 @@
 
 
 
-
 .fixed-button {
-    position: fixed;
-    bottom: 56px;
-    right: 12px;
-
-
+  position: fixed;
+  bottom: 70px;
+  right: 20px;
+  width: 48px;    /* smaller size */
+  height: 48px;
+  border-radius: 50%;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
+
+.fixed-button i {
+  font-size: 24px;  /* smaller icon to match */
+  color: white;
+}
+
+
 
 .completed-check {
   width: 20px;
