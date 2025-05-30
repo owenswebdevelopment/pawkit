@@ -1,3 +1,4 @@
+require "open-uri"
 puts "clearing database...."
 Task.destroy_all
 UserFamily.destroy_all
@@ -36,13 +37,27 @@ UserFamily.create(user: user, family: family)
 UserFamily.create(user: tanaka, family: family)
 
 pet_data = [
-  { name: "Natsu", age: 4, gender: "female", species: "dog", color: "brown", birthdate: Date.new(2021, 5, 29) },
-  { name: "Luffy", age: 3, gender: "male", species: "dog", color: "white", birthdate: Date.new(2022, 3, 15) }
+  { name: "Natsu", age: 4, gender: "female", species: "cat", color: "Mix", birthdate: Date.new(2021, 5, 29), photo_url: "https://upload.wikimedia.org/wikipedia/commons/4/4d/Cat_November_2010-1a.jpg" },
+  { name: "Luffy", age: 3, gender: "male", species: "cat", color: "Black", birthdate: Date.new(2022, 3, 15), photo_url: "https://upload.wikimedia.org/wikipedia/commons/4/4c/Blackcat-Lilith.jpg" }
 ]
 
 pet_data.each do |pet|
-  our_pet = Pet.new(pet)
+  our_pet = Pet.new(
+    name: pet[:name],
+    age: pet[:age],
+    gender: pet[:gender],
+    species: pet[:species],
+    color: pet[:color],
+    birthdate: pet[:birthdate]
+  )
+
   our_pet.family = family
+  file = URI.parse(pet[:photo_url]).open
+  p file
+
+  our_pet.photo.attach(io: file, filename: "#{pet[:name]}_#{our_pet.id}.png", content_type: "image/png")
+
+
   if our_pet.save
     puts "Pet saved successfully ✅#{our_pet.name}"
   else
