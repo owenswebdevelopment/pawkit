@@ -3,7 +3,7 @@ class MemoriesController < ApplicationController
     @family = Family.find(params[:family_id])
     @memory = Memory.new
     @memories = @family.memories
-    @memories = @family.memories.includes(:user, :pet).order(created_at: :asc)
+    @memories = @family.memories.includes(:user).order(created_at: :asc)
     #@memory = current_user.family
     #@memories = current_user.memories
   end
@@ -11,6 +11,7 @@ class MemoriesController < ApplicationController
   def create
     @family = Family.find(params[:family_id])
     @memory = Memory.new(message_params)
+    @memory.family = @family
     @memory.user = current_user
     if @memory.save!
       respond_to do |format|
@@ -29,6 +30,6 @@ class MemoriesController < ApplicationController
 private
 
 def message_params
-  params.require(:memory).permit(:text, :pet_id, media: [])
+  params.require(:memory).permit(:text, media: [])
 end
 end

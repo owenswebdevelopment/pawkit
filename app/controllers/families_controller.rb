@@ -1,5 +1,6 @@
 class FamiliesController < ApplicationController
   def index
+    # @family = Family.find[:user_family][:family_id]
     @families = current_user.families
   end
 
@@ -26,7 +27,7 @@ class FamiliesController < ApplicationController
 
     if @family.save
       @family.users << current_user unless @family.users.include?(current_user)
-      redirect_to family_path(@family), notice: "Successfully created family"
+      redirect_to family_path(@family), notice: "Family Created"
     else
       render :new, status: :unprocessable_entity
     end
