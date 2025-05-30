@@ -18,7 +18,7 @@
           </div>
           <div class="p-2 d-flex justify-content-between">
             <h6 class="description"><%= task.description.capitalize %></h6>
-            <%= task.due_date %>
+            <%= task.due_date.strftime("%B %d, %Y") %>
           </div>
         </div>
       </div>

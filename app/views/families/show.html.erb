@@ -21,7 +21,7 @@
     <% end %>
   </div>
   <%= render "tasks/tasks", tasks: @tasks, family: @family %>
-  <%= render "families/modal", tasks: @tasks, family: @family %>
+  <%= render "families/modal", family: @family %>
   <div class="text-center mb-5">
     <%= link_to "Add Pet", new_family_pet_path(@family), class: "btn btn-success px-4 py-2" %>
   </div>

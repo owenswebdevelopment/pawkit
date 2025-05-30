@@ -11,8 +11,10 @@ class TasksController < ApplicationController
         @task = Task.new(task_params)
         @task.user = current_user
         @task.pet = Pet.find( params[:task][:pet])
+        
         if @task.save
-            redirect_to family_path(@task.pet.family), notice: 'Saved Successfully'
+        
+            redirect_to request.referer, notice: 'Saved Successfully'
         else
             render "families/:id", status: :unprocessable_entity
         end
@@ -22,7 +24,7 @@ class TasksController < ApplicationController
         @task = Task.find(params[:id])
         @task.update(task_params)
         respond_to do |format|
-            format.html { redirect_to family_path(@task.pet.family), notice: "Completed" }
+            format.html { redirect_to request.referer, notice: "Completed" }
             format.turbo_stream
          end
     end
@@ -31,6 +33,6 @@ class TasksController < ApplicationController
     private
 
     def task_params
-        params.require(:task).permit(:description, :due_date, :title, :completed, :pet_id)
+        params.require(:task).permit(:description, :due_date, :title, :completed)
     end
 end
