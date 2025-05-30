@@ -1,0 +1,10 @@
+.custom-hover {
+  color: white;
+  border-color: white;
+}
+
+.custom-hover:hover {
+background: linear-gradient(90deg, #00F5FF, #e2892b, #dbf7a3);
+  color: white; /* Keep text white on hover */
+  border-color: transparent;
+}

@@ -1,7 +1,7 @@
 <div class="d-flex justify-content-center my-3">
   <%= simple_form_for [family, memory],
         html: {
-          class: "input-bar d-flex align-items-center gap-3 px-3 py-2 shadow w-100",
+          class: "input-bar d-flex justify-content-around align-items-center gap-3 px-3 py-2 shadow w-100",
           style: "max-width: 500px; border-radius: 18px; background: white;",
           data: {
             controller: "reset-input",
@@ -24,18 +24,6 @@
             data: { reset_input_target: "input" }
           } %>
       <!-- Pet Selector with Icon -->
-      <div class="position-relative">
-        <i class="fa-solid fa-dog position-absolute text-muted"
-           style="top: 40%; left: 10px; transform: translateY(-50%); z-index: 2;"></i>
-        <%= f.association :pet,
-            collection: family.pets,
-            label: false,
-            input_html: {
-              class: "form-select ps-4 border-0 bg-transparent",
-              style: "min-width: 30px;"
-            },
-            wrapper_html: { class: "mb-0" } %>
-      </div>
     </div>
     <!-- Text Input -->
     <div class="">
@@ -43,10 +31,10 @@
         label: false,
         input_html: {
           placeholder: "Write a memory...",
-          class: "form-control border-0 bg-transparent",
-          style: "min-height: 38px;  max-width: 200px;"
+          class: "form-control border-0 bg-transparent mt-3",
+          style: "min-height: 38px;  max-width: 300px;"
         },
-        wrapper_html: { class: "mb-0 flex-grow-1" } %>
+        wrapper_html: { class: "mb-0 d-flex flex-grow-1" } %>
     </div>
     <!-- Submit Button -->
     <%= f.button :submit, "Share", class: "btn btn-primary btn-sm mb-0" %>

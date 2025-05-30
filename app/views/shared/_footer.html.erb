@@ -6,13 +6,13 @@
     <% end %>
   </div>
   <div style="text-align: center;">
-    <%= link_to(user_signed_in? ? family_path(current_user.families.first) : "#", style: "color: #283618; text-decoration: none;") do %>
+    <%= link_to(user_signed_in? && current_user.families.present? ? family_path(current_user.families.first) : "#", style: "color: #283618; text-decoration: none;") do %>
       <i class="fa-solid fa-people-roof" style="font-size: 20px;"></i>
       <p style="margin: 0; font-size: 14px;">Family</p>
     <% end %>
   </div>
   <div style="text-align: center;">
-    <%= link_to(user_signed_in? ? family_memories_path(current_user.families.first) : "#", style: "color: #283618; text-decoration: none;") do %>
+    <%= link_to(user_signed_in? && current_user.families.present? ? family_memories_path(current_user.families.first) : "#", style: "color: #283618; text-decoration: none;") do %>
       <i class="fa-solid fa-camera-retro" style="font-size: 20px;"></i>
       <p style="margin: 0; font-size: 14px;">Memories</p>
     <% end %>
