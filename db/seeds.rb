@@ -6,7 +6,7 @@ Memory.destroy_all
 Family.destroy_all
 Pet.destroy_all
 User.destroy_all
-
+Location.destroy_all
 puts "seeding admin_user, family and pet....."
 tanaka = User.new(
   first_name: "Ryuichi",

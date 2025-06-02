@@ -1,0 +1,24 @@
+<div data-controller="google-maps" class="container py-4">
+  <h1>Nearby Search</h1>
+  <!-- Category checkboxes -->
+  <div class="mb-3">
+    <label>
+      <input type="checkbox" name="category" value="Vet">
+      Nearby Vets
+    </label>
+    <label>
+      <input type="checkbox" name="category" value="Petshop">
+      Nearby Petshops
+    </label>
+  </div>
+  <!-- Search button -->
+  <button type="button"
+          class="btn btn-success mb-3"
+          data-action="google-maps#search">
+    Search
+  </button>
+  <!-- The map -->
+  <div id="map" style="width: 100%; height: 600px;"></div>
+  <div data-google-maps-target="mark" class="mt-4">
+  </div>
+</div>
