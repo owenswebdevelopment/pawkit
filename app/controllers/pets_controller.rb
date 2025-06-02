@@ -8,6 +8,7 @@ class PetsController < ApplicationController
     @pet = Pet.find(params[:id])
     @family = @pet.family
     @task = Task.new
+    @medical_record = MedicalRecord.new
   end
 
   def create
