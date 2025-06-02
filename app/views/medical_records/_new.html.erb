@@ -1,10 +1,10 @@
 <%# Create new Medical Record %>
-<div class="container">
+<div id="medical_record_form" class="container">
   <div class = "d-flex justify-content-center align-items-center">
     <%= image_tag "default-avatar.jpg", class: "avatar-large mt-1", alt: "avatar-large", style: "width: 200px;" %>
   </div>
   <div class="pet-create-form mt-1 mb-5 mx-5">
-    <%= simple_form_for [@pet, @medical_record] do |f| %>
+    <%= simple_form_for [pet, medical_record] do |f| %>
       <%= f.input :diagnosis %>
       <%= f.input :notes %>
       <%= f.input :visit_date %>
