@@ -13,7 +13,6 @@ export default class extends Controller {
 
     this.markers = []; // Track markers
   }
-
   search() {
     console.log("Search clicked 🚀");
 
