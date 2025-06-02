@@ -89,19 +89,30 @@ export default class extends Controller {
 
         // 🚀 Card with category badge and click-to-center feature
         const cardHtml = `
-          <div class="card mb-2" style="cursor: pointer;" onclick="
+        <div class="container">
+        <div class="d-flex justify-content-center">
+        <div class="card mb-2" style="cursor: pointer; width: 400px;" onclick="
             const map = window.googleMapsStimulusMapInstance;
             map.setCenter({ lat: ${pos.lat}, lng: ${pos.lng} });
             map.setZoom(16);
-          ">
-            <div class="card-body">
+          " style="width: 100px;">
+            <div class="card-body shadow-sm d-flex justify-content-between">
+
+               <div class="">
               <h5 class="card-title">${place.displayName}</h5>
               <span class="badge bg-primary mb-2">${category}</span>
-              <p class="card-text">Lat: ${pos.lat.toFixed(5)}, Lng: ${pos.lng.toFixed(5)}</p>
               <p class="card-text">Business status: ${place.businessStatus || "Unknown"}</p>
-              <a target="_blank" jstcache="6" href= "https://maps.google.com/maps/dir/?api=1&destination=${pos.lat},${pos.lng}" tabindex="0"> <span> View on Google Maps </span> </a>
+               </div>
+
+              <div class="">
+              <a target="_blank" jstcache="6" href= "https://maps.google.com/maps/dir/?api=1&destination=${pos.lat},${pos.lng}" tabindex="0">
+              <i class="fa-solid fa-location-dot fa-2xl"></i></a>
+              </div>
+
             </div>
           </div>
+        </div>
+        </div>
         `;
 
         this.markTarget.insertAdjacentHTML("beforeend", cardHtml);
