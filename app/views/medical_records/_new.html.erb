@@ -1,7 +1,15 @@
 <%# Create new Medical Record %>
 <div id="medical_record_form" class="container">
   <div class = "d-flex justify-content-center align-items-center">
-    <%= image_tag "default-avatar.jpg", class: "avatar-large mt-1", alt: "avatar-large", style: "width: 200px;" %>
+    <% if pet.photo.attached? %>
+      <%= cl_image_tag pet.photo.key,
+              class: "rounded-circle border border-3 border-light shadow",
+              style: "width: 200px; height: 200px; " %>
+    <% else %>
+      <%= image_tag "default-avatar.jpg",
+              class: "rounded-circle border border-3 border-light shadow",
+              style: "width: 200px; height: 200px;" %>
+    <% end %>
   </div>
   <div class="pet-create-form mt-1 mb-5 mx-5">
     <%= simple_form_for [pet, medical_record] do |f| %>
