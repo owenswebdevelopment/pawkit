@@ -10,6 +10,8 @@ class PetsController < ApplicationController
     @task = Task.new
   end
 
+  
+
   def create
     @pet = Pet.new(pet_params)
     @family = Family.find(params[:family_id])

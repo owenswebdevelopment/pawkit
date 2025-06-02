@@ -24,9 +24,11 @@
               style: "width: 150px; height: 150px; object-fit: cover;" %>
             <% end %>
             <!-- Edit Icon Here -->
-            <div class="position-absolute bottom-0 end-0 translate-middle-x bg-secondary rounded-circle p-1" style="z-index: 3;">
-              <i class="fa-solid fa-pencil text-white"></i>
-            </div>
+            <%= link_to edit_pet_path(@pet), class: 'btn btn-primary', do %>
+              <div class="position-absolute bottom-0 end-0 translate-middle-x bg-secondary rounded-circle p-1" style="z-index: 3;">
+                <i class="fa-solid fa-pencil text-white"></i>
+              </div>
+            <% end %>
           </div>
         </div>
       </div>
