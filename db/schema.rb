@@ -62,7 +62,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_06_02_012524) do
     t.string "diagnosis"
     t.string "notes"
     t.date "visit_date"
-    t.string "treatmeant"
+    t.string "treatment"
     t.string "vaccination_status"
     t.string "insurance_status"
     t.bigint "pet_id", null: false

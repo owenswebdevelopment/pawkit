@@ -12,6 +12,7 @@ class FamiliesController < ApplicationController
   end
 
   def show
+    @pet = Pet.new
     @family = Family.find(params[:id])
     @pets = @family.pets
     @tasks = @family.tasks
