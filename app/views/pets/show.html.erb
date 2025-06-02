@@ -24,11 +24,12 @@
               style: "width: 150px; height: 150px; object-fit: cover;" %>
             <% end %>
             <!-- Edit Icon Here -->
-            <div class="position-absolute bottom-0 end-0 translate-middle-x bg-secondary rounded-circle p-1" style="z-index: 3;">
+            <button type="button" class="position-absolute bottom-0 end-0 translate-middle-x bg-secondary rounded-circle p-1" style="z-index: 3;" data-bs-toggle="modal" data-bs-target="#peteditModal">
               <i class="fa-solid fa-pencil text-white"></i>
-            </div>
+            </button>
           </div>
         </div>
+        <%= render "pets/editmodal", pet: @pet %>
       </div>
       <!-- Pet Info Grid -->
       <strong>
@@ -82,7 +83,7 @@
         <%= render "tasks/task", task: task %>
       <% end %>
     </div>
-    <%= render "pets/modal", family: @family %>
+    <%= render "tasks/modal", family: @family %>
   </div>
 </div>
 <%# pet card %>

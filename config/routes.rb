@@ -19,10 +19,8 @@ Rails.application.routes.draw do
 
   resources :tasks, only: ["update"]
 
-  resources :pets, only: ["show"] do
+  resources :pets, only: ["show", "edit", "update", "destroy"] do
     resources :medical_records, only: ["new", "show", "create"]
-    # post '/', to: 'medical_records#create', as: :medical_record
-    # get '/new_medical_record', to: 'medical_records#new', as: :new_medical_record
   end
 
 

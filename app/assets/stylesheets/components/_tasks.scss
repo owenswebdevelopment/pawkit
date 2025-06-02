@@ -1,7 +1,5 @@
 
-.fa-solid {
-  font-size: 32px;
-}
+
 
 
 .fixed-button {
@@ -13,11 +11,11 @@
 }
 
 .completed-check {
-  width: 20px;
-  height: 20px;
-  cursor: pointer;
-  accent-color: #ee0808; /* Change checkbox color */
-  transition: all 0.3s ease;
+    border: 1px solid #444444 !important;
+    outline: 1px solid #444444;
+    width: 1.2em;
+    height: 1.2em;
+  
 }
 
 .completed-check:hover {

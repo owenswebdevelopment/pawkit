@@ -8,9 +8,9 @@
       <%= image_tag asset_path("default-family-avatar.jpg"), width: 100, height: 100, crop: :fill, alt: "family photo", class: "img-fluid rounded-3" %>
     <% end %>
   </div>
-  <div class='d-flex justify-content-center overflow-x-scroll mb-3 gap-3 pet-container '>
+  <div class='d-flex <%= @family.pets.count < 4 ? 'justify-content-center' : '' %>  overflow-x-scroll mb-3 gap-3 pet-container '>
     <% @family.pets.each do |pet| %>
-      <div class="text-center">
+      <div class="text-center m-auto">
         <%= link_to pet_path(pet)  do %>
           <% if pet.photo.attached? %>
             <%= cl_image_tag pet.photo.key, class: "avatar-show rounded-circle img-fluid border border-3 border-light shadow", style: "object-fit: cover; width: 80px; height: 80px;" %>
@@ -23,7 +23,10 @@
     <% end %>
   </div>
   <div class="text-center mb-5">
-    <%= link_to "Add Pet", new_family_pet_path(@family), class: "btn btn-success px-4 py-2" %>
+    <button type="button" class="btn btn-primary" style="z-index: 3;" data-bs-toggle="modal" data-bs-target="#petaddModal">
+      Add Pet
+    </button>
+    <%= render "pets/addmodal", family: @family, pet: @pet %>
   </div>
   <%= render "tasks/tasks", tasks: @tasks, family: @family %>
   <%= render "families/modal", family: @family %>
