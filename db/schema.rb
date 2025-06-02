@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_05_30_030425) do
+ActiveRecord::Schema[7.1].define(version: 2025_05_31_103153) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -62,7 +62,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_05_30_030425) do
     t.string "diagnosis"
     t.string "notes"
     t.date "visit_date"
-    t.string "treatmeant"
+    t.string "treatment"
     t.string "vaccination_status"
     t.string "insurance_status"
     t.bigint "pet_id", null: false

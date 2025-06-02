@@ -53,6 +53,8 @@
       </div>
     </div>
   </div>
+  <%= render "medical_records/medical_records", pet: @pet %>
+  <%= link_to "Add Medical Record", new_pet_medical_record_path(@pet), class: "btn btn-success px-4 py-2" %>
   <%# TODO : Add Tsering's tasks cards later (Hayao 29/05/2025) %>
   <div class="nav nav-tabs bg-light" id="nav-tab" role="tablist">
     <button class="hover-bg nav-link active text-black" data-bs-toggle="tab" data-bs-target="#incomplete-tasks" type="button" role="tab" aria-controls="incomplete-tasks" aria-selected="true">Incomplete</button>
