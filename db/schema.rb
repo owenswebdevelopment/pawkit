@@ -56,6 +56,8 @@ ActiveRecord::Schema[7.1].define(version: 2025_06_02_043104) do
     t.string "email"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.float "lat"
+    t.float "lon"
   end
 
   create_table "medical_records", force: :cascade do |t|
