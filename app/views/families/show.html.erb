@@ -23,7 +23,10 @@
     <% end %>
   </div>
   <div class="text-center mb-5">
-    <%= link_to "Add Pet", new_family_pet_path(@family), class: "btn btn-success px-4 py-2" %>
+    <button type="button" class="btn btn-primary" style="z-index: 3;" data-bs-toggle="modal" data-bs-target="#petaddModal">
+      Add Pet
+    </button>
+    <%= render "pets/addmodal", family: @family, pet: @pet %>
   </div>
   <%= render "tasks/tasks", tasks: @tasks, family: @family %>
   <%= render "families/modal", family: @family %>
