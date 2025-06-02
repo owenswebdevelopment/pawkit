@@ -22,11 +22,11 @@ class TasksController < ApplicationController
 
     def update
         @task = Task.find(params[:id])
+        @task.completed_by = current_user
         @task.update(task_params)
-        session[:last_completed_by] = current_user.first_name
-    
+          
         respond_to do |format|
-            format.html { redirect_to request.referer, notice: "#{current_user.first_name} completed the task!" }
+            format.html { redirect_to request.referer, notice: "completed the task!" }
             format.turbo_stream
          end
     end
@@ -35,6 +35,6 @@ class TasksController < ApplicationController
     private
 
     def task_params
-        params.require(:task).permit(:description, :due_date, :title, :completed)
+        params.require(:task).permit(:description, :due_date, :title, :completed, :completed_by)
     end
 end

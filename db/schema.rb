@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_06_02_015456) do
+ActiveRecord::Schema[7.1].define(version: 2025_06_02_043104) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -64,11 +64,11 @@ ActiveRecord::Schema[7.1].define(version: 2025_06_02_015456) do
     t.string "diagnosis"
     t.string "notes"
     t.date "visit_date"
-    t.string "treatmeant"
+    t.string "treatment"
     t.string "vaccination_status"
     t.string "insurance_status"
     t.bigint "pet_id", null: false
-    t.bigint "location_id", null: false
+    t.bigint "location_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["location_id"], name: "index_medical_records_on_location_id"
@@ -120,6 +120,8 @@ ActiveRecord::Schema[7.1].define(version: 2025_06_02_015456) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "completed", default: false
+    t.bigint "completed_by_id"
+    t.index ["completed_by_id"], name: "index_tasks_on_completed_by_id"
     t.index ["pet_id"], name: "index_tasks_on_pet_id"
     t.index ["user_id"], name: "index_tasks_on_user_id"
   end
@@ -157,6 +159,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_06_02_015456) do
   add_foreign_key "pets", "families"
   add_foreign_key "tasks", "pets"
   add_foreign_key "tasks", "users"
+  add_foreign_key "tasks", "users", column: "completed_by_id"
   add_foreign_key "user_families", "families"
   add_foreign_key "user_families", "users"
 end

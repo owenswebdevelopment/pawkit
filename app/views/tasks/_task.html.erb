@@ -12,8 +12,8 @@
         <div class="card-details p-2 flex-fill">
           <div class="d-flex justify-content-between">
             <h5 class="mb-3"><strong><%= task.title.capitalize %></strong></h5>
-            <% if task.completed && session[:last_completed_by].present? %>
-              <strong>Completed by: <%= session[:last_completed_by] %></strong>
+            <% if task.completed %>
+              <strong>Completed by: <%= task.completed_by&.first_name %></strong>
             <% end %>
             <%= simple_form_for task, method: :patch, data: { turbo: true } do |f| %>
               <%= f.input :completed, as: :boolean, label: false, input_html: { onchange: "this.form.submit();", class: "completed-check" } %>

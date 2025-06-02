@@ -1,6 +1,7 @@
 class Task < ApplicationRecord
   belongs_to :pet
   belongs_to :user
+  belongs_to :completed_by, class_name: 'User', optional: true
   validates :title, presence: true
   validates :due_date, presence: true
   validates :description, presence: true
