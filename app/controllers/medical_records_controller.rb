@@ -16,7 +16,7 @@ class MedicalRecordsController < ApplicationController
     @medical_record.pet = @pet
 
     if @medical_record.save
-      redirect_to pet_medical_record_path(@pet), notice: 'Medical record added!'
+      redirect_to pet_medical_record_path(@pet, @medical_record), notice: 'Medical record added!'
     else
       render turbo_stream: turbo_stream.replace(
         "medical_record_form",
