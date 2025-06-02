@@ -1,15 +1,11 @@
 <div data-controller="google-maps" class="container py-4">
   <h1>Nearby Search</h1>
   <!-- Category checkboxes -->
-  <div class="mb-3">
-    <label>
-      <input type="checkbox" name="category" value="Vet">
-      Nearby Vets
-    </label>
-    <label>
-      <input type="checkbox" name="category" value="Petshop">
-      Nearby Petshops
-    </label>
+  <div class="btn-group" role="group">
+    <input type="checkbox" class="btn-check" id="vet" name="category" value="Vet">
+    <label class="btn btn-outline-primary" for="vet">Nearby Vets</label>
+    <input type="checkbox" class="btn-check" id="petshop" name="category" value="Petshop">
+    <label class="btn btn-outline-primary" for="petshop">Nearby Petshops</label>
   </div>
   <!-- Search button -->
   <button type="button"
