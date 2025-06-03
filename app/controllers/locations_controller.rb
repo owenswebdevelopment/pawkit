@@ -12,7 +12,7 @@ location.phone ||= "Unknown"
 location.email ||= "Unknown"
 
 if location.save
-  render json: { status: "ok" }, status: :created
+  render json: { status: "ok", notice: "Added to Favorites" }, status: :created
 else
   render json: { status: "error", errors: location.errors.full_messages }, status: :unprocessable_entity
 end

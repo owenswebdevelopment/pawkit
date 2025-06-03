@@ -3,17 +3,21 @@ import { Controller } from "@hotwired/stimulus"
 export default class extends Controller {
   static targets = ["searchButton", "mark"]
 
-  connect() {
+  async connect() {
     // Initialize map centered at Meguro by default
     this.map = new google.maps.Map(document.getElementById("map"), {
       center: { lat: 35.633998, lng: 139.715653 }, // Meguro
       zoom: 13,
-      mapId: "YOUR_MAP_ID" // Optional
+      mapId: "YOUR_MAP_ID"
     });
 
-    window.googleMapsStimulusMapInstance = this.map; // For click-to-center
+    window.googleMapsStimulusMapInstance = this.map;
 
-    this.markers = []; // Track markers
+    this.markers = [];
+
+    // 🚀 Preload AdvancedMarkerElement ONCE — SAFE
+    const { AdvancedMarkerElement } = await google.maps.importLibrary("marker");
+    this.AdvancedMarkerElement = AdvancedMarkerElement;
 
     // Delegate click for Save buttons
     this.markTarget.addEventListener("click", (event) => {
@@ -56,7 +60,6 @@ export default class extends Controller {
 
   async nearbySearch(lat, lng, category) {
     const { Place, SearchNearbyRankPreference } = await google.maps.importLibrary("places");
-    const { AdvancedMarkerElement } = await google.maps.importLibrary("marker");
 
     const location = new google.maps.LatLng(lat, lng);
 
@@ -87,8 +90,8 @@ export default class extends Controller {
       for (const place of places) {
         const pos = place.location.toJSON();
 
-        // Add marker
-        const markerView = new AdvancedMarkerElement({
+        // SAFE: Use preloaded AdvancedMarkerElement
+        const markerView = new this.AdvancedMarkerElement({
           map: this.map,
           position: pos,
           title: place.displayName,
@@ -97,7 +100,7 @@ export default class extends Controller {
         this.markers.push(markerView);
         bounds.extend(pos);
 
-        // BASE CARD DATA — always insert this first
+        // BASE CARD DATA — always insert first
         const placeData = {
           place_id: place.id,
           name: place.displayName,
@@ -138,7 +141,6 @@ export default class extends Controller {
           </div>
         `;
 
-        // Insert BASE CARD — always
         this.markTarget.insertAdjacentHTML("beforeend", cardHtml);
 
         // Now — try to fetch details
@@ -158,7 +160,6 @@ export default class extends Controller {
             region: "jp"
           });
 
-          // If successful → update placeData
           placeData.rating = details.rating || null;
           placeData.user_ratings_total = details.user_rating_count || 0;
           placeData.first_review = details.reviews?.[0]?.text || null;
@@ -167,9 +168,7 @@ export default class extends Controller {
 
           console.log(`Updated details for ${place.displayName}`, placeData);
 
-          // OPTIONAL: if you want, you can now update the card in the DOM
-          // (Advanced: add an "id" to the card, then update its innerHTML)
-
+          // (Advanced — you can update the card here if you want)
         } catch (error) {
           console.warn(`Could not fetch details for ${place.displayName}:`, error);
         }
