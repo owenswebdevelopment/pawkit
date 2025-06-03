@@ -2,8 +2,14 @@ class TasksController < ApplicationController
 
     def index
         @family = Family.find(params[:family_id])
-        @tasks = @family.tasks #array of tasks of pet
+        @tasks = @family.tasks.order(:due_date) #array of tasks of pet
         @task = Task.new
+        # @daily_tasks = Task.where(recurrence: "daily").order(:due_date)
+        # @weeky_tasks = Task.where(recurrence: "weekly").order(:due_date)
+        # @monthly_tasks = Task.where(recurrence: "monthly").order(:due_date)
+
+
+
 
     end
 
@@ -13,7 +19,6 @@ class TasksController < ApplicationController
         @task.pet = Pet.find( params[:task][:pet])
         
         if @task.save
-        
             redirect_to request.referer, notice: 'Saved Successfully'
         else
             render "families/:id", status: :unprocessable_entity
@@ -35,6 +40,6 @@ class TasksController < ApplicationController
     private
 
     def task_params
-        params.require(:task).permit(:description, :due_date, :title, :completed, :completed_by)
+        params.require(:task).permit(:description, :due_date, :title, :completed, :completed_by, :recurrence)
     end
 end

@@ -1,0 +1,8 @@
+production:
+  a_periodic_job:
+    class: RecurringTasksJob
+    schedule: every day
+development:
+  a_periodic_job:
+    class: RecurringTasksJob
+    schedule: every day

@@ -65,34 +65,11 @@
   <%= render "medical_records/addmedicalrecord", pet: @pet, medical_record: @medical_record %>
   <%= render 'medical_records/show', pet: @pet %>
   <%# TODO : Add Tsering's tasks cards later (Hayao 29/05/2025) %>
-  <div class="nav nav-tabs bg-light" id="nav-tab" role="tablist">
-    <button class="hover-bg nav-link active text-black" data-bs-toggle="tab" data-bs-target="#incomplete-tasks" type="button" role="tab" aria-controls="incomplete-tasks" aria-selected="true">Incomplete</button>
-    <button class="hover-bg nav-link text-black"  data-bs-toggle="tab" data-bs-target="#completed-tasks" type="button" role="tab" aria-controls="completed-tasks" aria-selected="false">Completed</button>
-    <button class="hover-bg nav-link text-black"  data-bs-toggle="tab" data-bs-target="#all-tasks" type="button" role="tab" aria-controls="all-tasks" aria-selected="false">All</button>
-  </div>
-  <div class="tab-content mt-3">
-    <%= turbo_stream_from "family_#{@family.id}_tasks" %>
-    <div class="tab-pane fade show active" id="incomplete-tasks">
-      <% @pet.tasks.each do |task| %>
-        <% if task.completed == false %>
-          <%= render "tasks/task", task: task %>
-        <% end %>
-      <% end %>
-    </div>
-    <div class="tab-pane fade" id="completed-tasks">
-      <% @pet.tasks.each do |task| %>
-        <% if task.completed %>
-          <%= render "tasks/task", task: task %>
-        <% end %>
-      <% end %>
-    </div>
-    <div class="tab-pane fade" id="all-tasks">
-      <% @pet.tasks.all.each do |task| %>
-        <%= render "tasks/task", task: task %>
-      <% end %>
-    </div>
+  <div>
+    <%= render "tasks/tasks", tasks: @pet.tasks, family:@family %>
     <%= render "tasks/modal", family: @family %>
   </div>
+</div>
 </div>
 <%# pet card %>
 <%# This will place the tasks below %>
