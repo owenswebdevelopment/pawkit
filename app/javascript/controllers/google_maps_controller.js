@@ -97,72 +97,82 @@ export default class extends Controller {
         this.markers.push(markerView);
         bounds.extend(pos);
 
-        // Fetch detailed info (with address, phone)
-        const service = new google.maps.places.PlacesService(this.map);
+        // BASE CARD DATA — always insert this first
+        const placeData = {
+          place_id: place.id,
+          name: place.displayName,
+          latitude: pos.lat,
+          longitude: pos.lng,
+          business_status: place.businessStatus,
+          rating: null,
+          user_ratings_total: 0,
+          first_review: null,
+          category: category,
+          address: "Unknown address",
+          phone: "Unknown"
+        };
 
-        service.getDetails({
-          placeId: place.id,
-          fields: [
-            "reviews",
-            "rating",
-            "user_ratings_total",
-            "formatted_address",
-            "formatted_phone_number"
-          ]
-        }, (details, status) => {
-          if (status === google.maps.places.PlacesServiceStatus.OK) {
-            const placeData = {
-              place_id: place.id,
-              name: place.displayName,
-              latitude: pos.lat,
-              longitude: pos.lng,
-              business_status: place.businessStatus,
-              rating: details.rating || null,
-              user_ratings_total: details.user_ratings_total || 0,
-              first_review: details.reviews?.[0]?.text || null,
-              category: category, // Use selected category
-              address: details.formatted_address || "Unknown address",
-              phone: details.formatted_phone_number || "Unknown"
-              // email: you can add if you want — not returned by Google
-            };
-
-            const ratingColor = details.rating >= 4.5 ? "#28a745" :
-                                details.rating >= 3.0 ? "#fd7e14" : "#dc3545";
-
-            const cardHtml = `
-              <div class="d-flex justify-content-center">
-                <div class="card mb-2" style="cursor: pointer; width: 400px;">
-                  <div class="card-body shadow-sm d-flex justify-content-between">
-                    <div>
-                      <h5 class="card-title">${place.displayName}</h5>
-                      <span class="badge bg-primary mb-2">${category}</span>
-                      <p class="card-text">Business status: ${place.businessStatus || "Unknown"}</p>
-                      <p class="card-text" style="color: ${ratingColor}; font-weight: bold;">
-                        Rating: ${details.rating || "N/A"} (${details.user_ratings_total || 0} reviews)
-                      </p>
-                      <p class="card-text">Address: ${details.formatted_address || "Unknown"}</p>
-                      <p class="card-text">Phone: ${details.formatted_phone_number || "Unknown"}</p>
-                      <button class="btn btn-outline-primary save-location-btn mt-2"
-                        data-place='${encodeURIComponent(JSON.stringify(placeData))}'>
-                          Save Location
-                      </button>
-
-                    </div>
-                    <div>
-                      <a target="_blank" href="https://maps.google.com/maps/dir/?api=1&destination=${pos.lat},${pos.lng}">
-                        <i class="fa-solid fa-location-dot fa-2xl"></i>
-                      </a>
-                    </div>
-                  </div>
+        const cardHtml = `
+          <div class="d-flex justify-content-center">
+            <div class="card mb-2" style="cursor: pointer; width: 400px;">
+              <div class="card-body shadow-sm d-flex justify-content-between">
+                <div>
+                  <h5 class="card-title">${place.displayName}</h5>
+                  <span class="badge bg-primary mb-2">${category}</span>
+                  <p class="card-text">Business status: ${place.businessStatus || "Unknown"}</p>
+                  <p class="card-text">Rating: N/A (0 reviews)</p>
+                  <p class="card-text">Address: Unknown address</p>
+                  <p class="card-text">Phone: Unknown</p>
+                  <button class="btn btn-outline-primary save-location-btn mt-2"
+                          data-place='${encodeURIComponent(JSON.stringify(placeData))}'>
+                    Save Location
+                  </button>
+                </div>
+                <div>
+                  <a target="_blank" href="https://maps.google.com/maps/dir/?api=1&destination=${pos.lat},${pos.lng}">
+                    <i class="fa-solid fa-location-dot fa-2xl"></i>
+                  </a>
                 </div>
               </div>
-            `;
+            </div>
+          </div>
+        `;
 
-            this.markTarget.insertAdjacentHTML("beforeend", cardHtml);
-          } else {
-            console.warn(`Could not fetch details for ${place.displayName}: ${status}`);
-          }
-        });
+        // Insert BASE CARD — always
+        this.markTarget.insertAdjacentHTML("beforeend", cardHtml);
+
+        // Now — try to fetch details
+        const { Place: PlaceLib } = await google.maps.importLibrary("places");
+
+        try {
+          const details = await PlaceLib.fetchFields({
+            placeId: place.id,
+            fields: [
+              "formatted_address",
+              "formatted_phone_number",
+              "user_rating_count",
+              "rating",
+              "reviews"
+            ],
+            language: "en",
+            region: "jp"
+          });
+
+          // If successful → update placeData
+          placeData.rating = details.rating || null;
+          placeData.user_ratings_total = details.user_rating_count || 0;
+          placeData.first_review = details.reviews?.[0]?.text || null;
+          placeData.address = details.formatted_address || "Unknown address";
+          placeData.phone = details.formatted_phone_number || "Unknown";
+
+          console.log(`Updated details for ${place.displayName}`, placeData);
+
+          // OPTIONAL: if you want, you can now update the card in the DOM
+          // (Advanced: add an "id" to the card, then update its innerHTML)
+
+        } catch (error) {
+          console.warn(`Could not fetch details for ${place.displayName}:`, error);
+        }
       }
 
       this.map.fitBounds(bounds);
