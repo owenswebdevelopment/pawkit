@@ -1,0 +1,22 @@
+<h1 class="text-center py-4">My Favorites</h1>
+<div class="container">
+  <div class="row">
+    <% @locations.each do |location| %>
+      <div class="col-md-6 mb-3">
+        <div class="card shadow-sm w-100">
+          <div class="card-body">
+            <h5 class="card-title"><%= location.name %></h5>
+            <span class="badge bg-primary mb-2"><%= location.category %></span>
+            <p class="card-text">Business status: <%= location.business_status || "Unknown" %></p>
+            <p class="card-text">Rating: <%= location.rating || "N/A" %> (<%= location.user_ratings_total || 0 %> reviews)</p>
+            <p class="card-text">Address: <%= location.address %></p>
+            <p class="card-text">Phone: <%= location.phone %></p>
+            <a target="_blank" class="btn btn-outline-secondary" href="https://maps.google.com/maps/dir/?api=1&destination=<%= location.latitude %>,<%= location.longitude %>">
+              View on Map
+            </a>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
