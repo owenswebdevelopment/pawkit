@@ -1,17 +1,19 @@
 <% content_for :body_class, "family-show-bg" %>
-<div class="d-flex justify-content-center align-items-center vh-100">
-  <div class="w-100 px-3" style="max-width: 450px;">
-    <div class="bg-white rounded-4 shadow-lg p-4 text-center">
-      <!-- Heading -->
-      <h2 class="mb-4 text-dark fw-bold text-muted">👨‍👩‍👧‍👦 Select a Family</h2>
-      <!-- List Group -->
-      <div class="list-group">
-        <% @families.each do |family| %>
-          <%= link_to family_path(family), class: "list-group-item list-group-item-action list-group-item-light rounded-3 my-2 border-0 shadow-sm px-4 py-3 hover-glow" do %>
-            <i class="fa-solid fa-house-chimney me-2 text-success"></i>
-            <strong><%= family.name %></strong>
+<div class="container overflow-x-hidden">
+  <div class="d-flex justify-content-center align-items-center vh-100">
+    <div class="w-100 px-3" style="max-width: 450px;">
+      <div class="bg-white rounded-4 shadow-lg p-4 text-center">
+        <!-- Heading -->
+        <h2 class="mb-4 text-dark fw-bold text-muted">👨‍👩‍👧‍👦 Select a Family</h2>
+        <!-- List Group -->
+        <div class="list-group">
+          <% @families.each do |family| %>
+            <%= link_to family_path(family), class: "list-group-item list-group-item-action list-group-item-light rounded-3 my-2 border-0 shadow-sm px-4 py-3 hover-glow" do %>
+              <i class="fa-solid fa-house-chimney me-2 text-success"></i>
+              <strong><%= family.name %></strong>
+            <% end %>
           <% end %>
-        <% end %>
+        </div>
       </div>
     </div>
   </div>
