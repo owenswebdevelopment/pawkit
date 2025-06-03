@@ -14,8 +14,19 @@
       <i class="fa-solid fa-search fa-sm"></i>
     </button>
   </div>
-  <!-- The map -->
-  <div id="map" style="width: 400px; height: 600px; border-radius: 15px; margin: 0 auto;"></div>
+  <div class="float-end me-1" style="margin-top: -120px">
+    <%= link_to favorites_path(@location) do %>
+      <i class="fa-solid fa-star fa-2xl"></i>
+    <% end %>
+  </div>
+  <!-- The map area -->
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-12 col-md-8 col-lg-10">
+        <div id="map" class="rounded" style="height: 550px;"></div>
+      </div>
+    </div>
+  </div>
   <!-- Cards will be inserted here -->
   <div data-google-maps-target="mark" class="mt-4"></div>
 </div>

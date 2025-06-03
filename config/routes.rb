@@ -16,7 +16,8 @@ Rails.application.routes.draw do
     resources :pets, only: ["new", "create"]
   end
 
-  resources :locations, only: [:index]
+  resources :locations, only: [:index, :create]
+  get "/favorites", to: "locations#favorites", as: "favorites"
 
   resources :tasks, only: ["update"]
 
