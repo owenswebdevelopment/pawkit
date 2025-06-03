@@ -1,18 +1,35 @@
-<%# Create new Pet %>
 <div class="container">
-  <div class = "d-flex justify-content-center align-items-center">
+  <div class="d-flex justify-content-center align-items-center">
     <%= image_tag "default-avatar.jpg", class: "avatar-large mt-1", alt: "avatar-large", style: "width: 200px;" %>
   </div>
   <div class="pet-create-form mt-1 mb-5">
     <%= simple_form_for [family, pet] do |f| %>
-      <%= f.input :name %>
-      <%= f.input :age %>
-      <%= f.input :gender %>
-      <%= f.input :color %>
-      <%= f.input :birthdate %>
-      <%= f.input :species %>
+      <div class="row">
+        <div class="col-sm-12 col-md-6">
+          <%= f.input :name %>
+        </div>
+        <div class="col-sm-12 col-md-6">
+          <%= f.input :age %>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-12 col-md-6">
+          <%= f.input :gender %>
+        </div>
+        <div class="col-sm-12 col-md-6">
+          <%= f.input :color %>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-12 col-md-6">
+          <%= f.input :birthdate %>
+        </div>
+        <div class="col-sm-12 col-md-6">
+          <%= f.input :species %>
+        </div>
+      </div>
       <%= f.input :photo, as: :file %>
-      <%= f.button :submit, "Add Pet", class: "btn btn-primary" %>
+      <%= f.button :submit, "Add Pet", class: "btn btn-primary mt-3" %>
     <% end %>
   </div>
 </div>

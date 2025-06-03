@@ -16,7 +16,8 @@ Rails.application.routes.draw do
     resources :pets, only: ["new", "create"]
   end
 
-  resources :locations, only: [:index]
+  resources :locations, only: [:index, :create]
+  get "/favorites", to: "locations#favorites", as: "favorites"
 
   resources :tasks, only: ["update"]
 
@@ -25,6 +26,8 @@ Rails.application.routes.draw do
   end
 
 
+  post '/line-bot/callback', to: 'line_bot#callback'
     post "join_family_action", to: "families#join_family_action", as: :join_family_action
 
 end
+
