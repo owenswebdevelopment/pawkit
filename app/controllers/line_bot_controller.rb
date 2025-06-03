@@ -12,6 +12,11 @@ class LineBotController < ApplicationController
       end
     end
 
+
+
+
+
+
     render json: { status: 'success' }, status: :ok
   end
 end
