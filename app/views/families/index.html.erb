@@ -7,7 +7,7 @@
       <!-- List Group -->
       <div class="list-group">
         <% @families.each do |family| %>
-          <%= link_to family_path(family), class: "list-group-item list-group-item-action list-group-item-light rounded-3 my-2 border-0 shadow-sm px-4 py-3 hover-glow" do %>
+          <%= link_to update_current_family_path(family), class: "list-group-item list-group-item-action list-group-item-light rounded-3 my-2 border-0 shadow-sm px-4 py-3 hover-glow" do %>
             <i class="fa-solid fa-house-chimney me-2 text-success"></i>
             <strong><%= family.name %></strong>
           <% end %>

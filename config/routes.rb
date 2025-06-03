@@ -25,6 +25,7 @@ Rails.application.routes.draw do
     resources :medical_records, only: ["new", "show", "create"]
   end
 
+  get "update_current_family/:id", to: "families#update_current_family", as: :update_current_family
 
   post '/line-bot/callback', to: 'line_bot#callback'
     post "join_family_action", to: "families#join_family_action", as: :join_family_action
