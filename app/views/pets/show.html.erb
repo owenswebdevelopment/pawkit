@@ -57,16 +57,18 @@
       </div>
     </div>
   </div>
-  <button type="button" class="btn btn-primary" style="z-index: 3;" data-bs-toggle="modal" data-bs-target="#medicalrecordModal">
+</div>
+<%# pet card %>
+<%# This will place the tasks below %>
+<div class="container text-center my-3">
+  <button type="button" class="btn btn-primary position-relative" data-bs-toggle="modal" data-bs-target="#medicalrecordModal">
     Add Medical Record
   </button>
-  <%= render "medical_records/addmedicalrecord", pet: @pet, medical_record: @medical_record %>
-  <%# TODO : Add Tsering's tasks cards later (Hayao 29/05/2025) %>
-  <div>
+</div>
+<%= render "medical_records/addmedicalrecord", pet: @pet, medical_record: @medical_record %>
+<div class="container d-flex justify-content-center mt-4">
+  <div class="w-100 text-center">
     <%= render "tasks/tasks", tasks: @pet.tasks, family:@family %>
     <%= render "tasks/modal", family: @family %>
   </div>
 </div>
-</div>
-<%# pet card %>
-<%# This will place the tasks below %>

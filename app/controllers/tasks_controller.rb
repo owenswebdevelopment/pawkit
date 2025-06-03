@@ -16,8 +16,8 @@ class TasksController < ApplicationController
     def create
         @task = Task.new(task_params)
         @task.user = current_user
-        @task.pet = Pet.find( params[:task][:pet])
-        
+        @task.pet = Pet.find(params[:task][:pet_id])
+
         if @task.save
             redirect_to request.referer, notice: 'Saved Successfully'
         else
@@ -29,7 +29,7 @@ class TasksController < ApplicationController
         @task = Task.find(params[:id])
         @task.completed_by = current_user
         @task.update(task_params)
-          
+
         respond_to do |format|
             format.html { redirect_to request.referer, notice: "completed the task!" }
             format.turbo_stream
@@ -40,6 +40,6 @@ class TasksController < ApplicationController
     private
 
     def task_params
-        params.require(:task).permit(:description, :due_date, :title, :completed, :completed_by, :recurrence)
+      params.require(:task).permit(:description, :due_date, :title, :completed, :completed_by, :recurrence, :pet_id)
     end
 end

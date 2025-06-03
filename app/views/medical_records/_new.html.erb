@@ -17,7 +17,7 @@
       <%= f.input :notes %>
       <%= f.input :visit_date %>
       <%= f.input :treatment %>
-      <%= f.input :location %>
+      <%= f.input :location_id, collection: Location.all.map { |l| [l.name, l.id] },  prompt: "Select a location" %>
       <%= f.input :vaccination_status %>
       <%= f.input :insurance_status %>
       <%= f.submit "Save Record", class: "btn btn-primary" %>
