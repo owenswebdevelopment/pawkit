@@ -5,3 +5,30 @@
     <% end %>
   </div>
 </div>
+<div>
+  <ul class="navbar-nav me-auto">
+    <% if user_signed_in? %>
+      <li class="nav-item dropdown">
+        <a href="#" class="avatar text-decoration-none" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <% if current_user.photo.attached? %>
+            <%= cl_image_tag current_user.photo.key, width: 50, height: 40, crop: :fill, class: "avatar", alt: "dropdown menu" %>
+          <% else %>
+            <i class="fa-solid fa-user avatar fa-xm text-muted" style="font-size: 20px; color: #283618; text-decoration: none;"></i>
+            <p class='text-muted' style="margin: 0; font-size: 14px; color: #283618; text-decoration: none;">Profile</p>
+          <% end %>
+        </a>
+        <div class="dropdown-menu dropdown-menu-end">
+          <%#= link_to "Owner", owner_rentals_path, class: "dropdown-item" %>
+          <%= link_to "Create New Family", new_family_path, class: "dropdown-item" %>
+          <%= link_to "Settings", edit_user_registration_path, class:'dropdown-item' %>
+          <%= link_to "Log out", destroy_user_session_path, data: {turbo_method: :delete}, class: "dropdown-item" %>
+        </div>
+      </li>
+    <% else %>
+      <%= link_to new_user_session_path, style: "color: #283618; text-decoration: none;" do %>
+        <i class="fa-solid fa-right-to-bracket text-muted" style="font-size: 20px;"></i>
+        <p class='text-muted' style="margin: 0; font-size: 14px;">Login/Sign Up</p>
+      <% end %>
+    <% end %>
+  </ul>
+</div>
