@@ -1,5 +1,6 @@
-<div class="d-flex justify-content-center my-3">
-  <%= simple_form_for [family, memory],
+<div class="container overflow-hidden">
+  <div class="d-flex justify-content-center my-3">
+    <%= simple_form_for [family, memory],
         html: {
           class: "input-bar d-flex justify-content-around align-items-center gap-3 px-3 py-2 shadow w-100",
           style: "max-width: 500px; border-radius: 18px; background: white;",
@@ -9,12 +10,12 @@
           },
           multipart: true
         } do |f| %>
-    <div class="d-flex align-items-center gap-2">
-      <!-- Image Upload -->
-      <label for="memory_media" class="m-0" style="cursor: pointer;">
-        <i class="fa-solid fa-image fs-5 text-muted"></i>
-      </label>
-      <%= f.input :media,
+      <div class="d-flex align-items-center gap-2">
+        <!-- Image Upload -->
+        <label for="memory_media" class="m-0" style="cursor: pointer;">
+          <i class="fa-solid fa-image fs-5 text-muted"></i>
+        </label>
+        <%= f.input :media,
           as: :file,
           label: false,
           input_html: {
@@ -23,11 +24,11 @@
             id: "memory_media",
             data: { reset_input_target: "input" }
           } %>
-      <!-- Pet Selector with Icon -->
-    </div>
-    <!-- Text Input -->
-    <div class="">
-      <%= f.input :text,
+        <!-- Pet Selector with Icon -->
+      </div>
+      <!-- Text Input -->
+      <div class="">
+        <%= f.input :text,
         label: false,
         input_html: {
           placeholder: "Write a memory...",
@@ -35,8 +36,9 @@
           style: "min-height: 38px;  max-width: 300px;"
         },
         wrapper_html: { class: "mb-0 d-flex flex-grow-1" } %>
-    </div>
-    <!-- Submit Button -->
-    <%= f.button :submit, "Share", class: "btn btn-primary btn-sm mb-0" %>
-  <% end %>
+      </div>
+      <!-- Submit Button -->
+      <%= f.button :submit, "Share", class: "btn btn-primary btn-sm mb-0" %>
+    <% end %>
+  </div>
 </div>
