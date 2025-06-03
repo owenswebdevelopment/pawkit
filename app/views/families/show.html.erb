@@ -10,7 +10,8 @@
   <%# </div> %>
   <div class='d-flex <%= @family.pets.count < 4 ? 'justify-content-center' : '' %>  overflow-x-scroll mb-3 gap-3 pet-container '>
     <div class="text-center m-auto" role="button" style="z-index: 3;" data-bs-toggle="modal" data-bs-target="#petaddModal">
-      <%= image_tag asset_path("default-avatar.jpg"), class: "avatar-show rounded-circle img-fluid border border-3 border-light shadow cursor-pointer ", style: "object-fit: cover; width: 80px; height: 80px; z-index: 3;" %>
+      <%#= cl_image_tag pet.photo.key, class: "avatar-show rounded-circle img-fluid border border-3 shadow", style: "object-fit: cover; width: 80px; height: 80px; border-image: linear-gradient(45deg, red, orange, yellow, green, blue, indigo, violet) 1;" %>
+      <%= image_tag asset_path("default-avatar.jpg"), class: "avatar-show rounded-circle img-fluid shadow cursor-pointer", style: "object-fit: cover; width: 80px; height: 80px; padding: 2px; background: linear-gradient(45deg, red, orange, yellow, green, blue, indigo, violet); border-radius: 50%; box-sizing: border-box;" %>
       <p class="mt-2">Add Pet</p>
     </div>
     <%= render "pets/addmodal", family: @family, pet: @pet %>
@@ -18,9 +19,11 @@
       <div class="text-center m-auto">
         <%= link_to pet_path(pet), class:'text-decoration-none', style: 'color: inherit;'  do %>
           <% if pet.photo.attached? %>
-            <%= cl_image_tag pet.photo.key, class: "avatar-show rounded-circle img-fluid border border-3 border-light shadow", style: "object-fit: cover; width: 80px; height: 80px;" %>
+            <% border_class = pet.tasks.all?(&:completed) ? 'border-success' : 'border-danger' %>
+            <%= cl_image_tag pet.photo.key, class: "avatar-show rounded-circle img-fluid border border-3 shadow #{border_class}", style: "object-fit: cover; width: 80px; height: 80px;" %>
           <% else %>
-            <%= image_tag asset_path("default-avatar.jpg"), class: "avatar-show rounded-circle img-fluid border border-3 border-light shadow", style: "object-fit: cover; width: 80px; height: 80px;" %>
+            <% border_class = pet.tasks.all?(&:completed) ? 'border-success' : 'border-danger' %>
+            <%= image_tag asset_path("default-avatar.jpg"), class: "avatar-show rounded-circle img-fluid border border-3  shadow #{border_class}", style: "object-fit: cover; width: 80px; height: 80px;" %>
           <% end %>
           <p class="mt-2"><%= pet.name.capitalize %></p>
         <% end %>
