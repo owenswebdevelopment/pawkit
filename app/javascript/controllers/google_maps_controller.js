@@ -11,6 +11,8 @@ export default class extends Controller {
       mapId: "YOUR_MAP_ID" // Optional if you have a custom Map ID
     });
 
+    window.googleMapsStimulusMapInstance = this.map; // For click-to-center
+
     this.markers = []; // Track markers
   }
 
@@ -55,7 +57,7 @@ export default class extends Controller {
     console.log(`Searching category: ${categoryType}`);
 
     const request = {
-      fields: ["displayName", "location", "businessStatus"],
+      fields: ["displayName", "location", "businessStatus", "id"], // ✅ FIXED: no "placeId"
       locationRestriction: {
         center: location,
         radius: 3000, // 3km
@@ -75,9 +77,11 @@ export default class extends Controller {
       const { LatLngBounds } = await google.maps.importLibrary("core");
       const bounds = new LatLngBounds();
 
-      places.forEach((place) => {
+      // 🚀 Use for...of loop for async-safe calls
+      for (const place of places) {
         const pos = place.location.toJSON();
-        console.log(place)
+
+        // Add marker
         const markerView = new AdvancedMarkerElement({
           map: this.map,
           position: pos,
@@ -87,38 +91,55 @@ export default class extends Controller {
         this.markers.push(markerView);
         bounds.extend(pos);
 
-        // 🚀 Card with category badge and click-to-center feature
-        const cardHtml = `
-        <div class="container">
-        <div class="d-flex justify-content-center">
-        <div class="card mb-2" style="cursor: pointer; width: 400px;" onclick="
-            const map = window.googleMapsStimulusMapInstance;
-            map.setCenter({ lat: ${pos.lat}, lng: ${pos.lng} });
-            map.setZoom(16);
-          " style="width: 100px;">
-            <div class="card-body shadow-sm d-flex justify-content-between">
+        // 🚀 Fetch detailed info (reviews)
+        const service = new google.maps.places.PlacesService(this.map);
 
-               <div class="">
-              <h5 class="card-title">${place.displayName}</h5>
-              <span class="badge bg-primary mb-2">${category}</span>
-              <p class="card-text">Business status: ${place.businessStatus || "Unknown"}</p>
-               </div>
+        service.getDetails({
+          placeId: place.id,
+          fields: ["reviews", "rating", "user_ratings_total"]
+        }, (details, status) => {
+          if (status === google.maps.places.PlacesServiceStatus.OK) {
+            const firstReview = details.reviews?.[0]?.text || "No reviews available";
 
-              <div class="">
-              <a target="_blank" jstcache="6" href= "https://maps.google.com/maps/dir/?api=1&destination=${pos.lat},${pos.lng}" tabindex="0">
-              <i class="fa-solid fa-location-dot fa-2xl"></i></a>
-              </div>
+            // 🚀 Build card style + reviews
+            const ratingColor = details.rating >= 4.5 ? "#28a745" :
+                    details.rating >= 3.0 ? "#fd7e14" : "#dc3545";
 
-            </div>
-          </div>
-        </div>
-        </div>
-        `;
+              const cardHtml = `
+                <div class="d-flex justify-content-center">
+                  <div class="card mb-2" style="cursor: pointer; max-width: 300px;" onclick="
+                      const map = window.googleMapsStimulusMapInstance;
+                      map.setCenter({ lat: ${pos.lat}, lng: ${pos.lng} });
+                      map.setZoom(16);
+                    ">
+                    <div class="card-body shadow-sm d-flex justify-content-between">
+                      <div class="">
+                        <h5 class="card-title">${place.displayName}</h5>
+                        <span class="badge bg-primary mb-2">${category}</span>
+                        <p class="card-text">Business status: ${place.businessStatus || "Unknown"}</p>
+                        <p class="card-text" style="color: ${ratingColor}; font-weight: bold;">
+                          Rating: ${details.rating || "N/A"} (${details.user_ratings_total || 0} reviews)
+                        </p>
+                      </div>
+                      <div class="">
+                        <a target="_blank" href="https://maps.google.com/maps/dir/?api=1&destination=${pos.lat},${pos.lng}" tabindex="0">
+                          <i class="fa-solid fa-location-dot fa-2xl"></i>
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              `;
 
-        this.markTarget.insertAdjacentHTML("beforeend", cardHtml);
-      });
+            this.markTarget.insertAdjacentHTML("beforeend", cardHtml);
+          } else {
+            console.warn(`Could not fetch details for ${place.displayName}: ${status}`);
+          }
+        }); // end getDetails
+      } // end for...of
 
       this.map.fitBounds(bounds);
+
     } else {
       console.log(`No results found for category: ${category}`);
     }
