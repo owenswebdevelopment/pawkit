@@ -1,21 +1,35 @@
 <div class="nav nav-tabs bg-light" id="nav-tab" role="tablist">
-  <button class="hover-bg nav-link active text-black" data-bs-toggle="tab" data-bs-target="#incomplete-tasks" type="button" role="tab" aria-controls="incomplete-tasks" aria-selected="true">Incomplete</button>
-  <button class="hover-bg nav-link text-black"  data-bs-toggle="tab" data-bs-target="#completed-tasks" type="button" role="tab" aria-controls="completed-tasks" aria-selected="false">Completed</button>
+  <button class="hover-bg nav-link active text-black" data-bs-toggle="tab" data-bs-target="#daily-tasks" type="button" role="tab" aria-controls="daily-tasks" aria-selected="true">Daily</button>
+  <button class="hover-bg nav-link text-black"  data-bs-toggle="tab" data-bs-target="#weekly-tasks" type="button" role="tab" aria-controls="weekly-tasks" aria-selected="false">Weekly</button>
+  <button class="hover-bg nav-link text-black"  data-bs-toggle="tab" data-bs-target="#monthly-tasks" type="button" role="tab" aria-controls="monthly-tasks" aria-selected="false">Monthly</button>
   <button class="hover-bg nav-link text-black"  data-bs-toggle="tab" data-bs-target="#all-tasks" type="button" role="tab" aria-controls="all-tasks" aria-selected="false">All</button>
 </div>
 <div class="tab-content mt-3">
   <%= turbo_stream_from "family_#{family.id}_tasks" %>
-  <div class="tab-pane fade show active" id="incomplete-tasks">
+  <div class="tab-pane fade show active" id="daily-tasks">
     <% tasks.each do |task| %>
-      <% if task.completed == false %>
-        <%= render "tasks/task", task: task %>
+      <% if task.recurrence =="daily" %>
+        <% if task.due_date <= Date.today %>
+          <%= render "tasks/task", task: task %>
+        <% end %>
       <% end %>
     <% end %>
   </div>
-  <div class="tab-pane fade" id="completed-tasks">
+  <div class="tab-pane fade" id="weekly-tasks">
     <% tasks.each do |task| %>
-      <% if task.completed %>
-        <%= render "tasks/task", task: task %>
+      <% if task.recurrence =="weekly" %>
+        <% if task.due_date <= Date.today %>
+          <%= render "tasks/task", task: task %>
+        <% end %>
+      <% end %>
+    <% end %>
+  </div>
+  <div class="tab-pane fade" id="monthly-tasks">
+    <% tasks.each do |task| %>
+      <% if task.recurrence =="monthly" %>
+        <% if task.due_date <= Date.today %>
+          <%= render "tasks/task", task: task %>
+        <% end %>
       <% end %>
     <% end %>
   </div>
