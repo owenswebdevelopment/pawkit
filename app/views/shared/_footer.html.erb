@@ -1,47 +1,26 @@
 <footer class='fixed-bottom py-1' style="left: 0; width: 100%; height: 60px; background:rgb(255, 255, 255); display: flex; justify-content: space-around; box-shadow: 0 -2px 6px rgba(0,0,0,0.1); color: #283618;">
   <div style="text-align: center;">
     <%= link_to(user_signed_in? ?  families_path : root_path, style: "color: #283618; text-decoration: none;") do %>
-      <i class="fa-gold fa-solid fa-home" style="font-size: 20px;"></i>
-      <p style="margin: 0; font-size: 14px;">Home</p>
+      <i class="fa-gold fa-solid fa-home fa-xm text-muted" ></i>
+      <p class='text-muted' style="margin: 0; font-size: 14px;">Home</p>
     <% end %>
   </div>
   <div style="text-align: center;">
     <%= link_to(user_signed_in? && current_user.families.present? ? family_path(current_user.families.first) : "#", style: "color: #283618; text-decoration: none;") do %>
-      <i class="fa-solid fa-people-roof" style="font-size: 20px;"></i>
-      <p style="margin: 0; font-size: 14px;">Family</p>
+      <i class="fa-solid fa-people-roof fa-xm text-muted" style="font-size: 20px;"></i>
+      <p class='text-muted' style="margin: 0; font-size: 14px;">Family</p>
     <% end %>
   </div>
   <div style="text-align: center;">
     <%= link_to(user_signed_in? && current_user.families.present? ? family_memories_path(current_user.families.first) : "#", style: "color: #283618; text-decoration: none;") do %>
-      <i class="fa-solid fa-camera-retro" style="font-size: 20px;"></i>
-      <p style="margin: 0; font-size: 14px;">Memories</p>
+      <i class="fa-solid fa-camera-retro fa-xm text-muted" style="font-size: 20px;"></i>
+      <p class='text-muted' style="margin: 0; font-size: 14px;">Memories</p>
     <% end %>
   </div>
   <div style="text-align: center;">
-    <ul class="navbar-nav me-auto">
-      <% if user_signed_in? %>
-        <li class="nav-item dropdown">
-          <a href="#" class="avatar text-decoration-none" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <% if current_user.photo.attached? %>
-              <%= cl_image_tag current_user.photo.key, width: 50, height: 40, crop: :fill, class: "avatar", alt: "dropdown menu" %>
-            <% else %>
-              <i class="fa-solid fa-user avatar" style="font-size: 20px; color: #283618; text-decoration: none;"></i>
-              <p style="margin: 0; font-size: 14px; color: #283618; text-decoration: none;">Profile</p>
-            <% end %>
-          </a>
-          <div class="dropdown-menu dropdown-menu-end">
-            <%#= link_to "Owner", owner_rentals_path, class: "dropdown-item" %>
-            <%= link_to "Create New Family", new_family_path, class: "dropdown-item" %>
-            <%= link_to "Settings", edit_user_registration_path, class:'dropdown-item' %>
-            <%= link_to "Log out", destroy_user_session_path, data: {turbo_method: :delete}, class: "dropdown-item" %>
-          </div>
-        </li>
-      <% else %>
-        <%= link_to new_user_session_path, style: "color: #283618; text-decoration: none;" do %>
-          <i class="fa-solid fa-right-to-bracket" style="font-size: 20px;"></i>
-          <p style="margin: 0; font-size: 14px;">Login/Sign Up</p>
-        <% end %>
-      <% end %>
-    </ul>
+    <%= link_to(user_signed_in? && current_user.families.present? ? locations_path : "#", style: "color: #283618; text-decoration: none;") do %>
+      <i class= "fa-solid fa-location-dot fa-xm text-muted" style="font-size: 20px;"></i>
+      <p class='text-muted' style="margin: 0; font-size: 14px;">Map</p>
+    <% end %>
   </div>
 </footer>
