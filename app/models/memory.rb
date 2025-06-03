@@ -1,7 +1,6 @@
 class Memory < ApplicationRecord
   belongs_to :family
   belongs_to :user
-  validates :text, presence: true
   has_many_attached :media
   after_create_commit :broadcast_message
 

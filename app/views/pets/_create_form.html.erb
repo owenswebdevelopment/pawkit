@@ -2,6 +2,7 @@
   <%= f.input :title %>
   <%= f.input :description %>
   <%= f.input :due_date %>
+  <%= f.input :recurrence, collection: [["None", "none"], ["Daily", "daily"], ["Weekly", "weekly"], ["Monthly", "monthly"]], prompt: "Select recurrence"  %> %>
   <%= f.hidden_field :pet, value: @pet.id %>
   <%= f.submit "Create Task", class: "btn btn-primary" %>
 <% end %>

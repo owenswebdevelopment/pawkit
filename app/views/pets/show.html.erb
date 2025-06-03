@@ -1,61 +1,59 @@
 <% content_for :body_class, "family-show-bg" %>
-<div class="container" style="padding-bottom: 3.5rem">
+<div class="container " style="padding-bottom: 3.5rem">
   <%# back button %>
   <div class="top-info d-flex align-items-center mt-3 px-3">
     <%= link_to family_path(@pet.family) do %>
       <i class="fa fa-arrow-left"></i>
     <% end %>
   </div>
-  <div class="row row-cols-1 row-cols-md-2 g-4 my-4 mx-1 justify-content-center align-items-center ">
-    <div class="card pb-2 text-center border-0 shadow-sm rounded-4 bg-light">
-      <!-- Pet Image -->
-      <div class="row">
-        <!-- Banner Section Here -->
-        <div class=" position-relative" style="height: 150px; background: linear-gradient(to right, rgb(246, 239, 253),rgb(212, 218, 230)); border-top-left-radius: 10px; border-top-right-radius: 10px;">
-          <!-- Pet Image here -->
-          <div class="position-absolute translate-middle start-50">
-            <% if @pet.photo.attached? %>
-              <%= cl_image_tag @pet.photo.key,
+  <div class="card pb-2 text-center border-0 shadow-sm rounded-4 bg-light">
+    <!-- Pet Image -->
+    <div class="row">
+      <!-- Banner Section Here -->
+      <div class=" position-relative" style="height: 150px; background: linear-gradient(to right, rgb(246, 239, 253),rgb(212, 218, 230)); border-top-left-radius: 10px; border-top-right-radius: 10px;">
+        <!-- Pet Image here -->
+        <div class="position-absolute translate-middle start-50">
+          <% if @pet.photo.attached? %>
+            <%= cl_image_tag @pet.photo.key,
               class: "rounded-circle border border-3 border-light shadow",
               style: "width: 120px; height: 120px; object-fit: cover;" %>
-            <% else %>
-              <%= image_tag "default-avatar.jpg",
+          <% else %>
+            <%= image_tag "default-avatar.jpg",
               class: "rounded-circle border border-3 border-light shadow",
               style: "width: 150px; height: 150px; object-fit: cover;" %>
-            <% end %>
-            <!-- Edit Icon Here -->
-            <button type="button" class="position-absolute bottom-0 end-0 translate-middle-x bg-secondary rounded-circle p-1" style="z-index: 3;" data-bs-toggle="modal" data-bs-target="#peteditModal">
-              <i class="fa-solid fa-pencil text-white"></i>
-            </button>
-          </div>
-        </div>
-        <%= render "pets/editmodal", pet: @pet %>
-      </div>
-      <!-- Pet Info Grid -->
-      <div class="d-flex align-items-end justify-content-center gap-3">
-        <h1 class='mt-3'><%= @pet.name %></h1>
-        <div class="mb-3">
-          <%= link_to pet_medical_record_path(@pet), class: "d-flex" do %>
-            <i class="fa-solid fa-suitcase-medical fs-3"></i>
           <% end %>
+          <!-- Edit Icon Here -->
+          <button type="button" class="position-absolute bottom-0 end-0 translate-middle-x bg-secondary rounded-circle border-0" data-bs-toggle="modal" data-bs-target="#peteditModal">
+            <i class="fa-solid fa-pencil text-white"></i>
+          </button>
         </div>
       </div>
-      <div class="row my-4 g-2 justify-content-center">
-        <div class="col-5 bg-white rounded-3 py-2 shadow-sm m-1">
-          <i class="fa-solid fa-cake-candles me-1 text-muted"></i><br>
-          <small class="text-muted">Date</small><br>
-          <strong><%= @pet.birthdate.strftime("%y/%m/%d") %></strong>
-        </div>
-        <div class="col-5 bg-white rounded-3 py-2 shadow-sm m-1">
-          <i class="fa-solid fa-paw me-1 text-muted"></i><br>
-          <small class="text-muted">Species</small><br>
-          <strong><%= @pet.species %></strong>
-        </div>
-        <div class="col-5 bg-white rounded-3 py-2 shadow-sm m-1">
-          <i class="fa-solid fa-venus-mars me-1 text-muted"></i><br>
-          <small class="text-muted">Gender</small><br>
-          <strong><%= @pet.gender %></strong>
-        </div>
+      <%= render "pets/editmodal", pet: @pet %>
+    </div>
+    <!-- Pet Info Grid -->
+    <div class="d-flex align-items-end justify-content-center gap-3">
+      <h1 class='mt-3'><%= @pet.name.capitalize %></h1>
+      <div class="mb-3">
+        <%= link_to pet_medical_record_path(@pet), class: "d-flex text-decoration-none" do %>
+          <i class="fa-solid fa-heart-pulse fs-3"></i>
+        <% end %>
+      </div>
+    </div>
+    <div class="row my-4 g-2 justify-content-center">
+      <div class="col-5 bg-white rounded-3 py-2 shadow-sm m-1">
+        <i class="fa-solid fa-cake-candles me-1 text-muted"></i><br>
+        <small class="text-muted">Date</small><br>
+        <strong><%= @pet.birthdate.strftime("%y/%m/%d") %></strong>
+      </div>
+      <div class="col-5 bg-white rounded-3 py-2 shadow-sm m-1">
+        <i class="fa-solid fa-paw me-1 text-muted"></i><br>
+        <small class="text-muted">Species</small><br>
+        <strong><%= @pet.species %></strong>
+      </div>
+      <div class="col-5 bg-white rounded-3 py-2 shadow-sm m-1">
+        <i class="fa-solid fa-venus-mars me-1 text-muted"></i><br>
+        <small class="text-muted">Gender</small><br>
+        <strong><%= @pet.gender %></strong>
       </div>
     </div>
   </div>
@@ -63,7 +61,6 @@
     Add Medical Record
   </button>
   <%= render "medical_records/addmedicalrecord", pet: @pet, medical_record: @medical_record %>
-  <%= render 'medical_records/show', pet: @pet %>
   <%# TODO : Add Tsering's tasks cards later (Hayao 29/05/2025) %>
   <div>
     <%= render "tasks/tasks", tasks: @pet.tasks, family:@family %>
