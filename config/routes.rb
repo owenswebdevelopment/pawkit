@@ -30,3 +30,4 @@ Rails.application.routes.draw do
     post "join_family_action", to: "families#join_family_action", as: :join_family_action
 
 end
+
