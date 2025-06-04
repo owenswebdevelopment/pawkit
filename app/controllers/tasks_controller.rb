@@ -32,7 +32,11 @@ class TasksController < ApplicationController
     @task = Task.find(params[:id])
     @task.completed_by = current_user
     @task.update(task_params)
-
+    @task.message_memory
+    # if task updated successfully and it is completed
+    # Then create a memory and make a notice eg. notice: 'Save successful'
+    # else
+    # ... do something else with a notice that update failed
 
         send_line_notification("C493c98e6e0b758410091ac87570ec99d", @task.completed? ? "#{@task.title} has been completed for #{@task.pet.name}." : "")
 

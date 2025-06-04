@@ -6,7 +6,7 @@ class Task < ApplicationRecord
   validates :due_date, presence: true
   after_create_commit :broadcast_task
   after_update_commit :recurring_task
-  after_update_commit :message_memory
+  # after_update_commit :message_memory
 
 
   def broadcast_task
@@ -21,8 +21,8 @@ class Task < ApplicationRecord
   end
 
   def message_memory
-    Memory.create!(
-      text: "A new task was created: #{title}",
+    Memory.create(
+      text: "#{title} was completed for #{pet.name} by #{completed_by.first_name}",
       user: user,
       family: pet.family
     )
