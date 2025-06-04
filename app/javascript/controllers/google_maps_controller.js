@@ -4,23 +4,52 @@ export default class extends Controller {
   static targets = ["searchButton", "mark"]
 
   async connect() {
-    this.map = new google.maps.Map(document.getElementById("map"), {
-      center: { lat: 35.633998, lng: 139.715653 },
-      zoom: 13,
-      mapId: "YOUR_MAP_ID"
-    });
+    navigator.geolocation.getCurrentPosition(async (position) => {
+      const userLat = position.coords.latitude;
+      const userLng = position.coords.longitude;
 
-    window.googleMapsStimulusMapInstance = this.map;
+      this.map = new google.maps.Map(document.getElementById("map"), {
+        center: { lat: userLat, lng: userLng },
+        zoom: 13,
+        mapId: "YOUR_MAP_ID"
+      });
 
-    this.markers = [];
+      window.googleMapsStimulusMapInstance = this.map;
 
-    const { AdvancedMarkerElement } = await google.maps.importLibrary("marker");
-    this.AdvancedMarkerElement = AdvancedMarkerElement;
+      this.markers = [];
 
-    this.markTarget.addEventListener("click", (event) => {
-      if (event.target.closest(".save-location-btn")) {
-        this.saveLocation(event);
-      }
+      const { AdvancedMarkerElement } = await google.maps.importLibrary("marker");
+      this.AdvancedMarkerElement = AdvancedMarkerElement;
+
+      this.markTarget.addEventListener("click", (event) => {
+        if (event.target.closest(".save-location-btn")) {
+          this.saveLocation(event);
+        }
+      });
+
+      console.log(`Initial map centered at: ${userLat}, ${userLng}`);
+    },
+    (error) => {
+      console.warn("Geolocation failed, using default center.");
+      this.map = new google.maps.Map(document.getElementById("map"), {
+        center: { lat: 35.633998, lng: 139.715653 },
+        zoom: 13,
+        mapId: "YOUR_MAP_ID"
+      });
+
+      window.googleMapsStimulusMapInstance = this.map;
+
+      this.markers = [];
+
+      google.maps.importLibrary("marker").then(({ AdvancedMarkerElement }) => {
+        this.AdvancedMarkerElement = AdvancedMarkerElement;
+      });
+
+      this.markTarget.addEventListener("click", (event) => {
+        if (event.target.closest(".save-location-btn")) {
+          this.saveLocation(event);
+        }
+      });
     });
   }
 
@@ -32,6 +61,9 @@ export default class extends Controller {
       const userLng = position.coords.longitude;
 
       console.log(`User location: ${userLat}, ${userLng}`);
+
+      // Re-center map on search
+      this.map.setCenter({ lat: userLat, lng: userLng });
 
       const selectedCategories = Array.from(
         document.querySelectorAll('input[name="category"]:checked')
@@ -48,6 +80,10 @@ export default class extends Controller {
       for (const category of selectedCategories) {
         await this.nearbySearch(userLat, userLng, category);
       }
+    },
+    (error) => {
+      console.error("Could not get current location for search:", error);
+      alert("Unable to access your current location.");
     });
   }
 
@@ -92,7 +128,6 @@ export default class extends Controller {
         this.markers.push(markerView);
         bounds.extend(pos);
 
-        // Unique ID for card
         const cardId = `card-${place.id}`;
 
         const placeData = {
@@ -108,31 +143,33 @@ export default class extends Controller {
           address: "Unknown address",
           phone: "Unknown"
         };
- const cardHtml = `
-  <div class="col">
-    <div class="card mx-auto shadow-sm" style="max-width: 400px; width: 100%; cursor: pointer;">
-      <div class="card-body d-flex justify-content-between flex-wrap">
-        <div>
-          <h5 class="card-title mb-2">${place.displayName}</h5>
-          <span class="badge bg-primary mb-2">${category}</span>
-          <p class="card-text rating-text text-muted">⭐ Rating: N/A (0 reviews)</p>
-          <p class="card-text address-text text-muted">📍 Address: Unknown</p>
-          <p class="card-text phone-text text-muted">☎️ Phone: Unknown</p>
-          <button class="btn btn-outline-primary save-location-btn mt-2"
-                  data-place='${encodeURIComponent(JSON.stringify(placeData))}'>
-            Save Location
-          </button>
-        </div>
-        <div class="mt-2 text-end">
-          <i class="fa-solid fa-location-dot fa-xl text-danger"></i>
-        </div>
-      </div>
-    </div>
-  </div>
-`;
+
+        const cardHtml = `
+          <div class="col" id="${cardId}">
+            <div class="card mx-auto shadow-sm" style="max-width: 400px; width: 100%; cursor: pointer;">
+              <div class="card-body d-flex justify-content-between flex-wrap">
+                <div>
+                  <h5 class="card-title mb-2">${place.displayName}</h5>
+                  <span class="badge bg-primary mb-2">${category}</span>
+                  <p class="card-text rating-text text-muted">⭐ Rating: N/A (0 reviews)</p>
+                  <p class="card-text address-text text-muted">📍 Address: Unknown</p>
+                  <p class="card-text phone-text text-muted">☎️ Phone: Unknown</p>
+                  <button class="btn btn-outline-primary save-location-btn mt-2"
+                          data-place='${encodeURIComponent(JSON.stringify(placeData))}'>
+                    Save Location
+                  </button>
+                </div>
+                <div class="mt-2 text-end">
+                  <i class="fa-solid fa-location-dot fa-xl text-danger"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+        `;
+
         this.markTarget.insertAdjacentHTML("beforeend", cardHtml);
 
-        // Now fetch details
+        // Fetch details
         const { Place: PlaceLib } = await google.maps.importLibrary("places");
 
         try {
@@ -148,7 +185,9 @@ export default class extends Controller {
             language: "en",
             region: "jp"
           });
-  console.log(`Reviews for ${place.displayName}:`, details.reviews); // Debugging line
+
+          console.log(`Reviews for ${place.displayName}:`, details.reviews);
+
           placeData.rating = details.rating || null;
           placeData.user_ratings_total = details.user_rating_count || 0;
           placeData.first_review = details.reviews?.[0]?.text || null;
@@ -157,7 +196,6 @@ export default class extends Controller {
 
           console.log(`Updated details for ${place.displayName}`, placeData);
 
-          // 🚀 Update the card!
           const cardElement = document.getElementById(cardId);
           if (cardElement) {
             const ratingElement = cardElement.querySelector(".rating-text");
@@ -222,18 +260,18 @@ export default class extends Controller {
     this.markers = [];
   }
 
- getCategoryType(category) {
-  switch (category) {
-    case "Vet":
-      return "veterinary_care";
-    case "Petshop":
-      return "pet_store";
-    case "park":
-      return "park";
-    case "petcafe":
-      return "cafe";
-    default:
-      return "pet_store";
+  getCategoryType(category) {
+    switch (category) {
+      case "Vet":
+        return "veterinary_care";
+      case "Petshop":
+        return "pet_store";
+      case "park":
+        return "park";
+      case "petcafe":
+        return "cafe";
+      default:
+        return "pet_store";
+    }
   }
-}
 }
