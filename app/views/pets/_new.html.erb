@@ -9,20 +9,22 @@
           <%= f.input :name %>
         </div>
         <div class="col-sm-12 col-md-6">
-          <%= f.input :age %>
+          <%= f.input :age, as: :integer,
+                      input_html: { min: 0, max: 50 } %>
         </div>
       </div>
       <div class="row">
         <div class="col-sm-12 col-md-6">
-          <%= f.input :gender %>
+          <%= f.input :gender, as: :radio_buttons, collection: [['Female'], ['Male']] %>
         </div>
         <div class="col-sm-12 col-md-6">
           <%= f.input :color %>
         </div>
       </div>
       <div class="row">
-        <div class="col-sm-12 col-md-6">
-          <%= f.input :birthdate %>
+        <div class="col-12 col-md-6">
+          <%= f.label :birthdate, class: "form-label" %>
+          <%= f.text_field :birthdate,  data: { controller: "flatpickr" }, class: "form-control" %>
         </div>
         <div class="col-sm-12 col-md-6">
           <%= f.input :species %>

@@ -3,12 +3,12 @@
   <div class="d-flex justify-content-center align-items-center flex-column text-center">
     <% if pet.photo.attached? %>
       <%= cl_image_tag pet.photo.key,
-              class: "rounded-circle border border-3 border-light shadow img-fluid",
-              style: "max-width: 200px; height: auto;" %>
+              class: "rounded-circle border border-3 border-light shadow ",
+              style: "width: 200px; height: 200px; object-fit: cover;" %>
     <% else %>
       <%= image_tag "default-avatar.jpg",
               class: "rounded-circle border border-3 border-light shadow img-fluid",
-              style: "max-width: 200px; height: auto;" %>
+              style: "width: 200px; height: auto;" %>
     <% end %>
   </div>
   <div class="pet-create-form mt-3 mb-5 mx-auto" style="max-width: 500px;">
@@ -16,12 +16,13 @@
       <div class="row">
         <div class="col-12">
           <%= f.input :diagnosis %>
-          <%= f.input :notes %>
-          <%= f.input :visit_date %>
           <%= f.input :treatment %>
+          <%= f.input :notes %>
+          <%= f.label :visit_date, class: "form-label" %>
+          <%= f.text_field :visit_date,  data: { controller: "flatpickr" }, class: "form-control" %>
           <%= f.input :location_id, collection: Location.all.map { |l| [l.name, l.id] }, prompt: "Select a location" %>
-          <%= f.input :vaccination_status %>
-          <%= f.input :insurance_status %>
+          <%#= f.input :vaccination_status %>
+          <%#= f.input :insurance_status %>
         </div>
       </div>
       <div class="d-flex justify-content-between mt-3">
