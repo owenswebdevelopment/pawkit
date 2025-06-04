@@ -1,29 +1,43 @@
-<div id="task_<%= task.id %>">
-  <div class="d-flex flex-column mb-3">
-    <div class="card p-2 border-3">
-      <div class="card-body p-0 d-flex">
-        <div class="card-image p-2" style="width: 88px">
-          <% if task.pet.photo.attached? %>
-            <%= cl_image_tag task.pet.photo.key, class: "rounded-circle img-fluid", style: "object-fit: cover; width: 60px; height: 60px;" %>
-          <% else %>
-            <%= image_tag asset_path("default-avatar.jpg"), class: "rounded-circle img-fluid", style: "object-fit: cover; width: 60px; height: 60px;" %>
+<div id="task_<%= task.id %>"
+     class="mb-4 task-card <%= 'task-completed' if task.completed %>">
+  <div class="card shadow-sm border-0 rounded-4 task-card-hover">
+    <div class="card-body d-flex flex-wrap align-items-center p-3">
+      <!-- Avatar -->
+      <div class="me-3 mb-3 mb-md-0">
+        <% if task.pet.photo.attached? %>
+          <%= cl_image_tag task.pet.photo.key,
+              class: "rounded-circle img-thumbnail",
+              style: "object-fit: cover; width: 64px; height: 64px;" %>
+        <% else %>
+          <%= image_tag asset_path("default-avatar.jpg"),
+              class: "rounded-circle img-thumbnail",
+              style: "object-fit: cover; width: 64px; height: 64px;" %>
+        <% end %>
+      </div>
+      <!-- Task Details -->
+      <div class="flex-grow-1 me-3">
+        <div class="d-flex justify-content-between align-items-center mb-2 flex-wrap">
+          <h5 class="fw-bold mb-0 text-primary"><%= task.title.capitalize %></h5>
+          <% if task.completed %>
+            <span class="badge bg-success text-end">Completed by: <%= task.completed_by&.first_name %></span>
           <% end %>
         </div>
-        <div class="card-details p-2 flex-fill">
-          <div class="d-flex justify-content-between">
-            <h5 class="mb-3"><strong><%= task.title.capitalize %></strong></h5>
-            <% if task.completed %>
-              <strong>Completed by: <%= task.completed_by&.first_name %></strong>
-            <% end %>
-            <%= simple_form_for task, method: :patch, data: { turbo: true } do |f| %>
-              <%= f.input :completed, as: :boolean, label: false, input_html: { onchange: "this.form.submit();", class: "completed-check" } %>
-            <% end %>
-          </div>
-          <div class="p-2 d-flex justify-content-between">
-            <h6 class="description"><%= task.description.capitalize %></h6>
-            <%= task.due_date.strftime("%B %d, %Y") %>
-          </div>
-        </div>
+        <p class="mb-1 text-muted"><%= task.description.capitalize.presence || "-" %></p>
+        <small class="text-danger fw-semibold">Due: <%= task.due_date.strftime("%B %d, %Y") %></small>
+      </div>
+      <!-- Completion Switch -->
+      <div class="form-check form-switch ms-auto d-flex align-items-center">
+        <%= simple_form_for task, method: :patch, data: { turbo: true } do |f| %>
+          <%= f.input :completed,
+                      as: :boolean,
+                      label: false,
+                      wrapper_html: { class: "form-check" },
+                      input_html: {
+                        onchange: "this.form.submit();",
+                        class: "form-check-input",
+                        role: "switch"
+                      } %>
+        <% end %>
       </div>
     </div>
   </div>

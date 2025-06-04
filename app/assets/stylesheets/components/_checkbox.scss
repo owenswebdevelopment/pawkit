@@ -1,0 +1,27 @@
+.task-card-hover {
+  box-shadow:
+    2px 4px 12px rgba(0, 0, 0, 3.15), /* top edge visible */
+    2px 4px 12px rgba(0, 0, 0, 3.15); /* bottom depth */
+  transition: all 0.25s ease-in-out;
+}
+
+.task-card-hover:hover {
+  transform: translateY(-4px);
+  box-shadow:
+    0 0 8px rgba(0, 0, 0, 0.18), /* top still visible */
+    0 8px 16px rgba(0, 0, 0, 0.18); /* hover depth */
+}
+
+
+
+/* Completed task style */
+.task-completed {
+  opacity: 0.6;
+  transition: opacity 0.3s ease-in-out;
+}
+
+/* No lift when completed */
+.task-completed .task-card-hover:hover {
+  transform: none;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.06);
+}
