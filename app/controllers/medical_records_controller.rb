@@ -2,7 +2,7 @@ class MedicalRecordsController < ApplicationController
   # Display a pet's medical records
   def show
     @pet = Pet.find(params[:pet_id])
-    @medical_record = @pet.medical_records
+    @medical_record = MedicalRecord.new
   end
 
   def new
