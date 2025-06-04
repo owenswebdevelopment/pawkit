@@ -36,7 +36,9 @@ class FamiliesController < ApplicationController
 
   def update_current_family
     @current_family = Family.find(params[:id])
-    current_user.update(current_family: @current_family.id.to_s)
+    # current_user.update(current_family: @current_family.id.to_s)
+    current_user.update(current_family_id: @current_family.id)
+
     redirect_to family_path(@current_family)
   end
 

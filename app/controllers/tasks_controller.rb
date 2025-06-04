@@ -1,36 +1,38 @@
 class TasksController < ApplicationController
 
-
-    def index
-        @family = Family.find(params[:family_id])
-        @tasks = @family.tasks.order(:due_date) #array of tasks of pet
-        @task = Task.new
-        # @daily_tasks = Task.where(recurrence: "daily").order(:due_date)
-        # @weeky_tasks = Task.where(recurrence: "weekly").order(:due_date)
-        # @monthly_tasks = Task.where(recurrence: "monthly").order(:due_date)
-
+  def index
+    @family = Family.find(params[:family_id])
+    @tasks = @family.tasks.order(:due_date) #array of tasks of pet
+    @task = Task.new
+    # @daily_tasks = Task.where(recurrence: "daily").order(:due_date)
+    # @weeky_tasks = Task.where(recurrence: "weekly").order(:due_date)
+    # @monthly_tasks = Task.where(recurrence: "monthly").order(:due_date)
 
 
+
+
+
+  end
+
+  def create
+    @task = Task.new(task_params)
+    @task.user = current_user
+
+
+
+    if @task.save
+      redirect_to request.referer, notice: 'Saved Successfully'
+    else
+      render "families/show", status: :unprocessable_entity, notice: 'Save unsuccessful'
 
     end
+  end
 
-    def create
-        @task = Task.new(task_params)
-        @task.user = current_user
-        @task.pet = Pet.find(params[:task][:pet_id])
+  def update
+    @task = Task.find(params[:id])
+    @task.completed_by = current_user
+    @task.update(task_params)
 
-        if @task.save
-
-            redirect_to request.referer, notice: 'Saved Successfully'
-        else
-            render "families/:id", status: :unprocessable_entity
-        end
-    end
-
-    def update
-        @task = Task.find(params[:id])
-        @task.completed_by = current_user
-        @task.update(task_params)
 
         send_line_notification("C493c98e6e0b758410091ac87570ec99d", @task.completed? ? "#{@task.title} has been completed for #{@task.pet.name}." : "")
 
@@ -39,9 +41,9 @@ class TasksController < ApplicationController
             format.turbo_stream
          end
     end
+  end
 
-
-    private
+  private
 
     def task_params
       params.require(:task).permit(:description, :due_date, :title, :completed, :completed_by, :recurrence, :pet_id)
@@ -63,5 +65,5 @@ class TasksController < ApplicationController
     rescue => e
       Rails.logger.error "Error sending LINE notification to #{user_line_id}: #{e.message}"
     end
-  end
+
 end
