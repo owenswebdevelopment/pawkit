@@ -12,16 +12,16 @@
   <div style="text-align: center;">
     <% family_path_target = (user_signed_in? && current_user.families.present? && current_family) ? family_path(current_family) : "#" %>
     <%= link_to family_path_target, style: "color: #283618; text-decoration: none;" do %>
-      <i class="fa-solid fa-people-roof fa-xm <%= current_page?(family_path(current_family)) ? 'text-success' : 'text-muted' %>" style="font-size: 20px;"></i>
-      <p class="<%= current_page?(family_path(current_family)) ? 'text-success' : 'text-muted' %>" style="margin: 0; font-size: 14px;">Family</p>
+      <i class="fa-solid fa-people-roof fa-xm <%= current_family.present? && current_page?(family_path(current_family)) ? 'text-success' : 'text-muted' %>" style="font-size: 20px;"></i>
+      <p class='<%= current_family.present? && current_page?(family_path(current_family)) ? 'text-success' : 'text-muted' %>' style="margin: 0; font-size: 14px;">Family</p>
     <% end %>
   </div>
   <!-- Memories -->
   <div style="text-align: center;">
     <% memories_path_target = (user_signed_in? && current_user.families.present? && current_family) ? family_memories_path(current_family) : "#" %>
     <%= link_to memories_path_target, style: "color: #283618; text-decoration: none;" do %>
-      <i class="fa-solid fa-camera-retro fa-xm <%= current_page?(family_memories_path(current_family)) ? 'text-success' : 'text-muted' %>" style="font-size: 20px;"></i>
-      <p class="<%= current_page?(family_memories_path(current_family)) ? 'text-success' : 'text-muted' %>" style="margin: 0; font-size: 14px;">Memories</p>
+      <i class="fa-solid fa-camera-retro fa-xm <%= current_family.present? && current_page?(family_memories_path(current_family)) ? 'text-success' : 'text-muted' %>" style="font-size: 20px;"></i>
+      <p class="<%= current_family.present? && current_page?(family_memories_path(current_family)) ? 'text-success' : 'text-muted' %>" style="margin: 0; font-size: 14px;">Memories</p>
     <% end %>
   </div>
   <!-- Map -->
