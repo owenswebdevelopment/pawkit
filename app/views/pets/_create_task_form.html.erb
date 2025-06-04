@@ -6,18 +6,13 @@
       ["Play <i class='fa-solid fa-dog'></i>".html_safe, "play"],
       ["Walk <i class='fa-solid fa-shoe-prints'></i>".html_safe, "walk"],
       ["Vet <i class='fa-solid fa-stethoscope'></i>".html_safe, "vet"],
-      ["Medicine <i class='fa-solid fa-capsules'></i>".html_safe, "medicine"],
-      ["Custom", "custom"]
+      ["Medicine <i class='fa-solid fa-capsules'></i>".html_safe, "medicine"]
     ],
     as: :radio_buttons,
     input_html: { class: "tag-selector", data: { action: "click->title-custom#toggleCustomInput" } },
     item_wrapper_class: "tag-item"
   %>
 
-  <div data-title-custom-target="customInput" style="display: none;">
-    <%= f.label :title, "Custom Title" %>
-    <%= f.text_field :title, class: "form-control" %>
-  </div>
 </div>
   <%= f.input :description,label: false, placeholder: "Enter a short description..." %>
   <div class="d-flex align-items-center gap-2">
