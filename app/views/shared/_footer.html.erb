@@ -7,20 +7,20 @@
   </div>
   <div style="text-align: center;">
     <%= link_to(user_signed_in? && current_user.families.present? ? family_path(current_user.families.first) : "#", style: "color: #283618; text-decoration: none;") do %>
-      <i class="fa-solid fa-people-roof fa-xm <%= current_page?(family_path(current_user.families.first)) ? 'text-success' : 'text-muted' %>" style="font-size: 20px;"></i>
-      <p class='<%= current_page?(family_path(current_user.families.first)) ? 'text-success' : 'text-muted' %>' style="margin: 0; font-size: 14px;">Family</p>
+      <i class="fa-solid fa-people-roof fa-xm" style="font-size: 20px;"></i>
+      <p class='text-muted' style="margin: 0; font-size: 14px;">Family</p>
     <% end %>
   </div>
   <div style="text-align: center;">
     <%= link_to(user_signed_in? && current_user.families.present? ? family_memories_path(current_user.families.first) : "#", style: "color: #283618; text-decoration: none;") do %>
-      <i class="fa-solid fa-camera-retro fa-xm <%= current_page?(family_memories_path(current_user.families.first)) ? 'text-success' : 'text-muted' %>" style="font-size: 20px;"></i>
-      <p class='<%= current_page?(family_memories_path(current_user.families.first)) ? 'text-success' : 'text-muted' %>' style="margin: 0; font-size: 14px;">Memories</p>
+      <i class="fa-solid fa-camera-retro fa-xm" style="font-size: 20px;"></i>
+      <p class='text-muted' style="margin: 0; font-size: 14px;">Memories</p>
     <% end %>
   </div>
   <div style="text-align: center;">
     <%= link_to(user_signed_in? && current_user.families.present? ? locations_path : "#", style: "color: #283618; text-decoration: none;") do %>
-      <i class= "fa-solid fa-location-dot fa-xm <%= current_page?(locations_path) ? 'text-success' : 'text-muted' %>" style="font-size: 20px;"></i>
-      <p class='<%= current_page?(locations_path) ? 'text-success' : 'text-muted' %>' style="margin: 0; font-size: 14px;">Map</p>
+      <i class= "fa-solid fa-location-dot fa-xm" style="font-size: 20px;"></i>
+      <p class='text-muted' style="margin: 0; font-size: 14px;">Map</p>
     <% end %>
   </div>
 </footer>

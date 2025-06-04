@@ -17,7 +17,7 @@ class PetsController < ApplicationController
     @pet.family = @family
 
     if @pet.save
-      # send_line_notification("A new pet has been added: #{@pet.name}")
+      # send_line_notification("C493c98e6e0b758410091ac87570ec99d", "#{@pet.name} has been added to the family.")
 
       redirect_to pet_path(@pet), notice: 'Pet was successfully created!'
     else
@@ -53,6 +53,23 @@ class PetsController < ApplicationController
     params.require(:pet).permit(:name, :age, :gender, :color, :birthdate, :species, :photo)
   end
 
+  def send_line_notification(user_line_id, text_message)
+    begin
+      @client ||= Line::Bot::V2::MessagingApi::ApiClient.new(
+        channel_access_token: ENV["CHANNEL_ACCESS_TOKEN"],
+      )
+
+      response = @client.push_message(push_message_request: Line::Bot::V2::MessagingApi::PushMessageRequest.new(
+                                        to: user_line_id,
+                                        messages: [
+                                          Line::Bot::V2::MessagingApi::TextMessage.new(text: text_message),
+                                        ],
+                                      ))
+      Rails.logger.info "LINE Notification Sent: #{response.body}"
+    rescue => e
+      Rails.logger.error "Error sending LINE notification to #{user_line_id}: #{e.message}"
+    end
+  end
   # def send_line_notification(message)
   #   uri = URI.parse("https://api.line.me/v2/bot/message/push")
   #   request = Net::HTTP::Post.new(uri)

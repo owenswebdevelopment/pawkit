@@ -26,8 +26,7 @@ Rails.application.routes.draw do
   end
 
 
-  post '/line-bot/callback', to: 'line_bot#callback'
+  post '/callback', to: 'line_bot#callback'
     post "join_family_action", to: "families#join_family_action", as: :join_family_action
 
 end
-
