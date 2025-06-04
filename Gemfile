@@ -79,3 +79,4 @@ gem 'cloudinary', '~> 1.16.0'
 gem "solid_cable"
 gem 'geocoder'
 gem 'line-bot-api'
+gem 'ostruct'
