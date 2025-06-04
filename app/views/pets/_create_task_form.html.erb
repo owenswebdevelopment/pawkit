@@ -26,7 +26,7 @@
   </div>
   <%= f.input :recurrence, label: "", collection: [["None", "none"], ["Daily", "daily"], ["Weekly", "weekly"], ["Monthly", "monthly"]], prompt: "Select recurrence", as: :radio_buttons,
             input_html: { class: "tag-selector" }, item_wrapper_class: "tag-item"  %>
-  <%= f.hidden_field :pet_id, value: pet.id %>
+  <%= f.association :pet, as: :radio_buttons, input_html: { class: "tag-selector" }, item_wrapper_class: "tag-item" %>
 
   <%= f.submit "Create Task", class: "btn btn-primary" %>
   </div>

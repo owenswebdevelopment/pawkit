@@ -17,13 +17,6 @@ class TasksController < ApplicationController
     @task = Task.new(task_params)
     @task.user = current_user
 
-    if params[:task][:pet_id].blank?
-      @family = Family.find(params[:family_id])
-      @pet = Pet.new
-      @tasks = @family.tasks
-    else
-      @task.pet = Pet.find(params[:task][:pet_id])
-    end
 
     if @task.save
       redirect_to request.referer, notice: 'Saved Successfully'
@@ -42,7 +35,6 @@ class TasksController < ApplicationController
       format.turbo_stream
     end
   end
-
 
   private
 

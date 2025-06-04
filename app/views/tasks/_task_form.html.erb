@@ -14,11 +14,6 @@
     item_wrapper_class: "tag-item"
   %>
 
-  <div data-title-custom-target="customInput" style="display: none;">
-    <%= f.label :title, "Custom Title" %>
-    <%= f.text_field :title, class: "form-control" %>
-  </div>
-</div>
   <%= f.input :description,label: false, placeholder: "Enter a short description..." %>
   <div class="d-flex align-items-center gap-2">
     <%= f.label :due_date, "Due Date", class: "form-label mb-0" %>
@@ -26,7 +21,6 @@
   </div>
   <%= f.input :recurrence, label: "", collection: [["None", "none"], ["Daily", "daily"], ["Weekly", "weekly"], ["Monthly", "monthly"]], prompt: "Select recurrence", as: :radio_buttons,
             input_html: { class: "tag-selector" }, item_wrapper_class: "tag-item"  %>
-  <%= f.input :pet_id, collection: family.pets.map { |p| [p.name, p.id] }, as: :radio_buttons,
-            input_html: { class: "tag-selector" }, item_wrapper_class: "tag-item" %>
+  <%= f.association :pet, as: :radio_buttons, input_html: { class: "tag-selector" }, item_wrapper_class: "tag-item" %>
   <%= f.submit "Create Task", class: "btn btn-primary" %>
 <% end %>
