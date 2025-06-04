@@ -6,21 +6,21 @@
     <% end %>
   </div>
   <div style="text-align: center;">
-    <%= link_to(user_signed_in? && current_user.families.present? ? family_path(Family.find(current_user.current_family)) : "#", style: "color: #283618; text-decoration: none;") do %>
+    <%#= link_to(user_signed_in? && current_user.families.present? ? family_path(Family.find(current_user.current_family)) : "#", style: "color: #283618; text-decoration: none;") do %>
       <i class="fa-solid fa-people-roof fa-xm text-muted" style="font-size: 20px;"></i>
       <p class='text-muted' style="margin: 0; font-size: 14px;">Family</p>
-    <% end %>
-  </div>
-  <div style="text-align: center;">
-    <%= link_to(user_signed_in? && current_user.families.present? ? family_memories_path(Family.find(current_user.current_family)) : "#", style: "color: #283618; text-decoration: none;") do %>
-      <i class="fa-solid fa-camera-retro fa-xm text-muted" style="font-size: 20px;"></i>
-      <p class='text-muted' style="margin: 0; font-size: 14px;">Memories</p>
-    <% end %>
-  </div>
-  <div style="text-align: center;">
-    <%= link_to(user_signed_in? && current_user.families.present? ? locations_path : "#", style: "color: #283618; text-decoration: none;") do %>
-      <i class= "fa-solid fa-location-dot fa-xm text-muted" style="font-size: 20px;"></i>
-      <p class='text-muted' style="margin: 0; font-size: 14px;">Map</p>
-    <% end %>
-  </div>
-</footer>
+      <%# end %>
+    </div>
+    <div style="text-align: center;">
+      <%#= link_to(user_signed_in? && current_user.families.present? ? family_memories_path(Family.find(current_user.current_family)) : "#", style: "color: #283618; text-decoration: none;") do %>
+        <i class="fa-solid fa-camera-retro fa-xm text-muted" style="font-size: 20px;"></i>
+        <p class='text-muted' style="margin: 0; font-size: 14px;">Memories</p>
+        <%# end %>
+      </div>
+      <div style="text-align: center;">
+        <%#= link_to(user_signed_in? && current_user.families.present? ? locations_path : "#", style: "color: #283618; text-decoration: none;") do %>
+          <i class= "fa-solid fa-location-dot fa-xm text-muted" style="font-size: 20px;"></i>
+          <p class='text-muted' style="margin: 0; font-size: 14px;">Map</p>
+          <%# end %>
+        </div>
+      </footer>
