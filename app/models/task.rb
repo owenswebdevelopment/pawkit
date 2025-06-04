@@ -6,6 +6,8 @@ class Task < ApplicationRecord
   validates :due_date, presence: true
   after_create_commit :broadcast_task
   after_update_commit :recurring_task
+  # after_update_commit :message_memory
+
 
   def broadcast_task
     broadcast_append_to "family_#{pet.family.id}_tasks",
@@ -16,5 +18,13 @@ class Task < ApplicationRecord
 
   def recurring_task
     RecurringTasksJob.new(self).perform if completed?
+  end
+
+  def message_memory
+    Memory.create(
+      text: "#{title} was completed for #{pet.name} by #{completed_by.first_name}",
+      user: user,
+      family: pet.family
+    )
   end
 end
