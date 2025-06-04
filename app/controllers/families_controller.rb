@@ -34,6 +34,14 @@ class FamiliesController < ApplicationController
     end
   end
 
+  def update_current_family
+    @current_family = Family.find(params[:id])
+    current_user.update(current_family: @current_family.id.to_s)
+    redirect_to family_path(@current_family)
+  end
+
+  private
+
   def strong_params
     params.require(:family).permit(:name, :photo)
     # @families = current_user.families
