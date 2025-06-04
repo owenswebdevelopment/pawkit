@@ -1,6 +1,6 @@
 <%= simple_form_for [family, task] do |f| %>
-<div data-controller="title-custom">
-  <%= f.input :title,
+  <div data-controller="title-custom">
+    <%= f.input :title,
     collection: [
       ["Feed <i class='fa-solid fa-bone'></i>".html_safe, "feed"],
       ["Play <i class='fa-solid fa-dog'></i>".html_safe, "play"],
@@ -12,8 +12,7 @@
     input_html: { class: "tag-selector", data: { action: "click->title-custom#toggleCustomInput" } },
     item_wrapper_class: "tag-item"
   %>
-
-</div>
+  </div>
   <%= f.input :description,label: false, placeholder: "Enter a short description..." %>
   <div class="d-flex align-items-center gap-2">
     <%= f.label :due_date, "Due Date", class: "form-label mb-0" %>
@@ -22,7 +21,6 @@
   <%= f.input :recurrence, label: "", collection: [["None", "none"], ["Daily", "daily"], ["Weekly", "weekly"], ["Monthly", "monthly"]], prompt: "Select recurrence", as: :radio_buttons,
             input_html: { class: "tag-selector" }, item_wrapper_class: "tag-item"  %>
   <%= f.hidden_field :pet_id, value: pet.id %>
-
   <%= f.submit "Create Task", class: "btn btn-primary" %>
-  </div>
+</div>
 <% end %>
