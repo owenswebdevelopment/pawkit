@@ -4,9 +4,8 @@ export default class extends Controller {
   static targets = ["searchButton", "mark"]
 
   async connect() {
-    // Initialize map centered at Meguro by default
     this.map = new google.maps.Map(document.getElementById("map"), {
-      center: { lat: 35.633998, lng: 139.715653 }, // Meguro
+      center: { lat: 35.633998, lng: 139.715653 },
       zoom: 13,
       mapId: "YOUR_MAP_ID"
     });
@@ -15,11 +14,9 @@ export default class extends Controller {
 
     this.markers = [];
 
-    // 🚀 Preload AdvancedMarkerElement ONCE — SAFE
     const { AdvancedMarkerElement } = await google.maps.importLibrary("marker");
     this.AdvancedMarkerElement = AdvancedMarkerElement;
 
-    // Delegate click for Save buttons
     this.markTarget.addEventListener("click", (event) => {
       if (event.target.closest(".save-location-btn")) {
         this.saveLocation(event);
@@ -45,13 +42,9 @@ export default class extends Controller {
         return;
       }
 
-      // Clear old markers
       this.clearMarkers();
-
-      // Clear old cards
       this.markTarget.innerHTML = "";
 
-      // For each selected category, perform Nearby Search
       for (const category of selectedCategories) {
         await this.nearbySearch(userLat, userLng, category);
       }
@@ -62,15 +55,15 @@ export default class extends Controller {
     const { Place, SearchNearbyRankPreference } = await google.maps.importLibrary("places");
 
     const location = new google.maps.LatLng(lat, lng);
-
     const categoryType = this.getCategoryType(category);
+
     console.log(`Searching category: ${categoryType}`);
 
     const request = {
       fields: ["displayName", "location", "businessStatus", "id"],
       locationRestriction: {
         center: location,
-        radius: 3000, // 3km
+        radius: 3000,
       },
       includedPrimaryTypes: [categoryType],
       maxResultCount: 10,
@@ -90,7 +83,6 @@ export default class extends Controller {
       for (const place of places) {
         const pos = place.location.toJSON();
 
-        // SAFE: Use preloaded AdvancedMarkerElement
         const markerView = new this.AdvancedMarkerElement({
           map: this.map,
           position: pos,
@@ -100,7 +92,9 @@ export default class extends Controller {
         this.markers.push(markerView);
         bounds.extend(pos);
 
-        // BASE CARD DATA — always insert first
+        // Unique ID for card
+        const cardId = `card-${place.id}`;
+
         const placeData = {
           place_id: place.id,
           name: place.displayName,
@@ -114,24 +108,22 @@ export default class extends Controller {
           address: "Unknown address",
           phone: "Unknown"
         };
-
         const cardHtml = `
-          <div class="d-flex justify-content-center">
-            <div class="card mb-2" style="cursor: pointer; width: 400px;">
-              <div class="card-body shadow-sm d-flex justify-content-between">
+          <div class="d-flex justify-content-center" id="${cardId}">
+            <div class="card mb-2 w-100" style="max-width: 400px; cursor: pointer;">
+              <div class="card-body shadow-sm d-flex justify-content-between flex-wrap">
                 <div>
                   <h5 class="card-title">${place.displayName}</h5>
                   <span class="badge bg-primary mb-2">${category}</span>
-                  <p class="card-text">Business status: ${place.businessStatus || "Unknown"}</p>
-                  <p class="card-text">Rating: N/A (0 reviews)</p>
-                  <p class="card-text">Address: Unknown address</p>
-                  <p class="card-text">Phone: Unknown</p>
+                  <p class="card-text rating-text">Rating: N/A (0 reviews)</p>
+                  <p class="card-text address-text">Address: Unknown address</p>
+                  <p class="card-text phone-text">Phone: Unknown</p>
                   <button class="btn btn-outline-primary save-location-btn mt-2"
                           data-place='${encodeURIComponent(JSON.stringify(placeData))}'>
                     Save Location
                   </button>
                 </div>
-                <div>
+                <div class="mt-2 mt-md-0">
                   <a target="_blank" href="https://maps.google.com/maps/dir/?api=1&destination=${pos.lat},${pos.lng}">
                     <i class="fa-solid fa-location-dot fa-2xl"></i>
                   </a>
@@ -143,7 +135,7 @@ export default class extends Controller {
 
         this.markTarget.insertAdjacentHTML("beforeend", cardHtml);
 
-        // Now — try to fetch details
+        // Now fetch details
         const { Place: PlaceLib } = await google.maps.importLibrary("places");
 
         try {
@@ -168,7 +160,24 @@ export default class extends Controller {
 
           console.log(`Updated details for ${place.displayName}`, placeData);
 
-          // (Advanced — you can update the card here if you want)
+          // 🚀 Update the card!
+          const cardElement = document.getElementById(cardId);
+          if (cardElement) {
+            const ratingElement = cardElement.querySelector(".rating-text");
+            const addressElement = cardElement.querySelector(".address-text");
+            const phoneElement = cardElement.querySelector(".phone-text");
+
+            if (ratingElement) {
+              ratingElement.innerText = `Rating: ${placeData.rating || "N/A"} (${placeData.user_ratings_total || 0} reviews)`;
+            }
+            if (addressElement) {
+              addressElement.innerText = `Address: ${placeData.address}`;
+            }
+            if (phoneElement) {
+              phoneElement.innerText = `Phone: ${placeData.phone}`;
+            }
+          }
+
         } catch (error) {
           console.warn(`Could not fetch details for ${place.displayName}:`, error);
         }
