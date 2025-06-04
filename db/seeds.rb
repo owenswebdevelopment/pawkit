@@ -46,7 +46,6 @@ pet_data = [
   { name: "Luffy", age: 3, gender: "male", species: "cat", color: "Black", birthdate: Date.new(2022, 3, 15), photo_url: "https://upload.wikimedia.org/wikipedia/commons/4/4c/Blackcat-Lilith.jpg" },
   { name: "Chopper", age: 2, gender: "male", species: "dog", color: "Brown", birthdate: Date.new(2023, 2, 5), photo_url: "https://unionlakeveterinaryhospital.com/wp-content/uploads/2019/03/bunny-968856_1280-1080x675.jpg"},
   { name: "Momo", age: 5, gender: "female", species: "rabbit", color: "White", birthdate: Date.new(2020, 7, 20), photo_url: "https://www.croftsvetsurgery.co.uk/images/labrador_dog_lying_down_on_pavement.jpg" },
-  { name: "Taro", age: 6, gender: "male", species: "parrot", color: "Green", birthdate: Date.new(2019, 11, 10), photo_url: "https://pet-health-content-media.chewy.com/wp-content/uploads/2025/04/16141557/202503bec-202411dwarf-hamster-eating-in-bowl-1024x683.jpg" }
 ]
 
 pet_data.each do |pet|
