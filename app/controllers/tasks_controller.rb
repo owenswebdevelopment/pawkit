@@ -19,7 +19,7 @@ class TasksController < ApplicationController
         @task.pet = Pet.find(params[:task][:pet_id])
 
         if @task.save
-          send_line_notification("C493c98e6e0b758410091ac87570ec99d", "#{@task.title} has been assigned to #{pet.name}.")
+          # send_line_notification("C493c98e6e0b758410091ac87570ec99d", "#{@task.title} has been assigned to #{pet.name}.")
 
             redirect_to request.referer, notice: 'Saved Successfully'
         else
