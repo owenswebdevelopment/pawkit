@@ -9,4 +9,13 @@ class Pet < ApplicationRecord
   validates :gender, presence: true
   validates :species, presence: true
   validates :birthdate, presence: true
+  after_create_commit :add_common_tasks
+
+  def add_common_tasks
+    Task.create!(title: "Feed #{name}", due_date: Date.today, pet: self, user: self.family.users.first, recurrence: "daily", description: "Don't forget to feed #{name} at the usual time!")
+    Task.create!(title: "Walk #{name}", due_date: Date.today, pet: self, user: self.family.users.first, recurrence: "daily", description: "Don't forget to walk #{name} at the usual time!") if species.downcase == "dog"
+    Task.create!(title: "Groom #{name}", due_date: Date.today, pet: self, user: self.family.users.first, recurrence: "daily", description: "Don't forget to groom #{name} at the usual time!")
+    Task.create!(title: "Bath #{name}", due_date: Date.today, pet: self, user: self.family.users.first, recurrence: "weekly", description: "Don't forget to bath #{name} at the usual time!")
+  end
+
 end

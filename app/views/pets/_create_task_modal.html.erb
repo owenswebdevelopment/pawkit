@@ -1,9 +1,9 @@
 <div class="mb-3">
   <button type="button"
-    class="btn btn-success rounded-circle"
-    style="width: 56px; height: 56px; padding: 0; display:flex; justify-content: center; align-items: center;"
-    data-bs-toggle="modal" data-bs-target="#taskModal1">
-      <i class="fa-solid fa-plus p-1" style="font-size: 52px; color: white;"></i>
+  class="btn btn-success rounded-circle"
+  style="width: 56px; height: 56px; padding: 0; display:flex; justify-content: center; align-items: center;"
+   data-bs-toggle="modal" data-bs-target="#taskModal1">
+    <i class="fa-solid fa-plus p-1" style="font-size: 52px; color: white;"></i>
   </button>
   <!-- Modal -->
   <div class="modal fade" id="taskModal1" tabindex="-1" aria-labelledby="taskModalLabel" aria-hidden="true">
@@ -15,7 +15,7 @@
         </div>
         <div class="modal-body">
             <div class="m-5">
-              <%= render "tasks/task_form", family: @family, task: @task %>
+              <%= render "pets/create_task_form", family: @family, pet: @pet, task: @task %>
             </div>
           </div>
         </div>
