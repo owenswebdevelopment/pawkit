@@ -4,7 +4,6 @@ class Task < ApplicationRecord
   belongs_to :completed_by, class_name: 'User', optional: true
   validates :title, presence: true
   validates :due_date, presence: true
-  validates :description, presence: true
   after_create_commit :broadcast_task
   after_update_commit :recurring_task
 

@@ -63,6 +63,6 @@
 <div class="container d-flex justify-content-center mt-4">
   <div class="w-100 text-center">
     <%= render "tasks/tasks", tasks: @pet.tasks, family:@family %>
-    <%= render "tasks/modal", family: @family %>
+    <%= render "pets/create_task_modal", family: @family, pet: @pet%>
   </div>
 </div>

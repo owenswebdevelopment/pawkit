@@ -26,10 +26,14 @@
     outline: 1px solid #444444;
     width: 1.2em;
     height: 1.2em;
-  
+
 }
 
 .completed-check:hover {
   accent-color: #0056b3; /* Darker shade on hover */
   transform: scale(1.1); /* Slight enlargement */
+}
+
+.tag-selector:checked + label {
+    background-color: #b3eada !important;
 }

@@ -1,9 +1,0 @@
-<%= simple_form_for [family, task] do |f| %>
-  <%= f.input :title %>
-  <%= f.input :description %>
-  <%= f.input :due_date %>
-  <%= f.input :recurrence, collection: [["None", "none"], ["Daily", "daily"], ["Weekly", "weekly"], ["Monthly", "monthly"]], prompt: "Select recurrence"  %>
-  <%= f.input :pet_id, collection: family.pets.map { |p| [p.name, p.id] }, as: :radio_buttons,
-            input_html: { class: "tag-selector" }, item_wrapper_class: "tag-item" %>
-  <%= f.submit "Create Task", class: "btn btn-primary" %>
-<% end %>

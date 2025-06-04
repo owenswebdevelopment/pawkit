@@ -9,3 +9,4 @@ pin "bootstrap", to: "bootstrap.min.js", preload: true
 pin "@popperjs/core", to: "popper.js", preload: true
 pin "gmaps" # @0.4.25
 pin "sweetalert2" # @11.22.0
+pin "flatpickr" # @4.6.13

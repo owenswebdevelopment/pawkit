@@ -30,6 +30,10 @@
       </div>
     <% end %>
   </div>
-  <%= render "tasks/tasks", tasks: @tasks, family: @family %>
-  <%= render "families/modal", family: @family %>
+  <div class="container d-flex justify-content-center mt-4">
+    <div class="w-100 text-center">
+      <%= render "tasks/tasks", tasks: @tasks, family: @family %>
+      <%= render "tasks/modal", family: @family %>
+    </div>
+  </div>
 </div>
