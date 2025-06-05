@@ -1,5 +1,10 @@
-<%= simple_form_for [family, task] do |f| %>
-  <div data-controller="title-custom">
+<%= simple_form_for [family, task],
+ data: {
+    controller: "modal",
+    action: "submit->modal#handleSubmit"
+  },
+  html: { id: "new-task-form" } do |f| %>
+
     <%= f.input :title,
     collection: [
       ["Feed <i class='fa-solid fa-bone'></i>".html_safe, "feed"],
@@ -19,6 +24,7 @@
     </div>
     <%= f.input :recurrence, label: "", collection: [["None", "none"], ["Daily", "daily"], ["Weekly", "weekly"], ["Monthly", "monthly"]], prompt: "Select recurrence", as: :radio_buttons,
             input_html: { class: "tag-selector" }, item_wrapper_class: "tag-item"  %>
-    <%= f.association :pet, as: :radio_buttons, input_html: { class: "tag-selector" }, item_wrapper_class: "tag-item" %>
+    <%= f.association :pet, as: :radio_buttons, input_html: { class: "tag-selector" }, item_wrapper_class: "tag-item", required: true %>
+    <div id="form-error" class="text-danger mb-2" style="display: none;"></div>
     <%= f.submit "Create Task", class: "btn btn-primary" %>
   <% end %>
