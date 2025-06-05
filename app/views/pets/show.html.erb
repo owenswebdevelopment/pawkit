@@ -39,21 +39,24 @@
         <% end %>
       </div>
     </div>
-    <div class="row my-4 g-2 justify-content-center">
-      <div class="col-5 bg-white rounded-3 py-2 shadow-sm m-1">
-        <i class="fa-solid fa-cake-candles me-1 text-muted"></i><br>
-        <small class="text-muted">Date</small><br>
-        <strong><%= @pet.birthdate.strftime("%y/%m/%d") %></strong>
-      </div>
-      <div class="col-5 bg-white rounded-3 py-2 shadow-sm m-1">
-        <i class="fa-solid fa-paw me-1 text-muted"></i><br>
-        <small class="text-muted">Species</small><br>
-        <strong><%= @pet.species %></strong>
-      </div>
-      <div class="col-5 bg-white rounded-3 py-2 shadow-sm m-1">
+    <div class="d-flex justify-content-around my-4 g-2">
+      <div class="bg-white rounded-3 py-2 shadow-sm m-1 text-center flex-fill">
         <i class="fa-solid fa-venus-mars me-1 text-muted"></i><br>
-        <small class="text-muted">Gender</small><br>
         <strong><%= @pet.gender %></strong>
+      </div>
+      <div class="bg-white rounded-3 py-2 shadow-sm m-1 text-center flex-fill">
+        <i class="fa-solid fa-cake-candles me-1 text-muted"></i><br>
+        <strong>
+          <%
+          today = Date.current
+          age = today.year - @pet.birthdate.year
+          age -= 1 if today < @pet.birthdate + age.years %>
+          <%= age %> years old
+        </strong>
+      </div>
+      <div class="bg-white rounded-3 py-2 shadow-sm m-1 text-center flex-fill">
+        <i class="fa-solid fa-paw me-1 text-muted"></i><br>
+        <strong><%= @pet.species %></strong>
       </div>
     </div>
   </div>
