@@ -2,6 +2,7 @@ class FamiliesController < ApplicationController
   def index
     # @family = Family.find[:user_family][:family_id]
     @families = current_user.families
+    @family = Family.all
   end
 
   # def join_family_action
