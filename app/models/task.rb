@@ -23,7 +23,7 @@ class Task < ApplicationRecord
 
   def message_memory
     Memory.create(
-      text: "#{title.capitalize} was completed for #{pet.name}",
+      text: "#{title} was completed for #{pet.name} by #{completed_by.first_name}",
       user: user,
       family: pet.family
     )
