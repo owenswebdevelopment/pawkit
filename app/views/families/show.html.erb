@@ -37,3 +37,11 @@
     </div>
   </div>
 </div>
+<div class="container d-flex justify-content-center align-items-center mb-4">
+  <div class="bg-white rounded-4 shadow-lg p-2 text-center" style="width: 50%; max-width: 500px;">
+    <h5 class="text-muted">Invite Code</h5>
+    <%= text_field_tag :invite_token, @family.invite_token, readonly: true,
+    class: "form-control mb-3 text-muted",
+    style: "background-color: #f8f9fa; color: #6c757d;" %>
+  </div>
+</div>

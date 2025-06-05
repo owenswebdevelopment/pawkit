@@ -4,11 +4,23 @@ class FamiliesController < ApplicationController
     @families = current_user.families
   end
 
+  # def join_family_action
+  #   family_id = params[:user_family][:family_id]
+  #   @family = Family.find(family_id)
+  #   current_user.families.create(family: @family) unless current_user.families.include?(@family)
+  #   redirect_to family_path(@family), notice: "You joined the family!"
+  # end
+
   def join_family_action
-    family_id = params[:user_family][:family_id]
-    @family = Family.find(family_id)
-    current_user.families.create(family: @family) unless current_user.families.include?(@family)
-    redirect_to family_path(@family), notice: "You joined the family!"
+    @family = Family.find_by(invite_token: params[:invite_token])
+    if @family && !current_user.families.include?(@family)
+      current_user.families << @family
+      current_user.update(current_family_id: @family.id)
+      flash[:notice] = "You've joined the family!"
+    else
+      flash[:alert] = "Invalid family code or already a member."
+    end
+    redirect_to families_path
   end
 
   def show
