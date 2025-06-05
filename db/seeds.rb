@@ -10,7 +10,7 @@ Location.destroy_all
 puts "seeding admin_user, family and pet....."
 
 # Create the family FIRST before adding users
-family = Family.create(name: "Tanaka's family")
+family = Family.create(name: "Newsome's family")
 
 if family.persisted?
   puts "Family '#{family.name}' successfully created!"
@@ -20,11 +20,11 @@ end
 
 # Define family members
 family_members = [
-  { first_name: "Owen", last_name: "Tanaka", address: "Meguro", email: "owen@gmail.com", password: "123456" },
-  { first_name: "Marie", last_name: "Tanaka", address: "Meguro", email: "marie@gmail.com", password: "123456" },
-  { first_name: "Hayao", last_name: "Tanaka", address: "Meguro", email: "hayao@gmail.com", password: "123456" },
-  { first_name: "Yuki", last_name: "Tanaka", address: "Meguro", email: "yuki@gmail.com", password: "123456" },
-  { first_name: "Haruka", last_name: "Tanaka", address: "Meguro", email: "haruka@gmail.com", password: "123456" }
+  { first_name: "Owen", last_name: "Newsome", address: "Meguro", email: "owen@gmail.com", password: "123456" },
+  { first_name: "Marie", last_name: "Newsome", address: "Meguro", email: "marie@gmail.com", password: "123456" },
+  { first_name: "Hayao", last_name: "Newsome", address: "Meguro", email: "hayao@gmail.com", password: "123456" },
+  { first_name: "Yuki", last_name: "Newsome", address: "Meguro", email: "yuki@gmail.com", password: "123456" },
+  { first_name: "Haruka", last_name: "Newsome", address: "Meguro", email: "haruka@gmail.com", password: "123456" }
 ]
 
 # Loop through each member and associate them with the family
