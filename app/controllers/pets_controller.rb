@@ -19,7 +19,7 @@ class PetsController < ApplicationController
     if @pet.save
         send_line_notification("C493c98e6e0b758410091ac87570ec99d", "#{@pet.name} has been added to the family.")
 
-      redirect_to pet_path(@pet), notice: 'Pet was successfully created!'
+      redirect_to pet_path(@family, @pet), notice: 'Pet was successfully created!'
     else
       @family = Family.find(params[:family_id])
       render :show, status: :unprocessable_entity

@@ -2,7 +2,9 @@ class TasksController < ApplicationController
 
   def index
     @family = Family.find(params[:family_id])
-    @tasks = @family.tasks.order(:due_date) #array of tasks of pet
+    @tasks = @family.tasks #array of tasks of pet
+    @tasks = @tasks.order(:completed)
+    raise
     @task = Task.new
     # @daily_tasks = Task.where(recurrence: "daily").order(:due_date)
     # @weeky_tasks = Task.where(recurrence: "weekly").order(:due_date)

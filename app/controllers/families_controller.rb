@@ -28,7 +28,7 @@ class FamiliesController < ApplicationController
     @pet = Pet.new
     @family = Family.find(params[:id])
     @pets = @family.pets
-    @tasks = @family.tasks
+    @tasks = @family.tasks.order(:completed)
     @task = Task.new
   end
 
