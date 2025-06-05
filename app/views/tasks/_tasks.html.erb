@@ -1,7 +1,7 @@
 <div class="nav nav-pills nav-fill mb-4 modern-tabs" id="nav-tab" role="tablist">
-  <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#daily-tasks" type="button" role="tab" aria-controls="daily-tasks" aria-selected="true">Daily</button>
-  <button class="nav-link" data-bs-toggle="tab" data-bs-target="#weekly-tasks" type="button" role="tab" aria-controls="weekly-tasks" aria-selected="false">Weekly</button>
-  <button class="nav-link" data-bs-toggle="tab" data-bs-target="#monthly-tasks" type="button" role="tab" aria-controls="monthly-tasks" aria-selected="false">Monthly</button>
+  <button class="nav-link <%= "active" if params[:tab].nil? || params[:tab] == "daily" %> " data-bs-toggle="tab" data-bs-target="#daily-tasks" type="button" role="tab" aria-controls="daily-tasks" aria-selected="true">Daily</button>
+  <button class="nav-link <%= "active" if params[:tab] == "weekly" %>" data-bs-toggle="tab" data-bs-target="#weekly-tasks" type="button" role="tab" aria-controls="weekly-tasks" aria-selected="false">Weekly</button>
+  <button class="nav-link <%= "active" if params[:tab] == "monthly" %>" data-bs-toggle="tab" data-bs-target="#monthly-tasks" type="button" role="tab" aria-controls="monthly-tasks" aria-selected="false">Monthly</button>
   <button class="nav-link" data-bs-toggle="tab" data-bs-target="#all-tasks" type="button" role="tab" aria-controls="all-tasks" aria-selected="false">All</button>
 </div>
 <div class="tab-content mt-3">

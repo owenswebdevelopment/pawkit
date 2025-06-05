@@ -21,8 +21,9 @@ class TasksController < ApplicationController
 
 
     if @task.save
-      redirect_to request.referer, notice: 'Saved Successfully'
+      redirect_to request.referer&.split("?")&.first + "?tab=#{@task.recurrence}", notice: 'Saved Successfully'
     else
+      @family = Family.find(params[:family_id])
       render "families/show", status: :unprocessable_entity, notice: 'Save unsuccessful'
 
     end
@@ -38,12 +39,19 @@ class TasksController < ApplicationController
     # else
     # ... do something else with a notice that update failed
 
-        send_line_notification("C493c98e6e0b758410091ac87570ec99d", @task.completed? ? "#{@task.title} has been completed for #{@task.pet.name}." : "")
+    send_line_notification("C493c98e6e0b758410091ac87570ec99d", @task.completed? ? "#{@task.title} has been completed for #{@task.pet.name}." : "")
 
-        respond_to do |format|
-            format.html { redirect_to request.referer, notice: "completed the task!" }
-            format.turbo_stream
-         end
+    respond_to do |format|
+        format.html { redirect_to request.referer, notice: "completed the task!" }
+        format.turbo_stream do
+          render turbo_stream: turbo_stream.replace(
+            "task_#{@task.id}",
+            partial: 'tasks/task', locals: {
+              task: @task,
+            }
+          )
+        end
+      end
     end
   end
 

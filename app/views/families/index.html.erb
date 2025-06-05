@@ -1,9 +1,8 @@
 <% content_for :body_class, "family-show-bg" %>
-<div class="container vh-100 d-flex justify-content-center align-items-center mt-5 ">
-  <div class="bg-white rounded-4 shadow-lg p-4 text-center">
-    <!-- Heading -->
+<div class="container vh-100 d-flex flex-column justify-content-center align-items-center mt-5 gap-4">
+  <!-- Select a Family -->
+  <div class="bg-white rounded-4 shadow-lg p-4 text-center" style="width: 100%; max-width: 500px;">
     <h2 class="mb-4 text-dark fw-bold text-muted">👨‍👩‍👧‍👦 Select a Family</h2>
-    <!-- List Group -->
     <div class="list-group">
       <% @families.each do |family| %>
         <%= link_to update_current_family_path(family), class: "list-group-item list-group-item-action list-group-item-light rounded-3 my-2 border-0 shadow-sm px-4 py-3 hover-glow" do %>
@@ -13,6 +12,17 @@
       <% end %>
     </div>
   </div>
+  <!-- Join an Existing Family -->
+  <div class="bg-white rounded-4 shadow-lg p-4 text-center" style="width: 100%; max-width: 500px;">
+    <h2 class="mb-4 text-dark fw-bold text-muted">Join a Family</h2>
+    <%= form_with url: join_family_action_path, method: :post, local: true do |form| %>
+      <div class="form-group mb-3">
+        <%= form.label :invite_token, "Family Code" %>
+        <%= form.text_field :invite_token, class: "form-control", required: true %>
+      </div>
+      <%= form.submit "Join Family", class: "btn btn-primary w-100" %>
+    <% end %>
+  </div>
 </div>
 <!-- Optional CSS for hover glow (put this in your stylesheets or add to <style> block) -->
 <style>
@@ -21,3 +31,5 @@
     transition: box-shadow 0.3s ease-in-out;
   }
 </style>
+<!-- app/views/families/index.html.erb -->
+<!-- joining a family with invite Id -->
