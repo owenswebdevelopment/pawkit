@@ -11,11 +11,11 @@ class Pet < ApplicationRecord
   validates :birthdate, presence: true
   after_create_commit :add_common_tasks
 
-  def add_common_tasks
-    Task.create!(title: "Feed", due_date: Date.today, pet: self, user: self.family.users.first, recurrence: "daily", description: "Don't forget to feed #{name} at the usual time!")
-    Task.create!(title: "Walk", due_date: Date.today, pet: self, user: self.family.users.first, recurrence: "daily", description: "Don't forget to walk #{name} at the usual time!") if species.downcase == "dog"
-    Task.create!(title: "Groom", due_date: Date.today, pet: self, user: self.family.users.first, recurrence: "daily", description: "Don't forget to groom #{name} at the usual time!")
-    Task.create!(title: "Bath", due_date: Date.today, pet: self, user: self.family.users.first, recurrence: "weekly", description: "Don't forget to bath #{name} at the usual time!")
-    Task.create!(title: "Vet Visit", due_date: Date.today, pet: self, user: self.family.users.first, recurrence: "monthly", description: "Don't forget to take #{name} to the vet!")
-  end
+  # def add_common_tasks
+  #   Task.create!(title: "Feed", due_date: Date.today, pet: self, user: self.family.users.first, recurrence: "daily", description: "Don't forget to feed #{name} at the usual time!")
+  #   Task.create!(title: "Walk", due_date: Date.today, pet: self, user: self.family.users.first, recurrence: "daily", description: "Don't forget to walk #{name} at the usual time!") if species.downcase == "dog"
+  #   Task.create!(title: "Groom", due_date: Date.today, pet: self, user: self.family.users.first, recurrence: "daily", description: "Don't forget to groom #{name} at the usual time!")
+  #   Task.create!(title: "Bath", due_date: Date.today, pet: self, user: self.family.users.first, recurrence: "weekly", description: "Don't forget to bath #{name} at the usual time!")
+  #   Task.create!(title: "Vet Visit", due_date: Date.today, pet: self, user: self.family.users.first, recurrence: "monthly", description: "Don't forget to take #{name} to the vet!")
+  # end
 end
