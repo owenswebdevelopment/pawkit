@@ -1,4 +1,9 @@
 <h2 class='text-center mb-3'>Medical Records</h2>
+<div class="top-info d-flex align-items-center mt-3 px-3">
+  <%= link_to pet_path(@pet) do %>
+    <i class="fa fa-arrow-left"></i>
+  <% end %>
+</div>
 <div class="container text-center my-3">
   <button type="button" class="btn btn-success rounded-circle fab-button" data-bs-toggle="modal" data-bs-target="#medicalrecordModal">
     <i class="fa-solid fa-plus"></i>
