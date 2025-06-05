@@ -10,6 +10,4 @@ class Pet < ApplicationRecord
   validates :species, presence: true
   validates :birthdate, presence: true
 
-
-
 end

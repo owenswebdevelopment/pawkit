@@ -3,27 +3,30 @@
   <div class="card shadow-sm border rounded-4 task-card-hover">
     <div class="card-body d-flex flex-wrap align-items-center p-3">
       <!-- Avatar -->
-      <div class="me-3 mb-3 mb-md-0">
-        <% if task.pet.photo.attached? %>
-          <%= cl_image_tag task.pet.photo.key,
+      <div class='d-flex mb-2 w-100 gap-4 align-items-center'>
+        <div>
+          <% if task.pet.photo.attached? %>
+            <%= cl_image_tag task.pet.photo.key,
               class: "rounded-circle img-thumbnail",
               style: "object-fit: cover; width: 64px; height: 64px;" %>
-        <% else %>
-          <%= image_tag asset_path("default-avatar.jpg"),
+          <% else %>
+            <%= image_tag asset_path("default-avatar.jpg"),
               class: "rounded-circle img-thumbnail",
               style: "object-fit: cover; width: 64px; height: 64px;" %>
-        <% end %>
-      </div>
-      <!-- Task Details -->
-      <div class="flex-grow-1 me-3">
-        <div class="d-flex justify-content-between align-items-center mb-2 flex-wrap">
-          <h5 class="fw-bold mb-0 text-primary"><%= task.title.capitalize %></h5>
-          <% if task.completed %>
-            <span class="badge bg-success text-end">Completed by: <%= task.completed_by&.first_name %></span>
           <% end %>
         </div>
-        <p class="mb-1 text-muted"><%= task.description.presence || "-" %></p>
-        <small class="text-danger fw-semibold">Due: <%= task.due_date.strftime("%B %d, %Y") %></small>
+        <!-- Task Details -->
+        <h5 class="fw-bold mb-0 text-primary"><%= task.pet.name %></h5>
+        <% if task.completed %>
+          <span class="ms-4 badge bg-success text-end">Completed by: <%= task.completed_by&.first_name %></span>
+        <% end %>
+      </div>
+      <div class="w-100 me-3">
+        <div class="d-flex justify-content-center    align-items-center mb-2">
+          <h5 class="fw-bold mb-0 text-primary text-center"><%= task.title.capitalize %></h5>
+        </div>
+        <p class="my-3 text-muted"><%= task.description.presence || "-" %></p>
+        <p class="text-danger fw-semibold text-center">Due: <%= task.due_date.strftime("%B %d, %Y") %></p>
       </div>
       <!-- Completion Switch -->
       <div class="form-check form-switch ms-auto d-flex align-items-center">
