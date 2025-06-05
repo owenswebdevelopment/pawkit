@@ -73,11 +73,14 @@ end
 owen = User.find_by(email: "owen@gmail.com")
 marie = User.find_by(email: "marie@gmail.com")
 hayao = User.find_by(email: "hayao@gmail.com")
+haruka = User.find_by(email: "haruka@gmail.com")
 
-if owen && marie && hayao
+if owen && marie && hayao && haruka
   Task.create!(description: "Take Luffy to Meguro Park", title: "Walk", due_date: Date.today, pet: Pet.find_by(name: "Luffy"), user: owen)
   Task.create!(description: "Clean mineral water", title: "Feed", due_date: Date.today, pet: Pet.find_by(name: "Natsu"), user: marie)
   Task.create!(description: "Adding food to bowl", title: "Feed", due_date: Date.today, pet: Pet.find_by(name: "Chopper"), user: hayao)
+  Task.create!(description: "Go to the vet", title: "vet", due_date: Date.today, pet: Pet.find_by(name: "Natsu"), user: owen)
+  Task.create!(description: "Play with our furry friend", title: "Play", due_date: Date.today, pet: Pet.find_by(name: "Chopper"), user: owen)
 else
   puts "One or more users not found, tasks cannot be created."
 end

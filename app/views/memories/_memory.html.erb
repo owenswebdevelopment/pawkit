@@ -1,9 +1,16 @@
 <% current_user_id = local_assigns[:current_user_id] %>
-<% sent_by_me = memory.user_id == current_user_id %>
+<% me = memory.user.id === current_user_id %>
+<div
+    id="message-<%= memory.id %>"
+    class="message <%= me ? 'sent' : 'received' %>"
+    data-controller="memory"
+    data-memory-user-id-value="<%= memory.user.id %>">
+  <!-- [...] -->
+</div>
 <div class="container py-3 my-3" id="message-<%= memory.id %>">
-  <div class="row <%= sent_by_me ? "justify-content-end" : "justify-content-start" %> ">
+  <div class="row <%= me ? "justify-content-end" : "justify-content-start" %> ">
     <div class="col-auto">
-      <div class="card p-2 <%= sent_by_me ? "bg-success text-black" : "bg-black text-white" %> ">
+      <div class="card p-2 <%= me ? "bg-success text-black" : "bg-black text-white" %> ">
         <small>
           <strong><%= memory.user.first_name %></strong>
           <i><%= memory.created_at.strftime("%a %b %e at %l:%M %p") %></i>
