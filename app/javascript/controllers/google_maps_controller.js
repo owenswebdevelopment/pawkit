@@ -160,6 +160,7 @@ async nearbySearch(lat, lng, category) {
                 </button>
               </div>
               <div class="mt-2 text-end">
+              <a target="_blank" href="https://maps.google.com/maps/dir/?api=1&destination=${pos.lat},${pos.lng}">
                 <i class="fa-solid fa-location-dot fa-xl text-danger"></i>
               </div>
             </div>
