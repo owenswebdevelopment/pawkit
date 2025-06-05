@@ -23,6 +23,7 @@ class TasksController < ApplicationController
     if @task.save
       redirect_to request.referer&.split("?")&.first + "?tab=#{@task.recurrence}", notice: 'Saved Successfully'
     else
+      @family = Family.find(params[:family_id])
       render "families/show", status: :unprocessable_entity, notice: 'Save unsuccessful'
 
     end
