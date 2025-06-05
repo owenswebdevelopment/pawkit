@@ -14,8 +14,10 @@ class MedicalRecordsController < ApplicationController
     @pet = Pet.find(params[:pet_id])
     @medical_record = MedicalRecord.create(medical_record_params)
     @medical_record.pet = @pet
+    @current_user = current_user
 
     if @medical_record.save
+      @medical_record.medical_memory(current_user)
       redirect_to pet_medical_record_path(@pet, @medical_record), notice: 'Medical record added!'
     else
       render turbo_stream: turbo_stream.replace(
