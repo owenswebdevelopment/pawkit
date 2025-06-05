@@ -19,10 +19,20 @@
       <div class="text-center m-auto">
         <%= link_to pet_path(pet), class:'text-decoration-none', style: 'color: inherit;'  do %>
           <% if pet.photo.attached? %>
-            <% border_class = pet.tasks.all?(&:completed) ? 'border-success' : 'border-danger' %>
-            <%= cl_image_tag pet.photo.key, class: "avatar-show rounded-circle img-fluid border border-3 shadow #{border_class}", style: "object-fit: cover; width: 80px; height: 80px;" %>
+            <% border_class =
+              pet.tasks.any? do |task|
+                task.recurrence == "daily" &&
+                task.due_date == Date.today &&
+                !task.completed
+              end ? 'border-danger' : 'border-success' %>
+          <%= cl_image_tag pet.photo.key, class: "avatar-show rounded-circle img-fluid border border-3 shadow #{border_class}", style: "object-fit: cover; width: 80px; height: 80px;" %>
           <% else %>
-            <% border_class = pet.tasks.all?(&:completed) ? 'border-success' : 'border-danger' %>
+            <% border_class =
+              pet.tasks.any? do |task|
+                task.recurrence == "daily" &&
+                task.due_date == Date.today &&
+                !task.completed
+              end ? 'border-danger' : 'border-success' %>
             <%= image_tag asset_path("default-avatar.jpg"), class: "avatar-show rounded-circle img-fluid border border-3  shadow #{border_class}", style: "object-fit: cover; width: 80px; height: 80px;" %>
           <% end %>
           <p class="mt-2"><%= pet.name.capitalize %></p>
