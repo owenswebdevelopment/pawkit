@@ -22,7 +22,7 @@
             <span class="badge bg-success text-end">Completed by: <%= task.completed_by&.first_name %></span>
           <% end %>
         </div>
-        <p class="mb-1 text-muted"><%= task.description.capitalize.presence || "-" %></p>
+        <p class="mb-1 text-muted"><%= task.description.presence || "-" %></p>
         <small class="text-danger fw-semibold">Due: <%= task.due_date.strftime("%B %d, %Y") %></small>
       </div>
       <!-- Completion Switch -->
