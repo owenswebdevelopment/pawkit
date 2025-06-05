@@ -22,7 +22,7 @@ class PetsController < ApplicationController
       redirect_to pet_path(@pet), notice: 'Pet was successfully created!'
     else
       @family = Family.find(params[:family_id])
-      render :new, status: :unprocessable_entity
+      render :show, status: :unprocessable_entity
     end
   end
 
