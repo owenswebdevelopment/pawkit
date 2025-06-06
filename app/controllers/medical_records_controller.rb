@@ -17,8 +17,7 @@ class MedicalRecordsController < ApplicationController
     @current_user = current_user
 
     if @medical_record.save
-      send_line_notification("C493c98e6e0b758410091ac87570ec99d", "New medical record was added for #{@pet.name}.")
-
+      send_line_notification("C493c98e6e0b758410091ac87570ec99d", "New medical record was created for #{@pet.name}.")
       @medical_record.medical_memory(current_user)
       redirect_to pet_medical_record_path(@pet, @medical_record), notice: 'Medical record added!'
     else
@@ -41,14 +40,14 @@ class MedicalRecordsController < ApplicationController
   def send_line_notification(user_line_id, text_message)
     begin
       @client ||= Line::Bot::V2::MessagingApi::ApiClient.new(
-        channel_access_token: ENV["CHANNEL_ACCESS_TOKEN"],
+        channel_access_token: ENV["CHANNEL_ACCESS_TOKEN"]
       )
 
       response = @client.push_message(push_message_request: Line::Bot::V2::MessagingApi::PushMessageRequest.new(
                                         to: user_line_id,
                                         messages: [
                                           Line::Bot::V2::MessagingApi::TextMessage.new(text: text_message),
-                                        ],
+                                        ]
                                       ))
       Rails.logger.info "LINE Notification Sent: #{response.body}"
     rescue => e
