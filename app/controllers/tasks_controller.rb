@@ -23,8 +23,6 @@ class TasksController < ApplicationController
 
 
     if @task.save
-      send_line_notification("C493c98e6e0b758410091ac87570ec99d", "New task #{@task.title} was added for #{@task.pet.name}.")
-
       redirect_to request.referer&.split("?")&.first + "?tab=#{@task.recurrence}", notice: 'Saved Successfully'
     else
       @family = Family.find(params[:family_id])
@@ -80,6 +78,5 @@ class TasksController < ApplicationController
       Rails.logger.info "LINE Notification Sent: #{response.body}"
     rescue => e
       Rails.logger.error "Error sending LINE notification to #{user_line_id}: #{e.message}"
-    end
-
+  end
 end
