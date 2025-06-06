@@ -1,7 +1,7 @@
 <div id="task_<%= task.id %>"
      class="mb-4 task-card <%= 'task-completed' if task.completed %>">
   <div class="card shadow-sm border rounded-4 task-card-hover">
-    <div class="card-body d-flex flex-wrap align-items-center p-3">
+    <div class="card-body p-2 d-flex flex-wrap align-items-center">
       <!-- Avatar -->
       <div>
         <% if task.pet.photo.attached? %>
@@ -17,19 +17,19 @@
       <!-- Task Details -->
       <h5 class="fw-bold text-primary ms-2"><%= task.pet.name %></h5>
       <div class="w-100 ">
-        <div class="d-flex justify-content-center align-items-center mb-2">
+        <div class="d-flex justify-content-center align-items-center">
           <h5 class="fw-bold mb-0 text-primary text-center"><%= task.title.capitalize %></h5>
         </div>
-        <p class="my-3 text-muted"><%= task.description.presence || "-" %></p>
-        <p class="text-danger fw-semibold text-center">Due: <%= task.due_date.strftime("%B %d, %Y") %></p>
+        <p class="my-1 text-muted"><%= task.description.presence || "-" %></p>
+        <p class="text-danger fw-semibold mb-0 text-center">Due: <%= task.due_date.strftime("%B %d, %Y") %></p>
       </div>
       <!-- Completion Switch -->
       <div class="form-check ms-auto d-flex align-items-center">
-        <div class='d-flex justify-content-start w-100 '>
-          <% if task.completed %>
-            <span class="badge bg-success ">Completed by: <%= task.completed_by&.first_name %></span>
-          <% end %>
-        </div>
+        <% if task.completed %>
+          <span class="badge bg-success ">Completed by: <%= task.completed_by&.first_name %></span>
+        <% end %>
+      </div>
+      <div class='position-absolute top-0 end-0 p-2'>
         <%= simple_form_for task, method: :patch, data: { turbo: true } do |f| %>
           <%= f.input :completed,
                       as: :boolean,
