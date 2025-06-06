@@ -37,9 +37,8 @@ class MedicalRecordsController < ApplicationController
   def medical_record_params
     params.require(:medical_record).permit(:diagnosis, :notes, :visit_date, :treatment, :vaccination_status, :insurance_status, :location_id)
   end
-end
 
-def send_line_notification(user_line_id, text_message)
+  def send_line_notification(user_line_id, text_message)
     begin
       @client ||= Line::Bot::V2::MessagingApi::ApiClient.new(
         channel_access_token: ENV["CHANNEL_ACCESS_TOKEN"],
@@ -55,3 +54,5 @@ def send_line_notification(user_line_id, text_message)
     rescue => e
       Rails.logger.error "Error sending LINE notification to #{user_line_id}: #{e.message}"
     end
+  end
+end
