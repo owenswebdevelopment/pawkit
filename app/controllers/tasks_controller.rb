@@ -10,6 +10,7 @@ class TasksController < ApplicationController
     @task.user = current_user
 
     if @task.save
+      send_line_notification("C83272dbd2c1e3a219ff9ba2d248f1135", "#{@task.title} has been created for #{@task.pet.name}.")
       redirect_to request.referer&.split("?")&.first + "?tab=#{@task.recurrence}", notice: 'Saved Successfully'
     else
       @family = Family.find(params[:family_id])
