@@ -14,9 +14,8 @@
     <link rel="manifest" href="<%= asset_path 'manifest.json' %>">
     <%= render 'shared/ios_pwa_links' %>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-
   </head>
-  <body class="<%= content_for?(:body_class) ? yield(:body_class) : '' %>">
+  <body class="<%= content_for?(:body_class) ? yield(:body_class) : '' %>" data-current-user-id="<%= current_user ? current_user.id : "" %>">
     <%= render "shared/navbar" %>
     <%= render "shared/flashes" %>
     <%= yield %>

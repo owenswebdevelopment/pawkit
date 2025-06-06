@@ -21,7 +21,7 @@ class Task < ApplicationRecord
     RecurringTasksJob.new(self).perform if completed?
   end
 
-  def message_memory
+  def task_memory
     Memory.create(
       text: "#{title.capitalize} was completed for #{pet.name}",
       user: user,
