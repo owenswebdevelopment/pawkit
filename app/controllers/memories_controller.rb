@@ -14,7 +14,7 @@ class MemoriesController < ApplicationController
     @memory.family = @family
     @memory.user = current_user
     if @memory.save!
-      send_line_notification("C493c98e6e0b758410091ac87570ec99d", "#{@memory.user.first_name} has posted on memories.")
+      send_line_notification("C83272dbd2c1e3a219ff9ba2d248f1135", "#{@memory.user.first_name} has posted on memories.")
       respond_to do |format|
         format.turbo_stream do
           render turbo_stream: turbo_stream.append(:memories, partial: "memories/memory",

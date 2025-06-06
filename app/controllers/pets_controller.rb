@@ -17,7 +17,7 @@ class PetsController < ApplicationController
     @pet.family = @family
 
     if @pet.save
-        send_line_notification("C493c98e6e0b758410091ac87570ec99d", "#{@pet.name} has been added to the family.")
+        send_line_notification("C83272dbd2c1e3a219ff9ba2d248f1135", "#{@pet.name} has been added to the family.")
 
       redirect_to pet_path(@family, @pet), notice: 'Pet was successfully created!'
     else
